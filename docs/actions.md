@@ -161,6 +161,10 @@ Executes the following steps:
     artifact-path: ./target/*.jar
 ```
 
+### action-dependecy-review
+
+The dependency review action scans your pull requests for dependency changes, and will raise an error if any vulnerabilities or invalid licenses are being introduced
+
 ### action-deploy-docs
 
 Action to deploy a docs artifact to a web page.
