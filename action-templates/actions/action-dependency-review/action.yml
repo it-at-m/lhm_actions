@@ -1,4 +1,9 @@
 name: dependency-review
+inputs:
+  allow-dependencies-licenses:
+    default: "it-at-m/.github/workflow-configs/dependency_review.yaml@main"
+    type: string
+    description: A path to a file in the current repository or an external repository.
 runs:
   using: "composite"
   steps:
@@ -7,4 +12,4 @@ runs:
     - name: Dependency Review
       uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
       with:
-        config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
+        config-file: ${{ inputs.allow-dependencies-licenses }}
