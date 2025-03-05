@@ -1,4 +1,4 @@
-name: Npm Release
+.name: Npm Release
 
 inputs:
   node-version:
@@ -59,7 +59,7 @@ runs:
         git push && git push --tags || exit 1
       shell: bash
     - id: node
-      uses: it-at-m/.github/.github/actions/action-npm-build@main
+      uses: ./.github/actions/action-npm-build
       with:
         app-path: "${{ inputs.app-path }}"
     - if: "${{ !inputs.skip-deployment }}"
