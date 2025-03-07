@@ -1,9 +1,10 @@
 name: dependency-review
 inputs:
   allow-dependencies-licenses:
-    default: "it-at-m/.github/workflow-configs/dependency_review.yaml@main"
+    required: false
+    default: ""
     type: string
-    description: A path to a file in the current repository or an external repository.
+    description: Contains a comma separated string of packages that will be excluded from license checks.
 runs:
   using: "composite"
   steps:
@@ -12,4 +13,5 @@ runs:
     - name: Dependency Review
       uses: actions/dependency-review-action@3b139cfc5fae8b618d3eae3675e383bb1769c019 # v4.5.0
       with:
-        config-file: ${{ inputs.allow-dependencies-licenses }}
+        config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
+        allow-dependencies-licenses: ${{ inputs.allow-dependencies-licenses }}
