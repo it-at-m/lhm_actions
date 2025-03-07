@@ -161,14 +161,24 @@ Executes the following steps:
     artifact-path: ./target/*.jar
 ```
 
-### action-dependecy-review
+### action-dependency-review
 
 The dependency review action scans your pull requests for dependency changes, and will raise an error if any vulnerabilities or invalid licenses are being introduced.
+It will always use the baseline configuration in https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml.
 
 Executes the following steps:
 
 1. Checkout repository
 2. Execute dependency review check
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review
+  with:
+    # Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information)
+    # Default: ""
+     allow-dependencies-licenses: "pkg:maven/com.github.spotbugs/spotbugs-annotations, pkg:maven/com.h3xstream.findsecbugs:findsecbugs-plugin"
+```
 
 ### action-deploy-docs
 
@@ -189,15 +199,6 @@ Executes the following steps:
     # Branch to deploy docs from
     # Default: main
     deploy-branch: "docs"
-```
-
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review
-  with:
-    # Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information)
-    # Default: ""
-     allow-dependencies-licenses: "pkg:maven/com.github.spotbugs/spotbugs-annotations, pkg:maven/com.h3xstream.findsecbugs:findsecbugs-plugin"
 ```
 
 ### action-maven-build
