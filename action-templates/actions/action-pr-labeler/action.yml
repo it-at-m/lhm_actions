@@ -1,0 +1,26 @@
+name: PR Labeler
+
+inputs:
+  configuration-path:
+    required: false
+    default: ".github/labeler.yml"
+    type: string
+    description: Path to the configuration file
+  repository:
+    required: false
+    default: ""
+    type: string
+    description: Path to an repository to reference external configuration file
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout external repository
+      if: ${{ inputs.repository != '' }}
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      with:
+        repository: '${{ inputs.repository }}'
+    - name: Label PR
+      uses: actions/labeler@8558fd74291d67161a8a78ce36a881fa63b766a9 # v5
+      with:
+        configuration-path: ${{ inputs.configuration-path }}
