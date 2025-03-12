@@ -346,4 +346,20 @@ Action to enforce ticking of all checklist items inside a PR (useful for PR temp
     fail-missing: "false"
 ```
 
-Testline
+### action-pr-labeler
+
+Action to automatically label opened pull requests using the configuration file in `.github/labeler.yml` of the repositories.
+More information about the configuration of the `labeler.yml` file can be found in [official documentation](https://github.com/actions/labeler)
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-pr-labeler
+  with:
+    # Path to the configuration file inside the repository
+    # Default: .github/labeler.yml
+    configuration-path: ".github/labeler.yml"
+    
+    # Optional repository to checkout to reference external configuration file
+    # Default: ""
+    repository: ""
+```
