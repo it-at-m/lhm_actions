@@ -19,6 +19,18 @@ The templates can be activated under the "Actions" tab with the "New workflow" b
 ```
 
 
+
+
+
+- **npm-release**: This manual workflow is similar to Maven-Release, but for Node.js projects. It allows you to select the desired version, after which an npm release is performed and a Docker image is created.
+
+
+
+- **codeql**: Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
+- **deploy-docs**: This action publishes VitePress-generated documentation as GitHub Pages.
+- **pr-checklist**: Checks if all list items are checked
+- **pr-labeler**: This action labels prs
+
 ## Maven Central
 
 Maven Central is a central, public repository for the publication from maven artifacts.
@@ -178,9 +190,6 @@ Over the specific maven profile release the central-publishing-maven-plugin is c
 
 Release process over github actions
 
-
-- **npm-release**: This manual workflow is similar to Maven-Release, but for Node.js projects. It allows you to select the desired version, after which an npm release is performed and a Docker image is created.
-
 ## NPM
 
 registry.npmjs.org ist he central, public repository for publishing npm packetes
@@ -213,9 +222,3 @@ The npm-default is that scoped packages are only published private. You need to 
   "provenance": true
 }
 ```
-
-
-- **codeql**: Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
-- **deploy-docs**: This action publishes VitePress-generated documentation as GitHub Pages.
-- **pr-checklist**: Checks if all list items are checked
-- **pr-labeler**: This action labels prs
