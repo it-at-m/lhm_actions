@@ -17,17 +17,14 @@ In the repo [it-at-m/helm-charts](https://github.com/it-at-m/helm-charts) we pro
 
 # Deployment
 
+## What are we using internally
+- Image Registry [Red Hat Quay](https://docs.redhat.com/de/documentation/red_hat_quay) for synchronising docker images
+- [Gitlab](https://docs.gitlab.com/) for the execution of internal pipelines (IaC) and configuration of the applications
+- [Openshift](https://docs.redhat.com/en/documentation/openshift_container_platform) for the operations of the applications
 
-At the end of a sprint a developer builds a release in the source code project. It needs to be done for each folder frontend/backend/eai separately. Then the devops engineer needs to update the chart-version and app-version of the helm chart in the Chart.yaml.
+## How it works together
 
-Internal the quay syncs the docker images with the external github image registry. The github api has a pull limit so we need to cache the images internally. The configuration is done by the openshift team.
-
-![architekture-internal-helm-chart](images/internal-chart.drawio.png)
-
-The internal gitlab repo you can config your application, for example the trust store, ingress (openshift route), single sign on, database config, environment configs. The most config is comment out, so you need to comment it in. Here you see an example https://git.muenchen.de/ccse/cicd/sps-github
-
-You have two possibilities for the image rollout.
-
-- For the dev environment, an automatic rollout is implemented. We create an image stream that links to internal Image Registry (Quay). The deployment includes a special annotation that prompts The internal kubernetes platform (Openshift) to automatically trigger a new rollout when a new image becomes available. For more details, see [this documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/images/triggering-updates-on-imagestream-changes#triggering-updates-on-imagestream-changes).
-
-- For the other environment (test, prod), a manual rollout is implemented. You have to specify the image version for each service in the values.yml as well paying attention to use the image from the internal image registry and not from the GitHub Registry.
+### Autorollout: For the dev environment (only not prductive enviornment)
+An automatic rollout is implemented. We create an image stream that links to internal Image Registry (Quay). The deployment includes a special annotation that prompts The internal kubernetes platform (Openshift) to automatically trigger a new rollout when a new image becomes available. For more details, see [this documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/images/triggering-updates-on-imagestream-changes#triggering-updates-on-imagestream-changes).
+### manual rollout for the deployment in productive and close to productive environments
+For the other environment (test, prod), a manual rollout is implemented. You have to specify the image version for each service in the values.yml as well paying attention to use the image from the internal image registry and not from the GitHub Registry.
