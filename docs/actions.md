@@ -91,7 +91,7 @@ Executes the following steps:
 ### action-checkout
 
 Action to wrap [GitHub Action Checkout](https://github.com/actions/checkout)
-using current branch with default values and [Path-Filter](https://github.com/dorny/paths-filter). Input is the filter. Output are the filtert paths.
+using current branch with default values.
 
 Executes the following steps:
 
