@@ -1,11 +1,5 @@
 name: "Checkout Code"
 description: "A wrapper for actions/checkout"
-inputs:
-  filters:
-    required: false
-    default: ""
-    type: string
-    description: Defines filters applied to detected changed files.
 runs:
   using: "composite"
   steps:
