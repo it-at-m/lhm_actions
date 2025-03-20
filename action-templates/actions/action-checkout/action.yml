@@ -1,5 +1,5 @@
 name: "Checkout Code"
-description: "A wrapper for actions/checkout with no args"
+description: "A wrapper for actions/checkout  and paths filter with input of filters"
 inputs:
   filters:
     required: false
