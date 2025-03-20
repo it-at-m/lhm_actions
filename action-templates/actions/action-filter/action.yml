@@ -1,4 +1,4 @@
-name: "Filter"
+name: "Path Filter"
 description: "Paths filter with input of filters"
 inputs:
   filters:
