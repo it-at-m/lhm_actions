@@ -17,7 +17,6 @@ In the repo [it-at-m/helm-charts](https://github.com/it-at-m/helm-charts) we pro
 
 # Deployment
 
-The bottom part from the architecture-overview is expliant in the following.
 
 At the end of a sprint a developer builds a release in the source code project. It needs to be done for each folder frontend/backend/eai separately. Then the devops engineer needs to update the chart-version and app-version of the helm chart in the Chart.yaml.
 
