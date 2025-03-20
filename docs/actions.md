@@ -101,10 +101,13 @@ Executes the following steps:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
 ```
+
 ### action-filter
- [Path-Filter](https://github.com/dorny/paths-filter). Input is the filter. Output are the filtert paths.
+
+[Path-Filter](https://github.com/dorny/paths-filter). Input is the filter. Output are the filtert paths.
 
 1. Calculate Filter
+
 ```yml
 - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
 ```
