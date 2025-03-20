@@ -24,7 +24,7 @@ Executes the following steps:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs
   with:
     # Path to vitepress docs project
     # Default: ./docs
@@ -56,7 +56,7 @@ Executes the following steps:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-build-image
   with:
     # Image registry to push image to
     # Default: ghcr.io
@@ -99,7 +99,7 @@ Executes the following steps:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
 ```
 
 ### action-codeql
@@ -116,7 +116,7 @@ Executes the following steps:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-codeql
   with:
     # CodeQL language name to scan with (e.g java-kotlin, javascript-typescript, python, ...)
     codeql-language: "java-kotlin"
@@ -149,7 +149,7 @@ Executes the following steps:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release
   with:
     # Name of the artifact to download
     artifact-name: my-artifact
@@ -159,6 +159,25 @@ Executes the following steps:
 
     # Path to the artifacts (e.g. ./target/*.jar)
     artifact-path: ./target/*.jar
+```
+
+### action-dependency-review
+
+The dependency review action scans your pull requests for dependency changes, and will raise an error if any vulnerabilities or invalid licenses are being introduced.
+It will always use the baseline configuration in <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
+
+Executes the following steps:
+
+1. Checkout repository
+2. Execute dependency review check
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review
+  with:
+    # Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information)
+    # Default: ""
+     allow-dependencies-licenses: "pkg:maven/com.github.spotbugs/spotbugs-annotations, pkg:maven/com.h3xstream.findsecbugs:findsecbugs-plugin"
 ```
 
 ### action-deploy-docs
@@ -171,7 +190,7 @@ Executes the following steps:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs
   with:
     # Name of the artifact to deploy
     # Default: github-pages
@@ -199,7 +218,7 @@ Output parameters:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build
   with:
     # Java Version to use
     # Default: 21
@@ -227,7 +246,7 @@ Output parameters:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release
   with:
     # Java Version to use
     # Default: 21
@@ -279,7 +298,7 @@ Outputs:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build
   with:
     # Node Version to use
     # Default: 22.11.0
@@ -320,11 +339,27 @@ Action to enforce ticking of all checklist items inside a PR (useful for PR temp
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-pr-checklist@v1.0.0
+- uses: it-at-m/lhm_actions/action-templates/actions/action-pr-checklist
   with:
     # Whether the action should fail if the PR contains no checklist
     # Default: false
     fail-missing: "false"
 ```
 
-Testline
+### action-pr-labeler
+
+Action to automatically label pull requests using the configuration file in `.github/labeler.yml` of the repositories.
+More information about the configuration of the `labeler.yml` file can be found in [official documentation](https://github.com/actions/labeler)
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-pr-labeler
+  with:
+    # Path to the configuration file inside the repository
+    # Default: .github/labeler.yml
+    configuration-path: ".github/labeler.yml"
+    
+    # Optional repository to checkout to reference external configuration file
+    # Default: ""
+    repository: ""
+```
