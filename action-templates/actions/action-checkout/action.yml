@@ -1,5 +1,5 @@
 name: "Checkout Code"
-description: "A wrapper for actions/checkout"
+description: "A wrapper for actions/checkout with no args"
 runs:
   using: "composite"
   steps:
