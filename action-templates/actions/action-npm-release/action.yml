@@ -18,18 +18,11 @@ inputs:
       - patch
       - minor
       - major
-  skip-deployment:
-    default: true
-    type: boolean
-    description: skip deployment to npm registry
   npm-token:
     type: string
     required: true
     description: npm token for release
 outputs:
-  ARTIFACT_NAME:
-    description: artifact name from job artifact
-    value: ${{ steps.node.outputs.artifact-name }}
   ARTIFACT_VERSION:
     description: version of the artifact upload
     value: ${{steps.node-release.outputs.VERSION}}
@@ -58,13 +51,3 @@ runs:
         git tag "${NEW_VERSION}" || exit 1
         git push && git push --tags || exit 1
       shell: bash
-    - id: node
-      uses: it-at-m/.github/.github/actions/action-npm-build@main
-      with:
-        app-path: "${{ inputs.app-path }}"
-    - if: "${{ !inputs.skip-deployment }}"
-      shell: bash
-      working-directory: ./${{inputs.app-path}}
-      run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ inputs.npm-token }} # Centralized token in it-at-m GitHub organization
