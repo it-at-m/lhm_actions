@@ -1,4 +1,4 @@
-# Architecture-Overview
+# Deployment Overview
 
 ![architecture-overview](images/ci_cd_github_big_picture_public.drawio.png)
 _The picture shows the architecture overview. The steps are explaind in the following passages_
