@@ -91,7 +91,7 @@ Executes the following steps:
 ### action-checkout
 
 Action to wrap [GitHub Action Checkout](https://github.com/actions/checkout)
-using current branch with default values.
+using current branch with default values and [Path-Filter](https://github.com/dorny/paths-filter). Input is the filter. Output are the filtert paths.
 
 Executes the following steps:
 
@@ -100,6 +100,10 @@ Executes the following steps:
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@v1.0.0
+```
+2. Calculate Filter
+```yml
+- uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
 ```
 
 ### action-codeql
