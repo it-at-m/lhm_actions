@@ -29,7 +29,7 @@ In the sections refarch-gateway, frontend, backend of the configuration file val
 
 - Image Registry [Red Hat Quay](https://docs.redhat.com/de/documentation/red_hat_quay) to synchronize Docker images
 - [Gitlab](https://docs.gitlab.com/) for the execution of internal pipelines (IaC) and configuration of the applications
-- [Openshift](https://docs.redhat.com/en/documentation/openshift_container_platform) for the operations of the applications
+- [OpenShift](https://docs.redhat.com/en/documentation/openshift_container_platform), our Kubernetes platform to host the applications
 
 ### How it works together
 
