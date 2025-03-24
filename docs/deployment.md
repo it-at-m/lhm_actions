@@ -39,4 +39,4 @@ An automatic rollout is implemented. We create an image stream that links to int
 
 #### manual rollout for the deployment in productive and close to productive environments
 
-For the other environment (test, prod), a manual rollout is implemented. You have to specify the image version for each service in the values.yml as well paying attention to use the image from the internal image registry and not from the GitHub Registry.
+For other environments (stage, prod), a manual rollout is implemented. You have to specify the image version for each service in the Helm configuration file values.yml as well paying attention to use the image from the internal image registry and not from the GitHub Registry.
