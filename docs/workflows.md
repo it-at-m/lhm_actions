@@ -182,7 +182,7 @@ Over the specific maven profile release the central-publishing-maven-plugin is c
 	</profiles>
 ```
 
-Release process over GitHub actions
+Release process over GitHub Actions
 
 ## NPM
 
