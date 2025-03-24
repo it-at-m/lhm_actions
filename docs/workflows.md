@@ -2,7 +2,7 @@
 
 We use GitHub Actions to build our software. The costs are minimal because we use free and public repositories.
 
-We designed templates to use GitHub Actions. The GitHub Action needs permission on the repository, for example, to create a release or push a tag. Here you can use automatic token authentication from GitHub. 
+We designed templates to use GitHub Actions. The GitHub Action needs permission on the repository, for example, to create a release or push a tag. Here you can use automatic token authentication from GitHub.
 Therefore, you can use the access token via ${{ secrets.GITHUB_TOKEN }}. In contrast to the .gitlab-ci.yml, you can create more workflow files which are independent of each other. he it@M-Templates are flexibly designed to suit your project’s needs. You can create reusable actions for single steps.
 
 The templates can be activated under the "Actions" tab with the "New workflow" button. In the software catalog, the templates can be found under the category "By it@m".
@@ -58,24 +58,22 @@ Project information
 <url>${github-repo-url}</url>
 
 <licenses>
-    <license>
-	<name>${licence-name}</name>
-    </license>
+   <license>
+      <name>${licence-name}</name>
+   </license>
 </licenses>
 
 <developers>
-    <developer>
-	<name>${developer-name}</name>
-	<organization>Landeshauptstadt München</organization>
-	<url>${developer-github-profile-url}</url>
-	<roles>
-	    <role>${role1}</role>
-	    <role>${role2}</role>
-	</roles>
-    </developer>
+   <developer>
+      <name>${developer-name}</name>
+      <organization>Landeshauptstadt München</organization>
+      <url>${developer-github-profile-url}</url>
+      <roles>
+         <role>${role1}</role>
+         <role>${role2}</role>
+      </roles>
+   </developer>
 </developers>
-
-
 ```
 
 Scm is for the communication with the source control of the project.
@@ -83,12 +81,11 @@ Scm is for the communication with the source control of the project.
 ```xml
 <!-- You need to hard code the values otherwise the values are not correct in the registry  -->
 <scm>
-        <url>${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}</url>
-        <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
-        <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
-    <tag>HEAD</tag>
+   <url>${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}</url>
+   <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
+   <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
+   <tag>HEAD</tag>
 </scm>
-
 ```
 
 Important use scm:git:https – otherwise the maven release will fail.
@@ -96,90 +93,88 @@ Important use scm:git:https – otherwise the maven release will fail.
 The following plugins are used with the maven release.
 
 ```xml
-    <build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>3.0.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>3.0.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.sonatype.central</groupId>
-					<artifactId>central-publishing-maven-plugin</artifactId>
-					<version>0.4.0</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-        <plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-					<tagNameFormat>@{project.version}</tagNameFormat>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
+<build>
+   <pluginManagement>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>3.0.1</version>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.0.1</version>
+         </plugin>
+         <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>0.4.0</version>
+         </plugin>
+      </plugins>
+   </pluginManagement>
+   <plugins>
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-release-plugin</artifactId>
+         <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <useReleaseProfile>false</useReleaseProfile>
+            <releaseProfiles>release</releaseProfiles>
+            <goals>deploy</goals>
+            <tagNameFormat>@{project.version}</tagNameFormat>
+         </configuration>
+      </plugin>
+   </plugins>
 ```
 
 Over the specific maven profile release the central-publishing-maven-plugin is configured over the GPG Signing for the release process
 
 ```xml
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<!-- Central Portal Publishing Plugin -->
-					<plugin>
-                        			<groupId>org.sonatype.central</groupId>
-                        			<artifactId>central-publishing-maven-plugin</artifactId>
-						<extensions>true</extensions>
-						<configuration>
-                            				<tokenAuth>true</tokenAuth>
-							<autoPublish>true</autoPublish>
-                            				<deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
-						</configuration>
-					</plugin>
-					<!-- GPG plugin -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<configuration>
-							<skip>${skipGpg}</skip>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-								<configuration>
-									<!-- Prevent `gpg` from using pinentry programs -->
-									<gpgArguments>
-										<arg>--pinentry-mode</arg>
-										<arg>loopback</arg>
-									</gpgArguments>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+<profiles>
+   <profile>
+      <id>release</id>
+      <build>
+         <plugins>
+            <!-- Central Portal Publishing Plugin -->
+            <plugin>
+               <groupId>org.sonatype.central</groupId>
+               <artifactId>central-publishing-maven-plugin</artifactId>
+               <extensions>true</extensions>
+               <configuration>
+                  <tokenAuth>true</tokenAuth>
+                  <autoPublish>true</autoPublish>
+                  <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
+               </configuration>
+            </plugin>
+            <!-- GPG plugin -->
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-gpg-plugin</artifactId>
+               <configuration>
+                  <skip>${skipGpg}</skip>
+               </configuration>
+               <executions>
+                  <execution>
+                     <id>sign-artifacts</id>
+                     <phase>verify</phase>
+                     <goals>
+                        <goal>sign</goal>
+                     </goals>
+                     <configuration>
+                        <!-- Prevent `gpg` from using pinentry programs -->
+                        <gpgArguments>
+                           <arg>--pinentry-mode</arg>
+                           <arg>loopback</arg>
+                        </gpgArguments>
+                     </configuration>
+                  </execution>
+               </executions>
+            </plugin>
+         </plugins>
+      </build>
+   </profile>
+</profiles>
 ```
 
 Release process over GitHub Actions
