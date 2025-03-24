@@ -15,7 +15,7 @@ _The diagram shows an overview of the steps for delivering our applications, fro
 
 Execute GitHub Actions to compile and build code, build images. For more information see [workflows.md](./workflows.md).
 
-# Helm Chart
+# Helm Chart (GitHub Project `it-at-m/helm-charts`)
 
 ![architekture-external-helm-chart](images/external-helm-chart.drawio.png)
 
