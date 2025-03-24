@@ -1,7 +1,15 @@
 # Deployment Overview
 
 ![architecture-overview](images/ci_cd_github_big_picture_public.drawio.png)
-_The picture shows the architecture overview. The steps are explaind in the following passages_
+_The diagram shows an overview of the steps for delivering our applications, from code changes to deployment in our environment:
+
+1. _GitHub Project `it-at-m/foo`_: Add code changes, compile and build code, build images
+2. _GitHub Project `it-at-m/helm-charts`_: Provide helm charts for project images
+3. _Image Registry `Quai.io`_: Internal image registry, synchronized with our project images
+4. _GitLab `git.muenchen.de`_:  Internal Git repository to run deployment pipelines
+5. _OpenShift `Container Application Platform`_: Internal kubernetes plattform to run applications
+
+ You can find further details in the following chapters._
 
 # Source Repo
 
