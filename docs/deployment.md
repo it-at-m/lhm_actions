@@ -11,7 +11,7 @@ _The diagram shows an overview of the steps for delivering our applications, fro
 
  You can find further details in the following chapters._
 
-# Source Repo
+# Source Repo (GitHub Project `it-at-m/foo`)
 
 Execute GitHub Actions to compile and build code, build images. For more information see [workflows.md](./workflows.md).
 
