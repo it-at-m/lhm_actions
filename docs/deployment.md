@@ -27,7 +27,7 @@ In the sections refarch-gateway, frontend, backend you can configure the subchar
 
 ### What are we using internally
 
-- Image Registry [Red Hat Quay](https://docs.redhat.com/de/documentation/red_hat_quay) for synchronising docker images
+- Image Registry [Red Hat Quay](https://docs.redhat.com/de/documentation/red_hat_quay) to synchronize Docker images
 - [Gitlab](https://docs.gitlab.com/) for the execution of internal pipelines (IaC) and configuration of the applications
 - [Openshift](https://docs.redhat.com/en/documentation/openshift_container_platform) for the operations of the applications
 
