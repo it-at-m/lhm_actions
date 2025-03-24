@@ -13,7 +13,7 @@ _The diagram shows an overview of the steps for delivering our applications, fro
 
 # Source Repo
 
-The top left from the architecture-overview is explaint in [link](./workflows.md).
+Execute GitHub Actions to compile and build code, build images. For more information see [workflows.md](./workflows.md).
 
 # Helm Chart
 
