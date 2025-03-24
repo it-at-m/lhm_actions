@@ -1,6 +1,6 @@
-# Github Actions
+# GitHub Actions
 
-We use Github-Actions to build our software. The costs are minimal because we use free and public repositories.
+We use GitHub Actions to build our software. The costs are minimal because we use free and public repositories.
 
 We designed templates to use GitHub Actions. The GitHub Action needs permission on the repository, for example, to create a release or push a tag. Here you can use automatic token authentication from GitHub. Therefore, you can use the access token via ${{ secrets.GITHUB_TOKEN }}. In contrast to the .gitlab-ci.yml, you can create more workflow files which are independent of each other. he it@M-Templates are flexibly designed to suit your project’s needs. You can create reusable actions for single steps.
 
@@ -180,21 +180,21 @@ Over the specific maven profile release the central-publishing-maven-plugin is c
 	</profiles>
 ```
 
-Release process over github actions
+Release process over GitHub actions
 
 ## NPM
 
 registry.npmjs.org ist he central, public repository for publishing npm packetes
 
-For the city of Munich, the package-scope `@muenchen` is reserved. Therefore, we can publish npm packages. The codes are set in the organizations github settings.
+For the city of Munich, the package-scope `@muenchen` is reserved. Therefore, we can publish npm packages. The codes are set in the organizations GitHub settings.
 
-Publish on the NPM Registry
+Publish on the npm Registry
 
 Requirements:
 
 The following requirements are needed for npm projects
 
-- The github repository needs to be located in the it-at-m organization public
+- The GitHub repository needs to be located in the it-at-m organization public
 - The name is in the scope `@muenchen` for example `@muenchen/appswitcher-vue`
 
 The npm-default is that scoped packages are only published private. You need to config it public in the package.json. Moreover we activate the npm provence, for the repository.url.
