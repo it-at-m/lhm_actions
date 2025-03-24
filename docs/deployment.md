@@ -1,101 +1,42 @@
-# Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
+# Deployment Overview
 
-name: "CodeQL Advanced"
-env:
+![architecture-overview](images/ci_cd_github_big_picture_public.drawio.png)
+\_The diagram shows an overview of the steps for delivering our applications, from code changes to deployment in our environment:
 
-# Whether to analyze Java code or not (only set to true if repo has Java source code)
+1. _GitHub Project `it-at-m/foo`_: Add code changes, compile and build code, build images
+2. _GitHub Project `it-at-m/helm-charts`_: Provide helm charts for project images
+3. _Image Registry `Quai.io`_: Internal image registry, synchronized with our project images
+4. _GitLab `git.muenchen.de`_: Internal Git repository to run deployment pipelines
+5. _OpenShift `Container Application Platform`_: Internal kubernetes plattform to run applications
 
-analyze-java: true
+You can find further details in the following chapters.\_
 
-# Build mode to use for analysis of Java code (e.g. none, autobuild, manual)
+# Source Repo (GitHub Project `it-at-m/foo`)
 
-java-buildmode: "autobuild"
+Execute GitHub Actions to compile and build code, build images. For more information see [workflows.md](./workflows.md).
 
-# Temurin JDK version to use for autobuild (only when java-buildmode is set to autobuild)
+# Helm Chart (GitHub Project `it-at-m/helm-charts`)
 
-java-version: "21"
+![architekture-external-helm-chart](images/external-helm-chart.drawio.png)
 
-# Whether to analyze JavaScript/TypeScript/Vue code or not (only set to true if repo has Javascript/Typescript/Vue source code)
+The top right from the architecture-overview is explaint in the following.
 
-analyze-javascript-typescript-vue: true
+In the repo [it-at-m/helm-charts](https://github.com/it-at-m/helm-charts) we provide helm charts for Docker images created in our project repos. There you can find the sample helm chart [sps-sample](https://github.com/it-at-m/helm-charts/tree/main/charts/sps-sample), which consists of subcharts. Each subchart is a different module, for example frontend, backend, eai. Each module was created with `helm create` and we made some adaptions. The Chart.yml includes the external dependency of the [RefArch API Gateway Helm Chart](https://github.com/it-at-m/helm-charts/tree/main/charts/refarch-gateway). The main config is done in the values.yml of the parent chart. In the sections refarch-gateway, frontend, backend you can configure the subcharts.
 
-# Whether to analyze Python code or not (only set to true if repo has Python source code)
+# Internal Deployment (Image Repository `Quai`, Git Repository GitLab `git.muenchen.de`, Kubernetes platform `OpenShift`)
 
-analyze-python: false
+## What are we using internally
 
-# Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality)
+- Image Registry [Red Hat Quay](https://docs.redhat.com/de/documentation/red_hat_quay) for synchronising docker images
+- [Gitlab](https://docs.gitlab.com/) for the execution of internal pipelines (IaC) and configuration of the applications
+- [Openshift](https://docs.redhat.com/en/documentation/openshift_container_platform) for the operations of the applications
 
-analysis-query: security-and-quality
+## How it works together
 
-on:
+### Autorollout: For the dev environment (only not prductive enviornment)
 
-# Runs on pull requests and on pushes to main (in order to keep the regular scanning by GitHub working)
+An automatic rollout is implemented. We create an image stream that links to internal Image Registry (Quay). The deployment includes a special annotation that prompts The internal kubernetes platform (Openshift) to automatically trigger a new rollout when a new image becomes available. For more details, see [this documentation](https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/images/triggering-updates-on-imagestream-changes#triggering-updates-on-imagestream-changes).
 
-pull_request:
-push:
-branches: [main]
+### manual rollout for the deployment in productive and close to productive environments
 
-permissions:
-pull-requests: read
-security-events: write
-
-concurrency:
-group: ${{ github.workflow }}-${{ github.ref }}
-cancel-in-progress: true
-
-jobs:
-check-changes:
-name: Check changed files and directories
-runs-on: ubuntu-latest
-permissions:
-pull-requests: read
-outputs:
-java: ${{ steps.filter.outputs.java }}
-javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
-python: ${{ steps.filter.outputs.python }}
-steps: - name: Checkout repository
-uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@codeql - name: Path Filter
-id: filter
-uses: it-at-m/lhm_actions/action-templates/actions/action-filter@codeql
-with:
-filters: |
-java: - '**/\*.java'
-javascript-typescript-vue: - '**/_.js' - '\*\*/_.cjs' - '**/\*.mjs' - '**/_.ts' - '\*\*/_.cts' - '**/\*.mts' - '**/_.vue'
-python: - '\*\*/_.py'
-codeql-java:
-name: Analyze Java source files
-runs-on: ubuntu-latest
-needs: check-changes
-
-    strategy:
-      fail-fast: false
-      matrix:
-        build-path: ["./refarch-backend", "./refarch-eai"] # JSON array formatted as string, contains the paths to the java projects to build
-    steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@v1.0.3
-        if: env.analyze-java && (github.ref_name == 'main' || needs.check-changes.outputs.java == 'true')
-        with:
-          codeql-language: java-kotlin
-          codeql-buildmode: ${{ env.java-buildmode }}
-          codeql-query: ${{ env.analysis-query }}
-          java-version: ${{ env.java-version }}
-          path: ${{ matrix.build-path }}
-
-codeql-javascript-typescript-vue:
-name: Analyze JavaScript/TypeScript/Vue source files
-runs-on: ubuntu-latest
-needs: check-changes
-steps: - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@v1.0.3
-if: env.analyze-javascript-typescript-vue && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true')
-with:
-codeql-language: javascript-typescript
-codeql-query: ${{ env.analysis-query }}
-codeql-python:
-name: Analyze Python source files
-runs-on: ubuntu-latest
-needs: check-changes
-steps: - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@v1.0.3
-if: env.analyze-python && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true')
-with:
-codeql-language: python
-codeql-query: ${{ env.analysis-query }}
+For the other environment (test, prod), a manual rollout is implemented. You have to specify the image version for each service in the values.yml as well paying attention to use the image from the internal image registry and not from the GitHub Registry.
