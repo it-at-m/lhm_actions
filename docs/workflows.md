@@ -18,13 +18,7 @@ The templates can be activated under the "Actions" tab with the "New workflow" b
   </scm>
 ```
 
-
-
-
-
 - **npm-release**: This manual workflow is similar to Maven-Release, but for Node.js projects. It allows you to select the desired version, after which an npm release is performed and a Docker image is created.
-
-
 
 - **codeql**: Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
 - **deploy-docs**: This action publishes VitePress-generated documentation as GitHub Pages.
@@ -39,12 +33,10 @@ For the city of Munich a maven groupId de.muenchen enabled. Artifacts can be pub
 
 Artifacts (without a version) will be linked in maven over a combination out of `groupId:artifactId`. for example `de.muenchen.oss.appswitcher:appswitcher-server`
 
-
 For the groupId the following rules are applied:
 
-
--	release is part of a project: de.muenchen.oss.<project-abbreviation> for example de.muenchen.oss.appswitcher
--	release is not part of a large project: only de.muenchen.oss 
+- release is part of a project: de.muenchen.oss.<project-abbreviation> for example de.muenchen.oss.appswitcher
+- release is not part of a large project: only de.muenchen.oss
 
 Release on Maven Central
 
@@ -54,10 +46,9 @@ Pom
 
 The pom.xml needs to include special information, for example <scm>, project information and the needed plugins.
 
-
 The following element should be included in the pom:
 
-Project information 
+Project information
 
 ```xml
 <name>${project-name}</name>
@@ -101,6 +92,7 @@ Scm is for the communication with the source control of the project.
 Important use scm:git:https – otherwise the maven release will fail.
 
 The following plugins are used with the maven release.
+
 ```xml
     <build>
 		<pluginManagement>
@@ -139,7 +131,8 @@ The following plugins are used with the maven release.
 
 ```
 
-Over the specific maven profile release the central-publishing-maven-plugin is configured over the GPG Signing for the release process 
+Over the specific maven profile release the central-publishing-maven-plugin is configured over the GPG Signing for the release process
+
 ```xml
 	<profiles>
 		<profile>
@@ -187,38 +180,32 @@ Over the specific maven profile release the central-publishing-maven-plugin is c
 	</profiles>
 ```
 
-
 Release process over github actions
 
 ## NPM
 
 registry.npmjs.org ist he central, public repository for publishing npm packetes
 
-
-
 For the city of Munich, the package-scope `@muenchen` is reserved. Therefore, we can publish npm packages. The codes are set in the organizations github settings.
 
-
-
-
 Publish on the NPM Registry
-
 
 Requirements:
 
 The following requirements are needed for npm projects
--	The github repository needs to be located in the it-at-m organization public
--	The name is in the scope `@muenchen`  for example `@muenchen/appswitcher-vue`
+
+- The github repository needs to be located in the it-at-m organization public
+- The name is in the scope `@muenchen` for example `@muenchen/appswitcher-vue`
 
 The npm-default is that scoped packages are only published private. You need to config it public in the package.json. Moreover we activate the npm provence, for the repository.url.
 
- ```json
- "repository": {
-  "type": "git",
-  "url": "https://github.com/it-at-m/meinRepo"
+```json
+"repository": {
+ "type": "git",
+ "url": "https://github.com/it-at-m/meinRepo"
 },
 "publishConfig": {
-  "access": "public",
-  "provenance": true
+ "access": "public",
+ "provenance": true
 }
 ```
