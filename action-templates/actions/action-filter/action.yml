@@ -1,0 +1,38 @@
+name: "Path Filter"
+description: "Paths filter with input of filters"
+inputs:
+  filters:
+    required: false
+    default: |
+      java:
+        - '**/*.java'
+      javascript-typescript-vue:
+        - '**/*.js'
+        - '**/*.cjs'
+        - '**/*.mjs'
+        - '**/*.ts'
+        - '**/*.cts'
+        - '**/*.mts'
+        - '**/*.vue'
+      python:
+        - '**/*.py'
+    type: string
+    description: Defines filters applied to detected changed files.
+outputs:
+  java:
+    description: "name of the artifact upload"
+    value: ${{ steps.filter.outputs.java }}
+  javascript-typescript-vue:
+    description: "name of the artifact upload"
+    value: ${{ steps.filter.outputs.javascript-typescript-vue }}
+  python:
+    description: "name of the artifact upload"
+    value: ${{ steps.filter.outputs.python }}
+runs:
+  using: "composite"
+  steps:
+    - name: Check changed files and directories
+      id: filter
+      uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+      with:
+        filters: ${{ inputs.filters }}
