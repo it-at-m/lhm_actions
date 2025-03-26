@@ -116,11 +116,6 @@ Executes the following steps:
   # run only if some file in 'src' folder was changed
 - if: steps.changes.outputs.src == 'true'
   run: ...
-
-1. Calculate Filter
-
-```yml
-- uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
 ```
 
 ### action-codeql
