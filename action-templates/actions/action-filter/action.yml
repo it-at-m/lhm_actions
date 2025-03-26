@@ -4,18 +4,18 @@ inputs:
   filters:
     required: false
     default: |
-            java:
-              - '**/*.java'
-            javascript-typescript-vue:
-              - '**/*.js'
-              - '**/*.cjs'
-              - '**/*.mjs'
-              - '**/*.ts'
-              - '**/*.cts'
-              - '**/*.mts'
-              - '**/*.vue'
-            python:
-              - '**/*.py'
+      java:
+        - '**/*.java'
+      javascript-typescript-vue:
+        - '**/*.js'
+        - '**/*.cjs'
+        - '**/*.mjs'
+        - '**/*.ts'
+        - '**/*.cts'
+        - '**/*.mts'
+        - '**/*.vue'
+      python:
+        - '**/*.py'
     type: string
     description: Defines filters applied to detected changed files.
 outputs:
