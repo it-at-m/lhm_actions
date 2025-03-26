@@ -105,10 +105,25 @@ Executes the following steps:
 ### action-filter
 
 [Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+
+Example
 ```yml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
   id: changes
   with:
+    # Defines filters applied to detected changed files.
+    # Each filter has a name and a list of rules.
+    # Rule is a glob expression - paths of all changed
+    # files are matched against it.
+    # Rule can optionally specify if the file
+    # should be added, modified, or deleted.
+    # For each filter, there will be a corresponding output variable to
+    # indicate if there's a changed file matching any of the rules.
+    # Optionally, there can be a second output variable
+    # set to list of all files matching the filter.
+    # Filters can be provided inline as a string (containing valid YAML document),
+    # or as a relative path to a file (e.g.: .github/filters.yaml).
+    # Filters syntax is documented by example - see examples section.
     filters: |
       src:
         - 'src/**'
@@ -117,6 +132,15 @@ Executes the following steps:
 - if: steps.changes.outputs.src == 'true'
   run: ...
 ```
+
+Outputs
+
+    For each filter, it sets output variable named by the filter to the text:
+        'true' - if any of changed files matches any of filter rules
+        'false' - if none of changed files matches any of filter rules
+    For each filter, it sets an output variable with the name ${FILTER_NAME}_count to the count of matching files.
+    If enabled, for each filter it sets an output variable with the name ${FILTER_NAME}_files. It will contain a list of all files matching the filter.
+    changes - JSON array with names of all filters matching any of the changed files.
 
 ### action-codeql
 
