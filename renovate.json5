@@ -8,7 +8,7 @@
       matchUpdateTypes: ["minor", "patch"],
       matchCurrentVersion: "!/^0/",
       automerge: true,
-      matchFileNames: [".github/**"],
+      matchFileNames: [".github/**", "action-templates/actions/**"],
     },
   ],
 }
