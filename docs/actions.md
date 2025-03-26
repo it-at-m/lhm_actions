@@ -104,7 +104,18 @@ Executes the following steps:
 
 ### action-filter
 
-[Path-Filter](https://github.com/dorny/paths-filter). Input is the filter. Output are the filtert paths.
+[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+```yml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
+  id: changes
+  with:
+    filters: |
+      src:
+        - 'src/**'
+
+  # run only if some file in 'src' folder was changed
+- if: steps.changes.outputs.src == 'true'
+  run: ...
 
 1. Calculate Filter
 
