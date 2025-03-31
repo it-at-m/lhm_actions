@@ -12,7 +12,7 @@ runs:
   steps:
     - name: Configure checklist requirement
       if: ${{ github.event.pull_request.draft == false && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.user.login != 'renovate[bot]' }}
-      uses: mheap/require-checklist-action@efef3b1b39d03d12be5ce427c15064f287ba5843 # v2
+      uses: mheap/require-checklist-action@efef3b1b39d03d12be5ce427c15064f287ba5843 # v2.4.0
       with:
         requireChecklist: ${{ inputs.fail-missing }}
         skipDescriptionRegex: .*\(optional\).*
