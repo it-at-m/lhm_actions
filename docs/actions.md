@@ -32,6 +32,10 @@ Executes the following steps:
     # Whether to display findings in PR UI or not
     # Default: true
     display-findings: "true"
+
+    # Path to the problem matcher file when using display-findings: true
+    # Default: .github/problem-matcher.json
+    problem-matcher-path: ".github/problem-matcher.json"
 ```
 
 **Note**: The usage of `display-findings: true` required additional setup. See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.

@@ -10,6 +10,10 @@ inputs:
     description: "Whether to display findings in PR UI or not"
     required: false
     default: "true"
+  problem-matcher-path:
+    description: "Path to the problem matcher file when using display-findings: true"
+    required: false
+    default: ".github/problem-matcher.json"
 
 runs:
   using: "composite"
@@ -20,9 +24,8 @@ runs:
       id: get_actionlint
       run: |
         if [[ "${{ inputs.display-findings }}" == "true" ]]; then
-          echo "::add-matcher::.github/actionlint-matcher.json"
+          echo "::add-matcher::${{ inputs.problem-matcher-path }}"
         fi
-        echo "::add-matcher::.github/actionlint-matcher.json"
         bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) ${{ inputs.version }}
       shell: bash
     - name: Check GitHub action files
