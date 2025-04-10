@@ -11,7 +11,7 @@ inputs:
     required: false
     default: "true"
   problem-matcher-path:
-    description: "Path to the problem matcher file when using display-findings: true"
+    description: "Path to the problem matcher configuration file when using display-findings: true"
     required: false
     default: ".github/problem-matcher.json"
 
