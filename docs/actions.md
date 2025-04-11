@@ -11,6 +11,35 @@ This repository contains and provides actions to
 
 ## Usage
 
+### action-actionlint
+
+Action to lint your workflows using [actionlint](https://github.com/rhysd/actionlint).
+
+Executes the following steps:
+
+1. Checkout code
+2. Download specified actionlint version
+3. Run actionlint on your workflow files
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint
+  with:
+    # Version of actionlint to use
+    # Default: latest
+    version: "latest"
+
+    # Whether to display findings in PR UI or not
+    # Default: true
+    display-findings: "true"
+
+    # Path to the problem matcher file when using display-findings: true
+    # Default: .github/problem-matcher.json
+    problem-matcher-path: ".github/problem-matcher.json"
+```
+
+**Note**: The usage of `display-findings: true` required additional setup. See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
+
 ### action-build-docs
 
 Action to build a vitepress docs project.

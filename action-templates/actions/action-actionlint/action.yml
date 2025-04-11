@@ -1,0 +1,33 @@
+name: "Lint actions"
+description: "Lints GitHub workflow files using actionlint"
+
+inputs:
+  version:
+    description: "Version of actionlint to use"
+    required: false
+    default: "latest"
+  display-findings: # requires additional setup, see https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers for more information
+    description: "Whether to display findings in PR UI or not"
+    required: false
+    default: "true"
+  problem-matcher-path:
+    description: "Path to the problem matcher configuration file when using display-findings: true"
+    required: false
+    default: ".github/problem-matcher.json"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - name: Download actionlint
+      id: get_actionlint
+      run: |
+        if [[ "${{ inputs.display-findings }}" == "true" ]]; then
+          echo "::add-matcher::${{ inputs.problem-matcher-path }}"
+        fi
+        bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) ${{ inputs.version }}
+      shell: bash
+    - name: Check GitHub action files
+      run: ${{ steps.get_actionlint.outputs.executable }} -color
+      shell: bash
