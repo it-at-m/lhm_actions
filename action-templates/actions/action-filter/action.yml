@@ -1,4 +1,4 @@
-name: "Path Filter"
+name: "Path filter"
 description: "Paths filter with input of filters"
 inputs:
   filters:
@@ -20,13 +20,13 @@ inputs:
     description: Defines filters applied to detected changed files.
 outputs:
   java:
-    description: "name of the artifact upload"
+    description: "Name of the java artifact upload"
     value: ${{ steps.filter.outputs.java }}
   javascript-typescript-vue:
-    description: "name of the artifact upload"
+    description: "Name of the vue artifact upload"
     value: ${{ steps.filter.outputs.javascript-typescript-vue }}
   python:
-    description: "name of the artifact upload"
+    description: "Name of the python artifact upload"
     value: ${{ steps.filter.outputs.python }}
 runs:
   using: "composite"
