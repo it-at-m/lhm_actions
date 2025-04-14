@@ -1,5 +1,5 @@
-name: "Build Docker Image"
-description: "Builds and pushes a docker image"
+name: "Build Docker image"
+description: "Builds and pushes a Docker image"
 
 inputs:
   registry:
@@ -10,7 +10,7 @@ inputs:
     description: "Username to authenticate against image registry"
     required: true
   registry-password:
-    description: "Username to authenticate against image registry"
+    description: "Password to authenticate against image registry"
     required: true
   image-tags:
     description: "Tags to tag image with"
@@ -29,7 +29,7 @@ inputs:
     description: "Name to give the image"
     required: true
   artifact-name:
-    description: "name where you download artifact"
+    description: "Name where you download artifact"
     required: true
 
 runs:
@@ -41,7 +41,7 @@ runs:
       uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
       with:
         name: ${{ inputs.artifact-name }}
-    - name: Login to Registry
+    - name: Login to registry
       uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
       with:
         registry: ${{ inputs.registry }}
