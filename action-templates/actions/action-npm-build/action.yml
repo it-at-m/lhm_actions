@@ -4,22 +4,22 @@ inputs:
     required: false
     default: "22.11.0"
     type: string
-    description: node version
+    description: "Node version"
   app-path:
     required: true
     type: string
-    description: path where the package.json is located
+    description: "Path to package.json file"
   run-lint:
     required: false
     default: "true"
-    description: Controls the execution of the 'npm run lint' script
+    description: "Controls the execution of the 'npm run lint' script"
   run-test:
     required: false
     default: "true"
-    description: Controls the execution of the 'npm run test' script
+    description: "Controls the execution of the 'npm run test' script"
 outputs:
   artifact-name:
-    description: name of the artifact upload
+    description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
 runs:
   using: "composite"
@@ -46,9 +46,10 @@ runs:
       run: npm run  --prefix ./${{inputs.app-path}} build
       shell: bash
     - id: artifact-name
+      name: Sets output variable $GITHUB_OUTPUT
       run: echo "artifact-name=${{hashFiles(format('./{0}/package.json', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
       shell: bash
-    - name: Upload Artifact
+    - name: Upload artifact
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: ${{steps.artifact-name.outputs.artifact-name}}

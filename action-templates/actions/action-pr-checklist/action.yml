@@ -5,7 +5,7 @@ inputs:
     required: false
     default: "false"
     type: string
-    description: Whether the action should fail if the PR contains no checklist
+    description: "Whether the action should fail if the PR contains no checklist"
 
 runs:
   using: "composite"

@@ -5,8 +5,8 @@ This repository contains and provides actions to
 - Build Maven projects and deploy them to Maven Central
 - Build npm projects and deploy them to npmjs
 - Build Docker images and push them to GitHub Container Registry
-- Create GitHub Releases
-- Build vitepress Documentation and deploy it to GitHub Pages
+- Create GitHub releases
+- Build VitePress documentation and deploy it to GitHub Pages
 - You can use CodeQL to identify vulnerabilities and errors in your code. The results are shown as code scanning alerts in GitHub.
 
 ## Usage
@@ -42,12 +42,12 @@ Executes the following steps:
 
 ### action-build-docs
 
-Action to build a vitepress docs project.
+Action to build a VitePress docs project.
 
 Executes the following steps:
 
 1. Enables GitHub Pages
-2. Build vitepress docs project
+2. Build VitePress docs project
 3. Uploads the build output as an artifact.<br/>
    The uploaded artifact can be used to deploy the docs to a web page (see [action-deploy-docs](#action-deploy-docs))
 
@@ -55,7 +55,7 @@ Executes the following steps:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs
   with:
-    # Path to vitepress docs project
+    # Path to VitePress docs project
     # Default: ./docs
     docs-path: "./docs"
 
@@ -63,11 +63,11 @@ Executes the following steps:
     # Default: 22
     node-version: "22"
 
-    # You can change build command, e.g. if using vuepress
+    # You can change build command, e.g. if using VuePress
     # Default: build
     build-cmd: "build"
 
-    # Vitepress output path that will be uploaded as artifact
+    # VitePress output path that will be uploaded as artifact
     # Default: .vitepress/dist
     dist-path: ".vitepress/dist"
 ```
@@ -131,45 +131,6 @@ Executes the following steps:
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
 ```
 
-### action-filter
-
-[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
-
-Example
-
-<!-- prettier-ignore -->
-```yml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
-  id: changes
-  with:
-    # Defines filters applied to detected changed files.
-    # Each filter has a name and a list of rules.
-    # Rule is a glob expression - paths of all changed
-    # files are matched against it.
-    # Rule can optionally specify if the file
-    # should be added, modified, or deleted.
-    # For each filter, there will be a corresponding output variable to
-    # indicate if there's a changed file matching any of the rules.
-    # Optionally, there can be a second output variable
-    # set to list of all files matching the filter.
-    # Filters can be provided inline as a string (containing valid YAML document),
-    # or as a relative path to a file (e.g.: .github/filters.yaml).
-    # Filters syntax is documented by example - see examples section.
-    filters: |
-      src:
-        - 'src/**'
-
-  # run only if some file in 'src' folder was changed
-- if: steps.changes.outputs.src == 'true'
-  run: ...
-```
-
-Outputs
-
-- For each filter, it sets output variable named by the filter to the text:
-  - 'true' - if any of changed files matches any of filter rules
-  - 'false' - if none of changed files matches any of filter rules
-
 ### action-codeql
 
 Action to scan a repository using provided CodeQL language, buildmode and query scan set
@@ -208,12 +169,12 @@ Executes the following steps:
 
 ### action-create-github-release
 
-Action to create a GitHub Release.
+Action to create a GitHub release.
 
 Executes the following steps:
 
 1. Download a single artifact
-2. Create a GitHub Release
+2. Create a GitHub release
 
 <!-- prettier-ignore -->
 ```yaml
@@ -262,12 +223,50 @@ Executes the following steps:
   with:
     # Name of the artifact to deploy
     # Default: github-pages
-    artifact_name: "github-pages"
+    artifact-name: "github-pages"
 
     # Branch to deploy docs from
     # Default: main
     deploy-branch: "docs"
 ```
+### action-filter
+
+[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action that enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+
+Example
+
+<!-- prettier-ignore -->
+```yml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
+  id: changes
+  with:
+    # Defines filters applied to detected changed files.
+    # Each filter has a name and a list of rules.
+    # Rule is a glob expression - paths of all changed
+    # files are matched against it.
+    # Rule can optionally specify if the file
+    # should be added, modified, or deleted.
+    # For each filter, there will be a corresponding output variable to
+    # indicate if there's a changed file matching any of the rules.
+    # Optionally, there can be a second output variable
+    # set to list of all files matching the filter.
+    # Filters can be provided inline as a string (containing valid YAML document),
+    # or as a relative path to a file (e.g.: .github/filters.yaml).
+    # Filters syntax is documented by example - see examples section.
+    filters: |
+      src:
+        - 'src/**'
+
+  # run only if some file in 'src' folder was changed
+- if: steps.changes.outputs.src == 'true'
+  run: ...
+```
+
+Outputs
+
+- For each filter, it sets output variable named by the filter to the text:
+    - 'true' - if any of changed files matches any of filter rules
+    - 'false' - if none of changed files matches any of filter rules
 
 ### action-maven-build
 
@@ -277,7 +276,7 @@ Executes the following steps:
 
 1. Checkout repository
 2. Setup Java version
-3. Execute Maven Build
+3. Execute Maven build
 4. Upload build artifact
 
 Output parameters:
@@ -298,13 +297,13 @@ Output parameters:
 
 ### action-maven-release
 
-Action to create a Maven Release and deploy it to Maven Central.
+Action to create a Maven release and deploy it to Maven Central.
 
 Executes the following steps:
 
 1. Checkout repository
 2. Setup Java version
-3. Execute Maven Release and deploy it to Maven Central
+3. Execute Maven release and deploy it to Maven Central
 4. Upload release artifact
 
 Output parameters:
@@ -324,14 +323,14 @@ Output parameters:
     app-path: "."
 
     # Version which will be released
-    releaseVersion:
+    release-version:
 
     # Next snapshot version
-    developmentVersion:
+    development-version:
 
     # Skip deployment to maven central
     # Default: true
-    skipDeployment: "false"
+    skip-deployment: "false"
 
     # Environment variable for GPG private key passphrase
     SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}

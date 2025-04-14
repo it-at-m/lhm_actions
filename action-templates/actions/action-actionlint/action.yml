@@ -1,4 +1,4 @@
-name: "Lint actions"
+name: Lint actions
 description: "Lints GitHub workflow files using actionlint"
 
 inputs:

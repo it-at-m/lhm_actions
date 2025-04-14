@@ -1,4 +1,4 @@
-name: "Advanced CodeQL action"
+name: Advanced CodeQL action
 description: "Scans a repository using provided CodeQL language, buildmode and query scan set"
 
 inputs:
@@ -19,7 +19,7 @@ inputs:
   java-version:
     default: "21"
     type: string
-    description: Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild)
+    description: "Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild)"
   path:
     description: "Path to scan files in"
     required: false

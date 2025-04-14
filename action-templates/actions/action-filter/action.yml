@@ -1,5 +1,5 @@
-name: "Path filter"
-description: "Paths filter with input of filters"
+name: Execute paths-filter
+description: "Execute paths-filter with input of filters"
 inputs:
   filters:
     required: false
@@ -31,7 +31,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Check changed files and directories
+    - name: Check for changed files and directories using given filter
       id: filter
       uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
       with:

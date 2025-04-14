@@ -11,17 +11,17 @@ inputs:
     required: false
     default: "22"
     type: string
-    description: Node version
+    description: "Node version"
   build-cmd:
     required: false
     default: "build"
     type: string
-    description: Change build command, if using vuepress
+    description: "Change build command, if using vuepress"
   dist-path:
     required: false
     default: ".vitepress/dist"
     type: string
-    description: Vitepress output path, which should be uploaded to github pages
+    description: "Vitepress output path, which should be uploaded to github pages"
 
 runs:
   using: "composite"

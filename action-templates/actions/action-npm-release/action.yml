@@ -1,18 +1,18 @@
-name: Npm Release
+name: Npm release
 
 inputs:
   node-version:
     required: false
     default: "22.11.0"
     type: string
-    description: node version
+    description: "Node version"
   app-path:
     required: true
     type: string
-    description: path where the package.json is located
-  releaseVersion:
+    description: "Path to package.json file"
+  release-version:
     type: choice
-    description: Select version increment type (follows Semantic Versioning)
+    description: "Select version increment type (follows Semantic Versioning)"
     required: true
     options:
       - patch
@@ -21,10 +21,10 @@ inputs:
   npm-token:
     type: string
     required: true
-    description: npm token for release
+    description: "Npm token for release"
 outputs:
   ARTIFACT_VERSION:
-    description: version of the artifact upload
+    description: "Version of the artifact upload"
     value: ${{steps.node-release.outputs.VERSION}}
 runs:
   using: "composite"
@@ -42,7 +42,7 @@ runs:
       name: Bump version and create git tag
       working-directory: ./${{inputs.app-path}}
       run: |
-        NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
+        NEW_VERSION=$(npm version ${{inputs.release-version}}) || exit 1
         echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"

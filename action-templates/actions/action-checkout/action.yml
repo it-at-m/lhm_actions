@@ -1,4 +1,4 @@
-name: "Checkout code"
+name: Checkout code
 description: "A wrapper for actions/checkout with no args"
 runs:
   using: "composite"
