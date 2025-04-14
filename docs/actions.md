@@ -229,6 +229,7 @@ Executes the following steps:
     # Default: main
     deploy-branch: "docs"
 ```
+
 ### action-filter
 
 [Path-Filter](https://github.com/dorny/paths-filter) GitHub Action that enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
@@ -236,7 +237,7 @@ Executes the following steps:
 Example
 
 <!-- prettier-ignore -->
-```yml
+```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
   id: changes
   with:
