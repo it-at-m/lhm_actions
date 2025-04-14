@@ -5,14 +5,14 @@ inputs:
     required: false
     default: "21"
     type: string
-    description: set the java version
+    description: Set the java version
   app-path:
     required: true
     type: string
-    description: path to the pom.xml
+    description: Path to the pom.xml
 outputs:
   artifact-name:
-    description: "name of the artifact upload"
+    description: Name of the artifact upload
     value: ${{steps.artifact-name.outputs.artifact-name}}
 runs:
   using: "composite"
@@ -29,10 +29,11 @@ runs:
       run: mvn --update-snapshots -f ./${{inputs.app-path}}/pom.xml install
       shell: bash
     - id: artifact-name
+      name: Set output variable $GITHUB_OUTPUT
       run: echo "artifact-name=${{hashFiles(format('./{0}/pom.xml', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
       shell: bash
     - id: upload-artifact
-      name: "Upload Artifact"
+      name: Upload Artifact
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: ${{steps.artifact-name.outputs.artifact-name}}
