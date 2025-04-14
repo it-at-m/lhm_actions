@@ -265,8 +265,8 @@ Example
 Outputs
 
 - For each filter, it sets output variable named by the filter to the text:
-    - 'true' - if any of changed files matches any of filter rules
-    - 'false' - if none of changed files matches any of filter rules
+  - 'true' - if any of changed files matches any of filter rules
+  - 'false' - if none of changed files matches any of filter rules
 
 ### action-maven-build
 
