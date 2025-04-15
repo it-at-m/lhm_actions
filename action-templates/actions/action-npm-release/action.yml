@@ -57,7 +57,7 @@ runs:
 
     - name: Push changes
       if: ${{ inputs.use-pr != 'true' }}
-      run: git push && git push || exit 1
+      run: git push || exit 1
 
     - name: Check for changes
       if: ${{ inputs.use-pr == 'true' }}
