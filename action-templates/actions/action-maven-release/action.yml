@@ -100,7 +100,7 @@ runs:
         retention-days: 5
 
     - name: Check for changes
-      if: inputs.use-pr
+      if: ${{ inputs.use-pr == 'true' }}
       shell: bash
       run: |
         if [[ -n $(git status --porcelain) ]]; then
@@ -111,7 +111,7 @@ runs:
           echo "GIT_CHANGES=false" >> $GITHUB_ENV
         fi
     - name: Push changes to new branch
-      if: inputs.use-pr && env.GIT_CHANGES == 'true'
+      if: ${{ inputs.use-pr == 'true' && env.GIT_CHANGES == 'true' }}
       shell: bash
       run: |
         BRANCH_NAME=$(echo "release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}" | sed 's/[^a-zA-Z0-9-]/-/g')
@@ -119,7 +119,7 @@ runs:
         git checkout -b "${BRANCH_NAME}"
         git push --force origin "${BRANCH_NAME}"
     - name: Create pull request
-      if: inputs.use-pr && env.GIT_CHANGES == 'true'
+      if: ${{ inputs.use-pr == 'true' && env.GIT_CHANGES == 'true' }}
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
       with:
         script: |
