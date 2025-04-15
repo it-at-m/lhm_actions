@@ -12,7 +12,7 @@ inputs:
     description: Path to the pom.xml
 outputs:
   artifact-name:
-    description: Name of the artifact upload
+    description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
 runs:
   using: "composite"
