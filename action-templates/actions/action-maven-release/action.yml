@@ -22,6 +22,10 @@ inputs:
     default: true
     type: boolean
     description: skip deployment to maven central
+  use-pr:
+    default: false
+    type: boolean
+    description: use PR for version bump instead of direct push
   SIGN_KEY_PASS:
     required: true
     type: string
@@ -69,14 +73,23 @@ runs:
       id: maven-release-step
       shell: bash
       run: |
+        # configure git
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
+        # get maven artifact id and provide as output
         MVN_ARTIFACT_ID=$(mvn -f .${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
-        mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} -Darguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }}"
+        # construct maven release arguments
+        if [[ "${{ inputs.use-pr }}" == "true" ]]; then
+          mvn_arguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }} -DskipCommit=true -DskipPush=true"
+        else
+          mvn_arguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }}"
+        fi
+        # run maven release
+        mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} -Darguments="$mvn_arguments"
       env:
-        SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS}}
+        SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS }}
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
         CENTRAL_PASSWORD: ${{ inputs.CENTRAL_PASSWORD }}
 
@@ -89,3 +102,36 @@ runs:
         name: ${{steps.artifact-name.outputs.artifact-name}}
         path: "**/target"
         retention-days: 5
+
+    - name: Push changes to new branch
+      if: inputs.use-pr
+      shell: bash
+      run: |
+        BRANCH_NAME=$(echo "release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}" | sed 's/[^a-zA-Z0-9-]/-/g')
+        echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+        git checkout -b "${BRANCH_NAME}"
+        git push --force origin "${BRANCH_NAME}"
+
+    - name: Create pull request
+      if: inputs.use-pr
+      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      with:
+        script: |
+          const { repo, owner } = context.repo;
+          const { data: pullRequest } = await github.rest.pulls.create({
+            title: 'chore: bump release version ${{ inputs.module }}',
+            owner,
+            repo,
+            head: '${{ env.BRANCH_NAME }}',
+            base: '${{ github.ref_name }}',
+            body: [
+              'This PR is auto-generated'
+            ].join('\n'),
+          });
+          await github.rest.issues.addAssignees({
+            owner,
+            repo,
+            issue_number: pullRequest.number,
+            assignees: ['${{ github.actor }}'],
+          });
+          console.log(`Pull Request created: ${pullResult.data.html_url}`);
