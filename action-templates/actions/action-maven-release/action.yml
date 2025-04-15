@@ -99,17 +99,27 @@ runs:
         path: "**/target"
         retention-days: 5
 
-    - name: Push changes to new branch
+    - name: Check for changes
       if: inputs.use-pr
+      shell: bash
+      run: |
+        if [[ -n $(git status --porcelain) ]]; then
+          echo "Changes detected."
+          echo "GIT_CHANGES=true" >> $GITHUB_ENV
+        else
+          echo "No changes detected."
+          echo "GIT_CHANGES=false" >> $GITHUB_ENV
+        fi
+    - name: Push changes to new branch
+      if: inputs.use-pr && env.GIT_CHANGES == 'true'
       shell: bash
       run: |
         BRANCH_NAME=$(echo "release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}" | sed 's/[^a-zA-Z0-9-]/-/g')
         echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
         git checkout -b "${BRANCH_NAME}"
         git push --force origin "${BRANCH_NAME}"
-
     - name: Create pull request
-      if: inputs.use-pr
+      if: inputs.use-pr && env.GIT_CHANGES == 'true'
       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
       with:
         script: |
@@ -130,4 +140,4 @@ runs:
             issue_number: pullRequest.number,
             assignees: ['${{ github.actor }}'],
           });
-          console.log(`Pull Request created: ${pullResult.data.html_url}`);
+          console.log(`Pull Request created: ${pullRequest.html_url}`);
