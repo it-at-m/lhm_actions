@@ -81,11 +81,7 @@ runs:
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
         # construct maven release arguments
-        if [[ "${{ inputs.use-pr }}" == "true" ]]; then
-          mvn_arguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }} -DskipCommit=true -DskipPush=true"
-        else
-          mvn_arguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }}"
-        fi
+        mvn_arguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }} -DpushChanges=${{ !inputs.use-pr }} -DremoteTagging=${{ !inputs.use-pr }}"
         # run maven release
         mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} -Darguments="$mvn_arguments"
       env:
