@@ -5,12 +5,12 @@ inputs:
     required: false
     default: ".github/labeler.yml"
     type: string
-    description: Path to the configuration file
+    description: "Path to the configuration file"
   repository:
     required: false
     default: ""
     type: string
-    description: Path to an repository to reference external configuration file
+    description: "Path to an repository to reference external configuration file"
 
 runs:
   using: "composite"
