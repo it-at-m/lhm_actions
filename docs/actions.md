@@ -131,6 +131,40 @@ Executes the following steps:
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
 ```
 
+### action-docker-compose-healthcheck
+
+Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
+This action allows validation of containers using healthchecks defined in the compose file.
+
+Executes the following steps:
+
+1. Run healthcheck using docker compose file
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-docker-compose-healthcheck
+  with:
+    # Maximum number of retry attempts
+    # Default: 10
+    max-retries: 10
+    
+    # Interval between retries in seconds
+    # Default: 10
+    retry-interval: ${{ inputs.retry-interval }}
+    
+    # Path to the docker-compose.yml file
+    # Default: docker-compose.yml
+    compose-file: ${{ inputs.compose-file }}
+    
+    # Skip checking exited containers (useful for init containers)
+    # Default: false
+    skip-exited: ${{ inputs.skip-exited }}
+
+    # Skip checking containers without health checks
+    # Default: false
+    skip-no-healthcheck: ${{ inputs.skip-no-healthcheck }}
+```
+
 ### action-filter
 
 [Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
