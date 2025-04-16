@@ -45,6 +45,7 @@ runs:
     - id: node-release
       name: Bump version and create git tag
       working-directory: ./${{inputs.app-path}}
+      shell: bash
       run: |
         NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
         echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
@@ -53,10 +54,10 @@ runs:
         git config --global user.name "GitHub Actions"
         git add package.json package-lock.json
         git commit -m "chore(${{ inputs.app-path }}): bump version to ${NEW_VERSION}" || exit 1
-      shell: bash
 
     - name: Push changes
       if: ${{ inputs.use-pr != 'true' }}
+      shell: bash
       run: git push || exit 1
 
     - name: Check for changes
