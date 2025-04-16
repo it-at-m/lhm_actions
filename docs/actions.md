@@ -145,24 +145,24 @@ Executes the following steps:
 - uses: it-at-m/lhm_actions/action-templates/actions/action-docker-compose-healthcheck
   with:
     # Maximum number of retry attempts
-    # Default: 10
-    max-retries: 10
+    # Default: 30
+    max-retries: 30
     
     # Interval between retries in seconds
     # Default: 10
-    retry-interval: ${{ inputs.retry-interval }}
+    retry-interval: 10
     
     # Path to the docker-compose.yml file
     # Default: docker-compose.yml
-    compose-file: ${{ inputs.compose-file }}
+    compose-file: "docker-compose.yml"
     
     # Skip checking exited containers (useful for init containers)
     # Default: false
-    skip-exited: ${{ inputs.skip-exited }}
+    skip-exited: false
 
     # Skip checking containers without health checks
     # Default: false
-    skip-no-healthcheck: ${{ inputs.skip-no-healthcheck }}
+    skip-no-healthcheck: false
 ```
 
 ### action-filter
