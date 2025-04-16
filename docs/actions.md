@@ -131,7 +131,7 @@ Executes the following steps:
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
 ```
 
-### action-docker-compose-healthcheck
+### action-dockercompose-healthcheck
 
 Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
 This action allows validation of containers using healthchecks defined in the compose file.
@@ -142,7 +142,7 @@ Executes the following steps:
 
 <!-- prettier-ignore -->
 ```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-docker-compose-healthcheck
+- uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
   with:
     # Maximum number of retry attempts
     # Default: 30
