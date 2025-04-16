@@ -35,7 +35,7 @@ runs:
     - name: Start Docker Compose services
       run: |
         cd ${{ inputs.compose-file-path }}
-        docker-compose up -d
+        docker compose up -d
       shell: bash
     - name: Run healthcheck
       uses: jaracogmbh/docker-compose-health-check-action@v1.0.0
