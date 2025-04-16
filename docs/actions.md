@@ -170,7 +170,7 @@ Executes the following steps:
 ```
 
 **Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a healthcheck and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) is not possible.
-This could be e.g. the case when a barebone unix image (like `alpine`) is used and tools like `wget` or `curl` are missing.
+This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget` or `curl` are missing.
 
 ### action-filter
 
