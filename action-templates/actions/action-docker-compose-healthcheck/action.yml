@@ -1,0 +1,36 @@
+name: "Validate docker stack"
+description: "Validates a docker compose stack using its defined healthchecks"
+
+inputs:
+  max-retries:
+    description: "Maximum number of retry attempts"
+    required: false
+    default: 10
+  retry-interval:
+    description: "Interval between retries in seconds"
+    required: false
+    default: 10
+  compose-file:
+    description: "Path to the docker-compose.yml file"
+    required: false
+    default: "docker-compose.yml"
+  skip-exited:
+    description: "Skip checking exited containers (useful for init containers)"
+    required: false
+    default: false
+  skip-no-healthcheck:
+    description: "Skip checking containers without health checks"
+    required: false
+    default: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run healthcheck
+      uses: jaracogmbh/docker-compose-health-check-action@v1.0.0
+      with:
+        max-retries: ${{ inputs.max-retries }}
+        retry-interval: ${{ inputs.retry-interval }}
+        compose-file: ${{ inputs.compose-file }}
+        skip-exited: ${{ inputs.skip-exited }}
+        skip-no-healthcheck: ${{ inputs.skip-no-healthcheck }}
