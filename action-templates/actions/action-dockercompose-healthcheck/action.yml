@@ -42,6 +42,6 @@ runs:
       with:
         max-retries: ${{ inputs.max-retries }}
         retry-interval: ${{ inputs.retry-interval }}
-        compose-file: ${{ inputs.compose-path }}${{ inputs.compose-file-name }}
+        compose-file: ${{ inputs.compose-file-path }}${{ inputs.compose-file-name }}
         skip-exited: ${{ inputs.skip-exited }}
         skip-no-healthcheck: ${{ inputs.skip-no-healthcheck }}
