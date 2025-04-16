@@ -60,45 +60,12 @@ runs:
       shell: bash
       run: git push || exit 1
 
-    - name: Check for changes
+    - name: Push changes to release branch and create pull request
       if: ${{ inputs.use-pr == 'true' }}
-      shell: bash
-      run: |
-        if [[ -n $(git status --porcelain) ]]; then
-          echo "Changes detected."
-          echo "GIT_CHANGES=true" >> $GITHUB_ENV
-        else
-          echo "No changes detected."
-          echo "GIT_CHANGES=false" >> $GITHUB_ENV
-        fi
-    - name: Push changes to new branch
-      if: ${{ inputs.use-pr == 'true' && env.GIT_CHANGES == 'true' }}
-      shell: bash
-      run: |
-        BRANCH_NAME=$(echo "release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}" | sed 's/[^a-zA-Z0-9-]/-/g')
-        echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
-        git checkout -b "${BRANCH_NAME}"
-        git push --force origin "${BRANCH_NAME}"
-    - name: Create pull request
-      if: ${{ inputs.use-pr == 'true' && env.GIT_CHANGES == 'true' }}
-      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      uses: peter-evans/create-pull-request@v7
       with:
-        script: |
-          const { repo, owner } = context.repo;
-          const { data: pullRequest } = await github.rest.pulls.create({
-            title: 'chore: bump release version ${{ inputs.module }}',
-            owner,
-            repo,
-            head: '${{ env.BRANCH_NAME }}',
-            base: '${{ github.ref_name }}',
-            body: [
-              'This PR is auto-generated'
-            ].join('\n'),
-          });
-          await github.rest.issues.addAssignees({
-            owner,
-            repo,
-            issue_number: pullRequest.number,
-            assignees: ['${{ github.actor }}'],
-          });
-          console.log(`Pull Request created: ${pullRequest.html_url}`);
+        title: 'chore(${{ inputs.module }}): bump release version to ${{ inputs.releaseVersion }}'
+        branch: 'release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}'
+        base: '${{ github.ref_name }}'
+        body: 'This PR is auto-generated'
+        assignees: '${{ github.actor }}'
