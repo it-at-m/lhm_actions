@@ -145,8 +145,8 @@ Executes the following steps:
 - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
   with:
     # Maximum number of retry attempts
-    # Default: 30
-    max-retries: 30
+    # Default: 10
+    max-retries: 10
     
     # Interval between retries in seconds
     # Default: 10
@@ -168,6 +168,9 @@ Executes the following steps:
     # Default: false
     skip-no-healthcheck: false
 ```
+
+**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a healthcheck and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) is not possible.
+This could be e.g. the case when a barebone unix image (like `alpine`) is used and tools like `wget` or `curl` are missing.
 
 ### action-filter
 
