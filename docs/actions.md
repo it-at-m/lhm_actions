@@ -152,9 +152,13 @@ Executes the following steps:
     # Default: 10
     retry-interval: 10
     
-    # Path to the docker-compose.yml file
+    # Path to the docker compose file
+    # Default: "./" (root directory)
+    compose-file-path: "./"
+    
+    # Name of the docker compose file
     # Default: docker-compose.yml
-    compose-file: "docker-compose.yml"
+    compose-file-name: "docker-compose.yml"
     
     # Skip checking exited containers (useful for init containers)
     # Default: false
