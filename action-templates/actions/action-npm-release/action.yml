@@ -64,7 +64,7 @@ runs:
       if: ${{ inputs.use-pr == 'true' }}
       uses: peter-evans/create-pull-request@v7
       with:
-        title: 'chore(${{ inputs.module }}): bump release version to ${{ env.NEW_VERSION }}'
+        title: 'chore(${{ inputs.app-path }}): bump release version to ${{ env.NEW_VERSION }}'
         branch: 'release-${{ inputs.app-path }}-${{ env.NEW_VERSION }}'
         base: '${{ github.ref_name }}'
         body: 'This PR is auto-generated'
