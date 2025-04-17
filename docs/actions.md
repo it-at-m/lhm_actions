@@ -306,6 +306,8 @@ Executes the following steps:
 2. Setup Java version
 3. Execute Maven Release and deploy it to Maven Central
 4. Upload release artifact
+5. Create PR for version bump (if enabled)
+    - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
 
 Output parameters:
 
@@ -332,6 +334,10 @@ Output parameters:
     # Skip deployment to maven central
     # Default: true
     skipDeployment: "false"
+
+    # Use a PR for the version bump instead of directly pushing it
+    # default: false
+    use-pr: "true"
 
     # Environment variable for GPG private key passphrase
     SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
@@ -393,13 +399,24 @@ Executes the following steps:
 1. Checkout repository
 2. Setup Node.js version
 3. Bump version and create Git tag
-4. Run npm build
-5. Deploy npm artifact to Node.js
+4. Create PR for version bump (if enabled)
+    - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
+5. Run npm build
+6. Deploy npm artifact to Node.js
 
 Output parameters:
 
 1. `ARTIFACT_NAME`: Name of artifact
 2. `ARTIFACT_VERSION`: Version of the uploaded artifact
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release
+  with:
+    # Use a PR for the version bump instead of directly pushing it
+    # default: false
+    use-pr: "true"
+```
 
 ### action-pr-checklist
 
