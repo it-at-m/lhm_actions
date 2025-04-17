@@ -84,7 +84,8 @@ runs:
         mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
           -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} \
           -Darguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }}" \
-          -DpushChanges=${{ !inputs.use-pr }} -DremoteTagging=${{ !inputs.use-pr }}
+          -DpushChanges=${{ !inputs.use-pr }} \
+          -DremoteTagging=false -DlocalCheckout=true
       env:
         SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS }}
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
