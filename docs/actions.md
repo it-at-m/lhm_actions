@@ -131,6 +131,47 @@ Executes the following steps:
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
 ```
 
+### action-dockercompose-healthcheck
+
+Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
+This action allows validating the functionality of containers by using healthchecks defined in the docker compose file.
+
+Executes the following steps:
+
+1. Run healthcheck using docker compose file
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
+  with:
+    # Maximum number of retry attempts
+    # Default: 10
+    max-retries: 10
+    
+    # Interval between retries in seconds
+    # Default: 10
+    retry-interval: 10
+    
+    # Path to the docker compose file
+    # Default: "./" (root directory)
+    compose-file-path: "./"
+    
+    # Name of the docker compose file
+    # Default: docker-compose.yml
+    compose-file-name: "docker-compose.yml"
+    
+    # Skip checking exited containers (useful for init containers)
+    # Default: false
+    skip-exited: false
+
+    # Skip checking containers without health checks
+    # Default: false
+    skip-no-healthcheck: false
+```
+
+**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a healthcheck and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) is not possible.
+This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget` or `curl` are missing.
+
 ### action-filter
 
 [Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
