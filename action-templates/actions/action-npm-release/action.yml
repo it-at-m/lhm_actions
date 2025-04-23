@@ -22,6 +22,10 @@ inputs:
     type: string
     required: true
     description: npm token for release
+  use-pr:
+    default: false
+    type: boolean
+    description: use PR for version bump instead of direct push
 outputs:
   ARTIFACT_VERSION:
     description: version of the artifact upload
@@ -32,7 +36,7 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - name: Set up Node.js
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: "${{ inputs.node-version }}"
         registry-url: "https://registry.npmjs.org"
@@ -41,13 +45,27 @@ runs:
     - id: node-release
       name: Bump version and create git tag
       working-directory: ./${{inputs.app-path}}
+      shell: bash
       run: |
         NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
         echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+        echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
         git add package.json package-lock.json
-        git commit -m "Bump version to ${NEW_VERSION}" || exit 1
-        git tag "${NEW_VERSION}" || exit 1
-        git push && git push --tags || exit 1
+        git commit -m "chore(${{ inputs.app-path }}): bump version to ${NEW_VERSION}" || exit 1
+
+    - name: Push changes
+      if: ${{ inputs.use-pr != 'true' }}
       shell: bash
+      run: git push || exit 1
+
+    - name: Push changes to release branch and create pull request
+      if: ${{ inputs.use-pr == 'true' }}
+      uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+      with:
+        title: "chore(${{ inputs.app-path }}): bump release version to ${{ env.NEW_VERSION }}"
+        branch: "release-${{ inputs.app-path }}-${{ env.NEW_VERSION }}"
+        base: "${{ github.ref_name }}"
+        body: "This PR is auto-generated"
+        assignees: "${{ github.actor }}"

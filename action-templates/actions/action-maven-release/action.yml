@@ -22,6 +22,10 @@ inputs:
     default: true
     type: boolean
     description: skip deployment to maven central
+  use-pr:
+    default: false
+    type: boolean
+    description: use PR for version bump instead of direct push
   SIGN_KEY_PASS:
     required: true
     type: string
@@ -69,14 +73,21 @@ runs:
       id: maven-release-step
       shell: bash
       run: |
+        # configure git
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
+        # get maven artifact id and provide as output
         MVN_ARTIFACT_ID=$(mvn -f .${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
-        mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} -Darguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }}"
+        # run maven release
+        mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
+          -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} \
+          -Darguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }}" \
+          -DpushChanges=${{ !inputs.use-pr }} \
+          -DremoteTagging=false -DlocalCheckout=true
       env:
-        SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS}}
+        SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS }}
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
         CENTRAL_PASSWORD: ${{ inputs.CENTRAL_PASSWORD }}
 
@@ -89,3 +100,13 @@ runs:
         name: ${{steps.artifact-name.outputs.artifact-name}}
         path: "**/target"
         retention-days: 5
+
+    - name: Push changes to release branch and create pull request
+      if: ${{ inputs.use-pr == 'true' }}
+      uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+      with:
+        title: "chore(${{ inputs.app-path }}): bump release version to ${{ inputs.releaseVersion }}"
+        branch: "release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}"
+        base: "${{ github.ref_name }}"
+        body: "This PR is auto-generated"
+        assignees: "${{ github.actor }}"
