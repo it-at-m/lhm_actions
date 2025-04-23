@@ -134,7 +134,7 @@ Executes the following steps:
 ### action-dockercompose-healthcheck
 
 Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
-This action allows validation of containers using healthchecks defined in the compose file.
+This action allows validating the functionality of containers by using healthchecks defined in the docker compose file.
 
 Executes the following steps:
 
