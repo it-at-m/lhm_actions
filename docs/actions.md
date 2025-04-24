@@ -459,11 +459,13 @@ Output parameters:
     node-version: "22"
 
     # Path to package.json
+    # "" would be equal to "./package.json" and "test-frontend" to "./test-frontend/package.json"
+    # Required
     app-path: ""
 
     # Level of release
     # Specifies how the version is increased
-    # options: patch, minor, major
+    # Required, options: patch, minor, major
     releaseVersion: "patch"
 
     # Use a PR for the version bump instead of directly pushing it
