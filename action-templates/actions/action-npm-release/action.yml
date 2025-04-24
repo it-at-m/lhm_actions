@@ -3,7 +3,7 @@ name: Npm Release
 inputs:
   node-version:
     required: false
-    default: "22.11.0"
+    default: "22"
     type: string
     description: node version
   app-path:
