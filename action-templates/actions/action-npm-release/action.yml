@@ -26,6 +26,10 @@ inputs:
     default: false
     type: boolean
     description: use PR for version bump instead of direct push
+  skip-deployment:
+    type: boolean
+    default: "true"
+    description: skip deployment to npm registry
 outputs:
   ARTIFACT_VERSION:
     description: version of the artifact upload
@@ -43,7 +47,7 @@ runs:
         cache: "npm"
         cache-dependency-path: "./${{inputs.app-path}}/package-lock.json"
     - id: node-release
-      name: Bump version and create git tag
+      name: Bump version
       working-directory: ./${{inputs.app-path}}
       shell: bash
       run: |
@@ -54,6 +58,30 @@ runs:
         git config --global user.name "GitHub Actions"
         git add package.json package-lock.json
         git commit -m "chore(${{ inputs.app-path }}): bump version to ${NEW_VERSION}" || exit 1
+
+    - name: Install dependencies
+      run: npm --prefix ./${{inputs.app-path}} ci
+      shell: bash
+    - name: Run build
+      run: npm run --prefix ./${{inputs.app-path}} build
+      shell: bash
+    - name: Push to NPM registry
+      if: ${{ !inputs.skip-deployment }}
+      shell: bash
+      working-directory: ./${{ inputs.app-path }}
+      run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
+
+    - id: artifact-name
+      run: echo "artifact-name=${{hashFiles(format('./{0}/package.json', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
+      shell: bash
+    - name: Upload Artifact
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      with:
+        name: ${{steps.artifact-name.outputs.artifact-name}}
+        path: "**/dist"
+        retention-days: 5
 
     - name: Push changes
       if: ${{ inputs.use-pr != 'true' }}
