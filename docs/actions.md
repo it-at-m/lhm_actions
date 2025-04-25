@@ -454,6 +454,20 @@ Output parameters:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release
   with:
+    # Node Version to use
+    # Default: see action-npm-build
+    node-version: "22"
+
+    # Path to package.json
+    # "" would be equal to "./package.json" and "test-frontend" to "./test-frontend/package.json"
+    # Required
+    app-path: ""
+
+    # Level of release
+    # Specifies how the version is increased
+    # Required, options: patch, minor, major
+    releaseVersion: "patch"
+
     # Use a PR for the version bump instead of directly pushing it
     # default: false
     use-pr: "true"
