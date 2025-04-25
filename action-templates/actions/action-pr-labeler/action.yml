@@ -6,7 +6,7 @@ inputs:
     required: false
     default: ".github/labeler.yml"
   repository:
-    description: "Path to an repository to reference external configuration file"
+    description: "Path to a repository to reference external configuration file"
     required: false
     default: ""
 

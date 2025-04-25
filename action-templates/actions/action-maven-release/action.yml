@@ -70,11 +70,6 @@ runs:
         MVN_ARTIFACT_ID=$(mvn -f ./${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
-
-        # determine maven arguments
-        if [[ "${{ inputs.skipDeployment }}" == "true" ]]; then
-          MAVEN_ARGS='-Darguments="-Dmaven.deploy.skip=true"'
-        fi
         # run maven release
         mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
           -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} \

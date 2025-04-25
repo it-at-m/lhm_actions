@@ -2,11 +2,11 @@ name: Compliance check and build test
 
 inputs:
   java-version:
-    description: "set the java version"
+    description: "Java version to use for the build"
     required: false
     default: "21"
   app-path:
-    description: "path to the pom.xml"
+    description: "Path to the project’s pom.xml file"
     required: true
 
 outputs:
