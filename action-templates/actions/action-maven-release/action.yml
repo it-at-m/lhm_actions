@@ -1,47 +1,37 @@
-name: Maven Release
+name: "Maven Release"
 
 inputs:
   java-version:
+    description: "configure the java version"
     required: false
-    default: 21
-    type: string
-    description: configure the java version
+    default: "21"
   app-path:
+    description: "path where the pom.xml is"
     required: true
-    type: string
-    description: path where the pom.xml is
   releaseVersion:
+    description: "version which will be released"
     required: true
-    type: string
-    description: version which will be released
   developmentVersion:
+    description: "next version with snapshot"
     required: true
-    type: string
-    description: next version with snapshot
   skipDeployment:
-    default: true
-    type: boolean
-    description: skip deployment to maven central
+    description: "skip deployment to maven central"
+    default: "true"
   use-pr:
-    default: false
-    type: boolean
-    description: use PR for version bump instead of direct push
+    description: "use PR for version bump instead of direct push"
+    default: "false"
   SIGN_KEY_PASS:
+    description: "env variable for GPG private key passphrase"
     required: true
-    type: string
-    description: env variable for GPG private key passphrase
   CENTRAL_USERNAME:
+    description: "env variable for username in deploy"
     required: true
-    type: string
-    description: env variable for username in deploy
   CENTRAL_PASSWORD:
+    description: "env variable for token in deploy"
     required: true
-    type: string
-    description: env variable for token in deploy
   GPG_PRIVATE_KEY:
+    description: "Value of the GPG private key to import"
     required: true
-    type: string
-    description: Value of the GPG private key to import
 
 outputs:
   MVN_ARTIFACT_ID:
@@ -80,6 +70,11 @@ runs:
         MVN_ARTIFACT_ID=$(mvn -f ./${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
+
+        # determine maven arguments
+        if [[ "${{ inputs.skipDeployment }}" == "true" ]]; then
+          MAVEN_ARGS='-Darguments="-Dmaven.deploy.skip=true"'
+        fi
         # run maven release
         mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
           -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} \

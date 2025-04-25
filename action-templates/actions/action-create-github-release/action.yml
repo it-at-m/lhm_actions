@@ -1,18 +1,17 @@
-name: Create GitHub Release
+name: "Create GitHub Release"
 description: "Creates a GitHub Release of a Maven Artifact"
+
 inputs:
   artifact-name:
-    required: true
-    type: string
     description: "name of the artifact to download"
+    required: true
   tag-name:
-    required: true
-    type: string
     description: "Name of a tag (e.g. sps-1.0.0 or myproject-1.0.0)"
-  artifact-path:
     required: true
-    type: string
+  artifact-path:
     description: "path to the artifacts (e.g. ./target/*.jar)"
+    required: true
+
 runs:
   using: "composite"
   steps:
