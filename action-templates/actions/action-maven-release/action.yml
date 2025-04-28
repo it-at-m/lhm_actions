@@ -84,7 +84,7 @@ runs:
         MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true"
         # set maven deploy skip if skipDeployment is true
         if [[ "${{ inputs.skipDeployment }}" == "true" ]]; then
-          MAVEN_ARGS="$MAVEN_ARGS -Darguments=\"-Dmaven.deploy.skip=true\""
+          MAVEN_ARGS="$MAVEN_ARGS -Darguments='-Dmaven.deploy.skip=true'"
         fi
         # run maven release
         mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
