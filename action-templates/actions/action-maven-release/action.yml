@@ -109,8 +109,8 @@ runs:
       if: ${{ inputs.use-pr == 'true' }}
       uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
       with:
-        title: "chore(${{ inputs.app-path }}): bump release version to ${{ inputs.releaseVersion }}"
-        branch: "release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}"
+        title: "chore(${{ inputs.app-path }}): bump release version to ${{ inputs.developmentVersion }}"
+        branch: "release-${{ inputs.app-path }}-${{ inputs.developmentVersion }}"
         base: "${{ github.ref_name }}"
         body: "This PR is auto-generated"
         assignees: "${{ github.actor }}"
