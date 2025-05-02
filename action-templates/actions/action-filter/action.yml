@@ -1,7 +1,9 @@
 name: "Path Filter"
 description: "Paths filter with input of filters"
+
 inputs:
   filters:
+    description: "Defines filters applied to detected changed files"
     required: false
     default: |
       java:
@@ -16,8 +18,7 @@ inputs:
         - '**/*.vue'
       python:
         - '**/*.py'
-    type: string
-    description: Defines filters applied to detected changed files.
+
 outputs:
   java:
     description: "name of the artifact upload"
@@ -28,6 +29,7 @@ outputs:
   python:
     description: "name of the artifact upload"
     value: ${{ steps.filter.outputs.python }}
+
 runs:
   using: "composite"
   steps:

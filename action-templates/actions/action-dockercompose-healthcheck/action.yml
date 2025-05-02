@@ -5,11 +5,11 @@ inputs:
   max-retries:
     description: "Maximum number of retry attempts"
     required: false
-    default: 10
+    default: "10"
   retry-interval:
     description: "Interval between retries in seconds"
     required: false
-    default: 10
+    default: "10"
   compose-file-path:
     description: "Path to the docker compose file"
     required: false
@@ -21,11 +21,11 @@ inputs:
   skip-exited:
     description: "Skip checking exited containers (useful for init containers)"
     required: false
-    default: false
+    default: "false"
   skip-no-healthcheck:
     description: "Skip checking containers without health checks"
     required: false
-    default: false
+    default: "false"
 
 runs:
   using: "composite"

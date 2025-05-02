@@ -1,47 +1,37 @@
-name: Maven Release
+name: "Maven Release"
 
 inputs:
   java-version:
+    description: "Java version to use for the build"
     required: false
-    default: 21
-    type: string
-    description: configure the java version
+    default: "21"
   app-path:
+    description: "Path to the project’s pom.xml file"
     required: true
-    type: string
-    description: path where the pom.xml is
   releaseVersion:
+    description: "Version to be released"
     required: true
-    type: string
-    description: version which will be released
   developmentVersion:
+    description: "Next version with snapshot"
     required: true
-    type: string
-    description: next version with snapshot
   skipDeployment:
-    default: true
-    type: boolean
-    description: skip deployment to maven central
+    description: "Skip deployment to Maven Central"
+    default: "true"
   use-pr:
-    default: false
-    type: boolean
-    description: use PR for version bump instead of direct push
-  SIGN_KEY_PASS:
-    required: true
-    type: string
-    description: env variable for GPG private key passphrase
-  CENTRAL_USERNAME:
-    required: true
-    type: string
-    description: env variable for username in deploy
-  CENTRAL_PASSWORD:
-    required: true
-    type: string
-    description: env variable for token in deploy
+    description: "Use PR for version bump instead of direct push"
+    default: "false"
   GPG_PRIVATE_KEY:
+    description: "GPG private key to import"
     required: true
-    type: string
-    description: Value of the GPG private key to import
+  SIGN_KEY_PASS:
+    description: "Environment variable name for the GPG private key passphrase"
+    required: true
+  CENTRAL_USERNAME:
+    description: "Environment variable name for the username for authentication to Maven Central"
+    required: true
+  CENTRAL_PASSWORD:
+    description: "Environment variable name for password or token for authentication to Maven Central"
+    required: true
 
 outputs:
   MVN_ARTIFACT_ID:

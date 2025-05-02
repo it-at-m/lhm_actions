@@ -2,18 +2,18 @@ name: Compliance check and build test
 
 inputs:
   java-version:
+    description: "Java version to use for the build"
     required: false
     default: "21"
-    type: string
-    description: set the java version
   app-path:
+    description: "Path to the project’s pom.xml file"
     required: true
-    type: string
-    description: path to the pom.xml
+
 outputs:
   artifact-name:
     description: "name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
+
 runs:
   using: "composite"
   steps:

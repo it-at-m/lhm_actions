@@ -1,11 +1,10 @@
-name: Require PR checklist
+name: "Require PR checklist"
 
 inputs:
   fail-missing:
+    description: "Whether the action should fail if the PR contains no checklist"
     required: false
     default: "false"
-    type: string
-    description: Whether the action should fail if the PR contains no checklist
 
 runs:
   using: "composite"
