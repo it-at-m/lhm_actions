@@ -1,16 +1,14 @@
-name: PR Labeler
+name: "PR Labeler"
 
 inputs:
   configuration-path:
+    description: "Path to the configuration file"
     required: false
     default: ".github/labeler.yml"
-    type: string
-    description: Path to the configuration file
   repository:
+    description: "Path to a repository to reference external configuration file"
     required: false
     default: ""
-    type: string
-    description: Path to an repository to reference external configuration file
 
 runs:
   using: "composite"
