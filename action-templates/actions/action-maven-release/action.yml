@@ -55,10 +55,10 @@ runs:
         cache: "maven"
         cache-dependency-path: "./${{ inputs.app-path}}/pom.xml"
         server-id: "central"
-        server-username: ${{ inputs.CENTRAL_USERNAME }}
-        server-password: ${{ inputs.CENTRAL_PASSWORD }}
+        server-username: CENTRAL_USERNAME
+        server-password: CENTRAL_PASSWORD
         gpg-private-key: ${{ inputs.GPG_PRIVATE_KEY }}
-        gpg-passphrase: ${{ inputs.SIGN_KEY_PASS }}
+        gpg-passphrase: SIGN_KEY_PASS
     - name: Maven Release Step
       id: maven-release-step
       shell: bash
