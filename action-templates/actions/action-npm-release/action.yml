@@ -58,7 +58,7 @@ runs:
       run: npm run --prefix ./${{inputs.app-path}} build
       shell: bash
     - name: Push to NPM registry
-      if: ${{ !inputs.skip-deployment }}
+      if: ${{ inputs.skip-deployment != "true" }}
       shell: bash
       working-directory: ./${{ inputs.app-path }}
       run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
