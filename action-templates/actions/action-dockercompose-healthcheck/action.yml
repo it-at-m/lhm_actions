@@ -38,7 +38,7 @@ runs:
         docker compose up -d
       shell: bash
     - name: Run healthcheck
-      uses: jaracogmbh/docker-compose-health-check-action@v1.0.0
+      uses: jaracogmbh/docker-compose-health-check-action@973fbdccf7c8e396b652d3501984c8e530a9fa80 # v1.0.0
       with:
         max-retries: ${{ inputs.max-retries }}
         retry-interval: ${{ inputs.retry-interval }}
