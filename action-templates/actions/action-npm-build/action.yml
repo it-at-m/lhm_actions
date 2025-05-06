@@ -1,26 +1,27 @@
-name: Compliance check and build test
+name: "Compliance check and build test"
+
 inputs:
   node-version:
+    description: "node version"
     required: false
     default: "22"
-    type: string
-    description: node version
   app-path:
+    description: "path where the package.json is located"
     required: true
-    type: string
-    description: path where the package.json is located
   run-lint:
+    description: "Controls the execution of the 'npm run lint' script"
     required: false
     default: "true"
-    description: Controls the execution of the 'npm run lint' script
   run-test:
+    description: "Controls the execution of the 'npm run test' script"
     required: false
     default: "true"
-    description: Controls the execution of the 'npm run test' script
+
 outputs:
   artifact-name:
     description: name of the artifact upload
     value: ${{steps.artifact-name.outputs.artifact-name}}
+
 runs:
   using: "composite"
   steps:

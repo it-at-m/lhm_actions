@@ -1,47 +1,37 @@
-name: Maven Release
+name: "Maven Release"
 
 inputs:
   java-version:
+    description: "Java version to use for the build"
     required: false
-    default: 21
-    type: string
-    description: configure the java version
+    default: "21"
   app-path:
+    description: "Path to the project’s pom.xml file"
     required: true
-    type: string
-    description: path where the pom.xml is
   releaseVersion:
+    description: "Version to be released"
     required: true
-    type: string
-    description: version which will be released
   developmentVersion:
+    description: "Next version with snapshot"
     required: true
-    type: string
-    description: next version with snapshot
   skipDeployment:
-    default: true
-    type: boolean
-    description: skip deployment to maven central
+    description: "Skip deployment to Maven Central"
+    default: "true"
   use-pr:
-    default: false
-    type: boolean
-    description: use PR for version bump instead of direct push
-  SIGN_KEY_PASS:
-    required: true
-    type: string
-    description: env variable for GPG private key passphrase
-  CENTRAL_USERNAME:
-    required: true
-    type: string
-    description: env variable for username in deploy
-  CENTRAL_PASSWORD:
-    required: true
-    type: string
-    description: env variable for token in deploy
+    description: "Use PR for version bump instead of direct push"
+    default: "false"
   GPG_PRIVATE_KEY:
+    description: "GPG private key to import"
     required: true
-    type: string
-    description: Value of the GPG private key to import
+  SIGN_KEY_PASS:
+    description: "Environment variable name for the GPG private key passphrase"
+    required: true
+  CENTRAL_USERNAME:
+    description: "Environment variable name for the username for authentication to Maven Central"
+    required: true
+  CENTRAL_PASSWORD:
+    description: "Environment variable name for password or token for authentication to Maven Central"
+    required: true
 
 outputs:
   MVN_ARTIFACT_ID:
@@ -65,10 +55,10 @@ runs:
         cache: "maven"
         cache-dependency-path: "./${{ inputs.app-path}}/pom.xml"
         server-id: "central"
-        server-username: ${{ inputs.CENTRAL_USERNAME }}
-        server-password: ${{ inputs.CENTRAL_PASSWORD }}
+        server-username: CENTRAL_USERNAME
+        server-password: CENTRAL_PASSWORD
         gpg-private-key: ${{ inputs.GPG_PRIVATE_KEY }}
-        gpg-passphrase: ${{ inputs.SIGN_KEY_PASS }}
+        gpg-passphrase: SIGN_KEY_PASS
     - name: Maven Release Step
       id: maven-release-step
       shell: bash
@@ -80,12 +70,16 @@ runs:
         MVN_ARTIFACT_ID=$(mvn -f ./${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
+        # prepare the maven arguments
+        MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true"
+        # set maven deploy skip if skipDeployment is true
+        if [[ "${{ inputs.skipDeployment }}" == "true" ]]; then
+          MAVEN_ARGS="$MAVEN_ARGS -Darguments='-Dmaven.deploy.skip=true'"
+        fi
         # run maven release
         mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
           -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} \
-          -Darguments="-Dmaven.deploy.skip=${{ inputs.skipDeployment }}" \
-          -DpushChanges=${{ inputs.use-pr != 'true' }} \
-          -DremoteTagging=false -DlocalCheckout=true
+          $MAVEN_ARGS
       env:
         SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS }}
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
@@ -105,8 +99,8 @@ runs:
       if: ${{ inputs.use-pr == 'true' }}
       uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
       with:
-        title: "chore(${{ inputs.app-path }}): bump release version to ${{ inputs.releaseVersion }}"
-        branch: "release-${{ inputs.app-path }}-${{ inputs.releaseVersion }}"
+        title: "chore(${{ inputs.app-path }}): bump release version to ${{ inputs.developmentVersion }}"
+        branch: "release-${{ inputs.app-path }}-${{ inputs.developmentVersion }}"
         base: "${{ github.ref_name }}"
         body: "This PR is auto-generated"
         assignees: "${{ github.actor }}"

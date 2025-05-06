@@ -1,10 +1,11 @@
-name: dependency-review
+name: "dependency-review"
+
 inputs:
   allow-dependencies-licenses:
+    description: "Contains a comma separated string of packages that will be excluded from license checks"
     required: false
     default: ""
-    type: string
-    description: Contains a comma separated string of packages that will be excluded from license checks.
+
 runs:
   using: "composite"
   steps:
