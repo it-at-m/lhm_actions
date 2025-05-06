@@ -18,7 +18,7 @@ inputs:
     description: "use PR for version bump instead of direct push"
     default: "false"
   skip-deployment:
-     description: skip deployment to npm registry
+    description: skip deployment to npm registry
     default: "true"
 
 outputs:
