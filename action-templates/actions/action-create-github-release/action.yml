@@ -33,8 +33,8 @@ runs:
       uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 # v2.2.2
       with:
         tag_name: ${{inputs.tag-name}}
-        draft: ${{inputs.draft}}
-        prerelease: ${{inputs.prerelease}}
-        generate_release_notes: ${{inputs.generate-release-notes}}
+        draft: ${{inputs.draft == 'true'}}
+        prerelease: ${{inputs.prerelease == 'true'}}
+        generate_release_notes: ${{inputs.generate-release-notes == 'true'}}
         files: |
           ${{inputs.artifact-path}}
