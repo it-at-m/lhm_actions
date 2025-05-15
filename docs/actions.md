@@ -268,6 +268,15 @@ Executes the following steps:
 
     # Path to the artifacts (e.g. ./target/*.jar)
     artifact-path: ./target/*.jar
+
+    # If is draft release
+    draft: false
+    
+    # If is prerelease
+    prerelease: false
+    
+    # If release notes should be generated
+    generate-release-notes: true
 ```
 
 ### action-dependency-review
