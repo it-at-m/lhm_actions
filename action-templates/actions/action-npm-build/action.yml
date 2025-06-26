@@ -1,5 +1,5 @@
 name: "Npm build"
-description: "Execute npm build and uploads generated artifact to npm"
+description: "Executes an npm build and uploads the generated artifact to npm"
 
 inputs:
   node-version:
