@@ -1,4 +1,5 @@
 name: "Dependency review"
+
 inputs:
   allow-dependencies-licenses:
     description: "Contains a comma separated string of packages that will be excluded from license checks"
