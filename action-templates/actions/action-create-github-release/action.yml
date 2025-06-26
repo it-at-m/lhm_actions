@@ -18,7 +18,7 @@ inputs:
     description: "Whether it is a prerelease or not"
     default: "false"
   generate-release-notes:
-    description: "Whether release notes should be generated or not"
+    description: "Generate release notes"
     default: "false"
 
 runs:
