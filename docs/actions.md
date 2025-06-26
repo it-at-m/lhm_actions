@@ -138,8 +138,7 @@ This action allows validating the functionality of containers by using healthche
 
 Executes the following steps:
 
-1. Run health check using docker compose file
-
+1. Run health check using Docker Compose file
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
