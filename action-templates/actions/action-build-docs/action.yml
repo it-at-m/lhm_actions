@@ -16,7 +16,7 @@ inputs:
     required: false
     default: "build"
   dist-path:
-    description: "VitePress output path, which should be uploaded to github pages"
+    description: "VitePress output path that will be uploaded to GitHub Pages"
     required: false
     default: ".vitepress/dist"
 
