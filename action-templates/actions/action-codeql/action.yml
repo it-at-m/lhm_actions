@@ -45,7 +45,7 @@ runs:
         build-mode: ${{ inputs.codeql-buildmode }}
         queries: ${{ inputs.codeql-query }}
     - if: inputs.codeql-buildmode == 'autobuild'
-      name: Build using Autobuild
+      name: Build using autobuild
       uses: github/codeql-action/autobuild@v3
       with:
         working-directory: ${{ inputs.path }}

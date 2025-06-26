@@ -1,4 +1,5 @@
-name: "Maven Release"
+name: "Maven release"
+description: "Creates a Maven release pull request"
 
 inputs:
   java-version:
@@ -35,17 +36,17 @@ inputs:
 
 outputs:
   MVN_ARTIFACT_ID:
-    description: "artifact name from pom"
+    description: "Artifact name from pom"
     value: ${{ steps.maven-release-step.outputs.MVN_ARTIFACT_ID }}
   artifact-name:
-    description: "name of the artifact upload"
+    description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
 
 runs:
   using: "composite"
   steps:
     # Checkout source code, set up Java, etc. Then...
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - name: Set up JDK
       uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
@@ -59,7 +60,7 @@ runs:
         server-password: CENTRAL_PASSWORD
         gpg-private-key: ${{ inputs.GPG_PRIVATE_KEY }}
         gpg-passphrase: SIGN_KEY_PASS
-    - name: Maven Release Step
+    - name: Maven release step
       id: maven-release-step
       shell: bash
       run: |
@@ -86,9 +87,10 @@ runs:
         CENTRAL_PASSWORD: ${{ inputs.CENTRAL_PASSWORD }}
 
     - id: artifact-name
+      name: Set output variable $GITHUB_OUTPUT
       run: echo "artifact-name=${{hashFiles(format('./{0}/pom.xml', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
       shell: bash
-    - name: "Upload Artifact"
+    - name: Upload artifact
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: ${{steps.artifact-name.outputs.artifact-name}}
