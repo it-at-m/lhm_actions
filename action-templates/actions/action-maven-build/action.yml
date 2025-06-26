@@ -1,5 +1,5 @@
 name: "Maven build"
-description: "Executes Maven build and uploads generated artifact it to Maven"
+description: "Executes a Maven build and uploads the generated artifact to Maven Central"
 
 inputs:
   java-version:
