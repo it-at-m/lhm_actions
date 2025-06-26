@@ -38,7 +38,8 @@ Executes the following steps:
     problem-matcher-path: ".github/problem-matcher.json"
 ```
 
-**Note**: The usage of `display-findings: true` required additional setup. See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
+**Note**: The usage of `display-findings: true` requires additional setup.
+See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
 
 ### action-build-docs
 
@@ -134,7 +135,7 @@ Executes the following steps:
 ### action-dockercompose-healthcheck
 
 Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
-This action allows validating the functionality of containers by using healthchecks defined in the docker compose file.
+This action allows validating the functionality of containers by using health checks defined in the docker compose file.
 
 Executes the following steps:
 
@@ -168,12 +169,15 @@ Executes the following steps:
     skip-no-healthcheck: false
 ```
 
-**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a healthcheck and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) is not possible.
-This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget` or `curl` are missing.
+**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a
+health check and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck)
+is not possible. This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget` 
+or `curl` are missing.
 
 ### action-filter
 
-[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action enables conditional execution of workflow steps 
+and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
 
 Example
 
@@ -280,8 +284,9 @@ Executes the following steps:
 
 ### action-dependency-review
 
-The dependency review action scans your pull requests for dependency changes, and will raise an error if any vulnerabilities or invalid licenses are being introduced.
-It will always use the baseline configuration in <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
+The dependency review action scans your pull requests for dependency changes, and will raise an error if any 
+vulnerabilities or invalid licenses are being introduced. It will always use the baseline configuration in
+<https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
 
 Executes the following steps:
 
@@ -355,8 +360,7 @@ Executes the following steps:
 2. Setup Java version
 3. Execute Maven release and deploy it to Maven Central
 4. Upload release artifact
-5. Create PR for version bump (if enabled)
-   - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
+5. Create PR for version bump (if enabled) using [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)
 
 Output parameters:
 
@@ -415,7 +419,7 @@ Executes the following steps:
 6. Run build
 7. Upload artifact
 
-Outputs:
+Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
 
@@ -448,8 +452,7 @@ Executes the following steps:
 1. Checkout repository
 2. Setup Node.js version
 3. Bump version and create Git tag
-4. Create PR for version bump (if enabled)
-   - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
+4. Create PR for version bump (if enabled) using [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)
 5. Run npm build
 6. Deploy npm artifact to Node.js
 
