@@ -1,27 +1,23 @@
 # https://vitepress.dev/guide/deploy#github-pages
-name: Build docs
+name: "Build docs"
 
 inputs:
   docs-path:
+    description: "Path to vitepress docs project"
     required: false
     default: "./docs"
-    type: string
-    description: Path to vitepress docs project
   node-version:
+    description: "Node version"
     required: false
     default: "22"
-    type: string
-    description: "Node version"
   build-cmd:
+    description: "Change build command, if using vuepress"
     required: false
     default: "build"
-    type: string
-    description: "Change build command, if using vuepress"
   dist-path:
+    description: "Vitepress output path, which should be uploaded to github pages"
     required: false
     default: ".vitepress/dist"
-    type: string
-    description: "Vitepress output path, which should be uploaded to github pages"
 
 runs:
   using: "composite"
@@ -31,7 +27,7 @@ runs:
       with:
         fetch-depth: 0 # Required for vitepress lastUpdated
     - name: Setup Node
-      uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ inputs.node-version }}
         cache: npm

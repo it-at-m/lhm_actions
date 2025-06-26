@@ -131,6 +131,86 @@ Executes the following steps:
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
 ```
 
+### action-dockercompose-healthcheck
+
+Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
+This action allows validating the functionality of containers by using healthchecks defined in the docker compose file.
+
+Executes the following steps:
+
+1. Run healthcheck using docker compose file
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
+  with:
+    # Maximum number of retry attempts
+    # Default: 10
+    max-retries: 10
+    
+    # Interval between retries in seconds
+    # Default: 10
+    retry-interval: 10
+    
+    # Path to the docker compose file
+    # Default: "./" (root directory)
+    compose-file-path: "./"
+    
+    # Name of the docker compose file
+    # Default: docker-compose.yml
+    compose-file-name: "docker-compose.yml"
+    
+    # Skip checking exited containers (useful for init containers)
+    # Default: false
+    skip-exited: false
+
+    # Skip checking containers without health checks
+    # Default: false
+    skip-no-healthcheck: false
+```
+
+**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a healthcheck and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) is not possible.
+This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget` or `curl` are missing.
+
+### action-filter
+
+[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+
+Example
+
+<!-- prettier-ignore -->
+```yml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
+  id: changes
+  with:
+    # Defines filters applied to detected changed files.
+    # Each filter has a name and a list of rules.
+    # Rule is a glob expression - paths of all changed
+    # files are matched against it.
+    # Rule can optionally specify if the file
+    # should be added, modified, or deleted.
+    # For each filter, there will be a corresponding output variable to
+    # indicate if there's a changed file matching any of the rules.
+    # Optionally, there can be a second output variable
+    # set to list of all files matching the filter.
+    # Filters can be provided inline as a string (containing valid YAML document),
+    # or as a relative path to a file (e.g.: .github/filters.yaml).
+    # Filters syntax is documented by example - see examples section.
+    filters: |
+      src:
+        - 'src/**'
+
+  # run only if some file in 'src' folder was changed
+- if: steps.changes.outputs.src == 'true'
+  run: ...
+```
+
+Outputs
+
+- For each filter, it sets output variable named by the filter to the text:
+  - 'true' - if any of changed files matches any of filter rules
+  - 'false' - if none of changed files matches any of filter rules
+
 ### action-codeql
 
 Action to scan a repository using provided CodeQL language, buildmode and query scan set
@@ -188,6 +268,15 @@ Executes the following steps:
 
     # Path to the artifacts (e.g. ./target/*.jar)
     artifact-path: ./target/*.jar
+
+    # Whether it is a draft release or not
+    draft: false
+    
+    # Whether it is a prerelease or not
+    prerelease: false
+    
+    # If release notes should be generated
+    generate-release-notes: true
 ```
 
 ### action-dependency-review
@@ -223,51 +312,12 @@ Executes the following steps:
   with:
     # Name of the artifact to deploy
     # Default: github-pages
-    artifact-name: "github-pages"
+    artifact_name: "github-pages"
 
     # Branch to deploy docs from
     # Default: main
     deploy-branch: "docs"
 ```
-
-### action-filter
-
-[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action that enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
-
-Example
-
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
-  id: changes
-  with:
-    # Defines filters applied to detected changed files.
-    # Each filter has a name and a list of rules.
-    # Rule is a glob expression - paths of all changed
-    # files are matched against it.
-    # Rule can optionally specify if the file
-    # should be added, modified, or deleted.
-    # For each filter, there will be a corresponding output variable to
-    # indicate if there's a changed file matching any of the rules.
-    # Optionally, there can be a second output variable
-    # set to list of all files matching the filter.
-    # Filters can be provided inline as a string (containing valid YAML document),
-    # or as a relative path to a file (e.g.: .github/filters.yaml).
-    # Filters syntax is documented by example - see examples section.
-    filters: |
-      src:
-        - 'src/**'
-
-  # run only if some file in 'src' folder was changed
-- if: steps.changes.outputs.src == 'true'
-  run: ...
-```
-
-Outputs
-
-- For each filter, it sets output variable named by the filter to the text:
-  - 'true' - if any of changed files matches any of filter rules
-  - 'false' - if none of changed files matches any of filter rules
 
 ### action-maven-build
 
@@ -306,6 +356,8 @@ Executes the following steps:
 2. Setup Java version
 3. Execute Maven release and deploy it to Maven Central
 4. Upload release artifact
+5. Create PR for version bump (if enabled)
+   - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
 
 Output parameters:
 
@@ -324,14 +376,18 @@ Output parameters:
     app-path: "."
 
     # Version which will be released
-    release-version:
+    releaseVersion:
 
     # Next snapshot version
-    development-version:
+    developmentVersion:
 
     # Skip deployment to maven central
     # Default: true
-    skip-deployment: "false"
+    skipDeployment: "false"
+
+    # Use a PR for the version bump instead of directly pushing it
+    # default: false
+    use-pr: "true"
 
     # Environment variable for GPG private key passphrase
     SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
@@ -393,13 +449,38 @@ Executes the following steps:
 1. Checkout repository
 2. Setup Node.js version
 3. Bump version and create Git tag
-4. Run npm build
-5. Deploy npm artifact to Node.js
+4. Create PR for version bump (if enabled)
+   - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
+5. Run npm build
+6. Deploy npm artifact to Node.js
 
 Output parameters:
 
 1. `ARTIFACT_NAME`: Name of artifact
 2. `ARTIFACT_VERSION`: Version of the uploaded artifact
+
+<!-- prettier-ignore -->
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release
+  with:
+    # Node Version to use
+    # Default: see action-npm-build
+    node-version: "22"
+
+    # Path to package.json
+    # "" would be equal to "./package.json" and "test-frontend" to "./test-frontend/package.json"
+    # Required
+    app-path: ""
+
+    # Level of release
+    # Specifies how the version is increased
+    # Required, options: patch, minor, major
+    releaseVersion: "patch"
+
+    # Use a PR for the version bump instead of directly pushing it
+    # default: false
+    use-pr: "true"
+```
 
 ### action-pr-checklist
 

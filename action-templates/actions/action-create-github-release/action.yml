@@ -1,32 +1,40 @@
-name: Create GitHub release
-description: "Creates a GitHub release out of a Maven artifact"
+name: "Create GitHub Release"
+description: "Creates a GitHub Release of a Maven Artifact"
+
 inputs:
   artifact-name:
-    required: true
-    type: string
     description: "Name of the artifact to download"
+    required: true
   tag-name:
-    required: true
-    type: string
     description: "Name of a tag (e.g. sps-1.0.0 or myproject-1.0.0)"
-  artifact-path:
     required: true
-    type: string
+  artifact-path:
     description: "Path to the artifacts (e.g. ./target/*.jar)"
+    required: true
+  draft:
+    description: "Whether it is a draft release or not"
+    default: "false"
+  prerelease:
+    description: "Whether it is a prerelease or not"
+    default: "false"
+  generate-release-notes:
+    description: "if release notes should be generated"
+    default: "false"
+
 runs:
   using: "composite"
   steps:
     - name: Download a single artifact
-      uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
       with:
         name: ${{inputs.artifact-name}}
     - name: Create GitHub release
       id: create_release
-      uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2.2.1
+      uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
       with:
         tag_name: ${{inputs.tag-name}}
-        draft: false
-        prerelease: false
-        generate_release_notes: false
+        draft: ${{inputs.draft == 'true'}}
+        prerelease: ${{inputs.prerelease == 'true'}}
+        generate_release_notes: ${{inputs.generate-release-notes == 'true'}}
         files: |
           ${{inputs.artifact-path}}

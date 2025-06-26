@@ -1,17 +1,17 @@
-name: Dependency review
+name: "Dependency review"
 inputs:
   allow-dependencies-licenses:
+    description: "Contains a comma separated string of packages that will be excluded from license checks"
     required: false
     default: ""
-    type: string
-    description: Contains a comma separated string of packages that will be excluded from license checks.
+
 runs:
   using: "composite"
   steps:
     - name: Checkout code
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - name: Dependency review
-      uses: actions/dependency-review-action@ce3cf9537a52e8119d91fd484ab5b8a807627bf8 # v4.6.0
+      uses: actions/dependency-review-action@da24556b548a50705dd671f47852072ea4c105d9 # v4.7.1
       with:
         config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
         allow-dependencies-licenses: ${{ inputs.allow-dependencies-licenses }}

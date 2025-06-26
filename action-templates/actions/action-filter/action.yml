@@ -1,7 +1,8 @@
-name: Execute paths-filter
+name: "Execute paths-filter"
 description: "Execute paths-filter with input of filters"
 inputs:
   filters:
+    description: "Defines filters applied to detected changed files"
     required: false
     default: |
       java:
@@ -16,8 +17,7 @@ inputs:
         - '**/*.vue'
       python:
         - '**/*.py'
-    type: string
-    description: Defines filters applied to detected changed files.
+
 outputs:
   java:
     description: "Name of the java artifact upload"
@@ -28,10 +28,11 @@ outputs:
   python:
     description: "Name of the python artifact upload"
     value: ${{ steps.filter.outputs.python }}
+
 runs:
   using: "composite"
   steps:
-    - name: Check for changed files and directories using given filter
+    - name: Check changed files and directories
       id: filter
       uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
       with:
