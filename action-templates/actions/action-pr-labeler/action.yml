@@ -1,4 +1,4 @@
-name: "Execute PR Labeler"
+name: "PR Labeler"
 description: "Labels a PR"
 
 inputs:
