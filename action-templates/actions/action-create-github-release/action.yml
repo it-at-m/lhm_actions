@@ -1,6 +1,5 @@
 name: "Create GitHub release"
-description: "Creates a GitHub release of a Maven artifact"
-
+description: "Creates a GitHub release from a downloaded artifact"
 inputs:
   artifact-name:
     description: "Name of the artifact to download"
