@@ -1,5 +1,5 @@
 name: "Validate docker stack"
-description: "Validates a docker compose stack using its defined healthchecks"
+description: "Validates a docker compose stack using its defined health checks"
 
 inputs:
   max-retries:
@@ -37,7 +37,7 @@ runs:
         cd ${{ inputs.compose-file-path }}
         docker compose up -d
       shell: bash
-    - name: Run healthcheck
+    - name: Run health check
       uses: jaracogmbh/docker-compose-health-check-action@973fbdccf7c8e396b652d3501984c8e530a9fa80 # v1.0.0
       with:
         max-retries: ${{ inputs.max-retries }}

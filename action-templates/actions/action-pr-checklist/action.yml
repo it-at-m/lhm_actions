@@ -1,4 +1,5 @@
 name: "Require PR checklist"
+description: "Fails if a PR checklist is required but doesn't exist"
 
 inputs:
   fail-missing:

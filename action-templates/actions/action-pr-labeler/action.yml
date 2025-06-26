@@ -1,4 +1,5 @@
-name: "PR Labeler"
+name: "Execute PR Labeler"
+description: "Labels a PR"
 
 inputs:
   configuration-path:

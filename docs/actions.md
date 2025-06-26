@@ -138,7 +138,7 @@ This action allows validating the functionality of containers by using healthche
 
 Executes the following steps:
 
-1. Run healthcheck using docker compose file
+1. Run health check using docker compose file
 
 <!-- prettier-ignore -->
 ```yaml

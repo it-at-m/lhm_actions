@@ -1,9 +1,10 @@
 # https://vitepress.dev/guide/deploy#github-pages
 name: "Build docs"
+description: "Build docs with VitePress or VuePress"
 
 inputs:
   docs-path:
-    description: "Path to vitepress docs project"
+    description: "Path to VitePress docs project"
     required: false
     default: "./docs"
   node-version:
@@ -11,18 +12,18 @@ inputs:
     required: false
     default: "22"
   build-cmd:
-    description: "Change build command, if using vuepress"
+    description: "Change build command, if using VuePress"
     required: false
     default: "build"
   dist-path:
-    description: "Vitepress output path, which should be uploaded to github pages"
+    description: "VitePress output path, which should be uploaded to github pages"
     required: false
     default: ".vitepress/dist"
 
 runs:
   using: "composite"
   steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         fetch-depth: 0 # Required for vitepress lastUpdated
@@ -32,7 +33,7 @@ runs:
         node-version: ${{ inputs.node-version }}
         cache: npm
         cache-dependency-path: "${{ inputs.docs-path }}/package-lock.json"
-    - name: Setup Pages
+    - name: Setup pages
       uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
     - name: Install dependencies
       run: npm --prefix ./${{inputs.docs-path }}  ci

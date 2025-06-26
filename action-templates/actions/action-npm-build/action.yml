@@ -1,4 +1,5 @@
-name: "Compliance check and build test"
+name: "Npm build"
+description: "Execute npm build and uploads generated artifact to npm"
 
 inputs:
   node-version:

@@ -1,5 +1,5 @@
-name: "Create GitHub Release"
-description: "Creates a GitHub Release of a Maven Artifact"
+name: "Create GitHub release"
+description: "Creates a GitHub release of a Maven artifact"
 
 inputs:
   artifact-name:
@@ -18,7 +18,7 @@ inputs:
     description: "Whether it is a prerelease or not"
     default: "false"
   generate-release-notes:
-    description: "if release notes should be generated"
+    description: "Whether release notes should be generated or not"
     default: "false"
 
 runs:

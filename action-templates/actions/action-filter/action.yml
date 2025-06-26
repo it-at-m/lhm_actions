@@ -1,5 +1,6 @@
 name: "Execute paths-filter"
 description: "Execute paths-filter with input of filters"
+
 inputs:
   filters:
     description: "Defines filters applied to detected changed files"
