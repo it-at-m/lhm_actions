@@ -63,7 +63,7 @@ Executes the following steps:
     # Default: 22
     node-version: "22"
 
-    # You can change build command, e.g. if using VuePress
+    # Build command to run (e.g. "vuepress build" for VuePress projects)
     # Default: build
     build-cmd: "build"
 
