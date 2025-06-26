@@ -1,4 +1,4 @@
-name: "Checkout code"
+name: "Checkout repository"
 description: "A wrapper for actions/checkout with no args"
 
 runs:
