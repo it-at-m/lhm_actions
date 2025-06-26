@@ -29,7 +29,7 @@ inputs:
     description: "Name to give the image"
     required: true
   artifact-name:
-    description: "Name where you download artifact"
+    description: "Name of artifact to download "
     required: true
 
 runs:
