@@ -17,8 +17,7 @@ Execute GitHub Actions to compile and build code, build images. For more informa
 
 ## Helm Chart (GitHub Project `it-at-m/helm-charts`)
 
-In the repository [it-at-m/helm-charts](https://github.com/it-at-m/helm-charts) we provide helm charts for Docker images created in our project repos. We created a [template-chart](https://github.com/it-at-m/helm-charts/tree/main/charts/refarch-templates). You can configure dynamically in the values.yml the frontend, backend, eai docker image.  
-
+In the repository [it-at-m/helm-charts](https://github.com/it-at-m/helm-charts) we provide helm charts for Docker images created in our project repos. We created a [template-chart](https://github.com/it-at-m/helm-charts/tree/main/charts/refarch-templates). You can configure dynamically in the values.yml the frontend, backend, eai docker image.
 
 ## Internal Deployment (Image Repository `Quay`, Git Repository GitLab `git.muenchen.de`, Kubernetes platform `OpenShift`)
 
