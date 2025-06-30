@@ -17,11 +17,7 @@ Execute GitHub Actions to compile and build code, build images. For more informa
 
 ## Helm Chart (GitHub Project `it-at-m/helm-charts`)
 
-![architekture-external-helm-chart](images/external-helm-chart.drawio.png)
-
-In the repository [it-at-m/helm-charts](https://github.com/it-at-m/helm-charts) we provide helm charts for Docker images created in our project repos. There you can find the sample helm chart [sps-sample](https://github.com/it-at-m/helm-charts/tree/main/charts/sps-sample), which consists of subcharts.
-Each subchart is a different module, for example frontend, backend, eai. Each module was created with `helm create` and we made some adaptions. The Chart.yml includes the external dependency of the [RefArch API Gateway Helm Chart](https://github.com/it-at-m/helm-charts/tree/main/charts/refarch-gateway). The main config is done in the values.yml of the parent chart.
-In the sections refarch-gateway, frontend, backend of the configuration file values.yaml you can configure the subcharts.
+In the repository [it-at-m/helm-charts](https://github.com/it-at-m/helm-charts) we provide helm charts for Docker images created in our project repos. We created a [template-chart](https://github.com/it-at-m/helm-charts/tree/main/charts/refarch-templates). You can configure dynamically in the values.yml the frontend, backend, eai docker image.
 
 ## Internal Deployment (Image Repository `Quay`, Git Repository GitLab `git.muenchen.de`, Kubernetes platform `OpenShift`)
 
