@@ -140,6 +140,7 @@ This action allows validating the functionality of containers by using health ch
 Executes the following steps:
 
 1. Run health check using Docker Compose file
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
@@ -171,15 +172,13 @@ Executes the following steps:
 
 **Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a
 health check and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck)
-is not possible. This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget` 
+is not possible. This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget`
 or `curl` are missing.
 
 ### action-filter
 
-[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action enables conditional execution of workflow steps 
+[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action enables conditional execution of workflow steps
 and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
-
-Example
 
 <!-- prettier-ignore -->
 ```yml
@@ -208,7 +207,7 @@ Example
   run: ...
 ```
 
-Outputs
+Output parameters:
 
 - For each filter, it sets output variable named by the filter to the text:
   - 'true' - if any of changed files matches any of filter rules
@@ -284,7 +283,7 @@ Executes the following steps:
 
 ### action-dependency-review
 
-The dependency review action scans your pull requests for dependency changes, and will raise an error if any 
+The dependency review action scans your pull requests for dependency changes, and will raise an error if any
 vulnerabilities or invalid licenses are being introduced. It will always use the baseline configuration in
 <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
 
