@@ -12,7 +12,7 @@ inputs:
     required: false
     default: "22"
   build-cmd:
-    description: "Build command to run (e.g. for VuePress use \"vuepress build\")"
+    description: "Build command to run (e.g. for VuePress use: vuepress build)"
     required: false
     default: "build"
   dist-path:
