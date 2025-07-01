@@ -1,4 +1,5 @@
-name: "Compliance check and build test"
+name: "Npm build"
+description: "Executes an npm build and uploads the generated artifact to npm"
 
 inputs:
   node-version:
@@ -6,7 +7,7 @@ inputs:
     required: false
     default: "22"
   app-path:
-    description: "path where the package.json is located"
+    description: "Path to package.json file"
     required: true
   run-lint:
     description: "Controls the execution of the 'npm run lint' script"
@@ -19,7 +20,7 @@ inputs:
 
 outputs:
   artifact-name:
-    description: name of the artifact upload
+    description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
 
 runs:
@@ -46,9 +47,10 @@ runs:
       run: npm run  --prefix ./${{inputs.app-path}} build
       shell: bash
     - id: artifact-name
+      name: Sets output variable $GITHUB_OUTPUT
       run: echo "artifact-name=${{hashFiles(format('./{0}/package.json', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
       shell: bash
-    - name: Upload Artifact
+    - name: Upload artifact
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: ${{steps.artifact-name.outputs.artifact-name}}

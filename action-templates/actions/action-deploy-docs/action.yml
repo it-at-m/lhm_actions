@@ -1,4 +1,5 @@
 name: "Deploy docs"
+description: "Deploy docs to GitHub Pages"
 
 inputs:
   artifact_name:

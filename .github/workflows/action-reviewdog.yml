@@ -1,4 +1,4 @@
-name: reviewdog
+name: Execute reviewdog
 on: [pull_request]
 permissions: {}
 jobs:

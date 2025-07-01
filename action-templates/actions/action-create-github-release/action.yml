@@ -1,24 +1,23 @@
-name: "Create GitHub Release"
-description: "Creates a GitHub Release of a Maven Artifact"
-
+name: "Create GitHub release"
+description: "Creates a GitHub release from a downloaded artifact"
 inputs:
   artifact-name:
-    description: "name of the artifact to download"
+    description: "Name of the artifact to download"
     required: true
   tag-name:
     description: "Name of a tag (e.g. sps-1.0.0 or myproject-1.0.0)"
     required: true
   artifact-path:
-    description: "path to the artifacts (e.g. ./target/*.jar)"
+    description: "Path to the artifacts (e.g. ./target/*.jar)"
     required: true
   draft:
-    description: "if is draft release"
+    description: "Whether it is a draft release or not"
     default: "false"
   prerelease:
-    description: "if is prerelease"
+    description: "Whether it is a prerelease or not"
     default: "false"
   generate-release-notes:
-    description: "if release notes should be generated"
+    description: "Generate release notes"
     default: "false"
 
 runs:
@@ -28,7 +27,7 @@ runs:
       uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
       with:
         name: ${{inputs.artifact-name}}
-    - name: Create GitHub Release
+    - name: Create GitHub release
       id: create_release
       uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
       with:

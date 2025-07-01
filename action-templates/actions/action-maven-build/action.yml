@@ -1,4 +1,5 @@
-name: Compliance check and build test
+name: "Maven build"
+description: "Executes a Maven build and uploads the generated artifact to Maven Central"
 
 inputs:
   java-version:
@@ -11,13 +12,14 @@ inputs:
 
 outputs:
   artifact-name:
-    description: "name of the artifact upload"
+    description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
 
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - name: Checkout repository
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - name: Set up JDK
       uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
       with:
@@ -29,10 +31,11 @@ runs:
       run: mvn --update-snapshots -f ./${{inputs.app-path}}/pom.xml install
       shell: bash
     - id: artifact-name
+      name: Set output variable $GITHUB_OUTPUT
       run: echo "artifact-name=${{hashFiles(format('./{0}/pom.xml', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
       shell: bash
     - id: upload-artifact
-      name: "Upload Artifact"
+      name: Upload artifact
       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: ${{steps.artifact-name.outputs.artifact-name}}

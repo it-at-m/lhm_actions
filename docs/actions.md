@@ -5,8 +5,8 @@ This repository contains and provides actions to
 - Build Maven projects and deploy them to Maven Central
 - Build npm projects and deploy them to npmjs
 - Build Docker images and push them to GitHub Container Registry
-- Create GitHub Releases
-- Build vitepress Documentation and deploy it to GitHub Pages
+- Create GitHub releases
+- Build VitePress documentation and deploy it to GitHub Pages
 - You can use CodeQL to identify vulnerabilities and errors in your code. The results are shown as code scanning alerts in GitHub.
 
 ## Usage
@@ -38,16 +38,17 @@ Executes the following steps:
     problem-matcher-path: ".github/problem-matcher.json"
 ```
 
-**Note**: The usage of `display-findings: true` required additional setup. See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
+**Note**: The usage of `display-findings: true` requires additional setup.
+See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
 
 ### action-build-docs
 
-Action to build a vitepress docs project.
+Action to build a VitePress docs project.
 
 Executes the following steps:
 
 1. Enables GitHub Pages
-2. Build vitepress docs project
+2. Build VitePress docs project
 3. Uploads the build output as an artifact.<br/>
    The uploaded artifact can be used to deploy the docs to a web page (see [action-deploy-docs](#action-deploy-docs))
 
@@ -55,7 +56,7 @@ Executes the following steps:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs
   with:
-    # Path to vitepress docs project
+    # Path to VitePress docs project
     # Default: ./docs
     docs-path: "./docs"
 
@@ -63,11 +64,11 @@ Executes the following steps:
     # Default: 22
     node-version: "22"
 
-    # You can change build command, e.g. if using vuepress
+    # Build command to run (e.g. "vuepress build" for VuePress projects)
     # Default: build
     build-cmd: "build"
 
-    # Vitepress output path that will be uploaded as artifact
+    # VitePress output path that will be uploaded as artifact
     # Default: .vitepress/dist
     dist-path: ".vitepress/dist"
 ```
@@ -134,11 +135,11 @@ Executes the following steps:
 ### action-dockercompose-healthcheck
 
 Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
-This action allows validating the functionality of containers by using healthchecks defined in the docker compose file.
+This action allows validating the functionality of containers by using health checks defined in the docker compose file.
 
 Executes the following steps:
 
-1. Run healthcheck using docker compose file
+1. Run health check using Docker Compose file
 
 <!-- prettier-ignore -->
 ```yaml
@@ -169,14 +170,15 @@ Executes the following steps:
     skip-no-healthcheck: false
 ```
 
-**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a healthcheck and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) is not possible.
-This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget` or `curl` are missing.
+**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a
+health check and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck)
+is not possible. This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget`
+or `curl` are missing.
 
 ### action-filter
 
-[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action hat enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
-
-Example
+[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action enables conditional execution of workflow steps
+and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
 
 <!-- prettier-ignore -->
 ```yml
@@ -205,7 +207,7 @@ Example
   run: ...
 ```
 
-Outputs
+Output parameters:
 
 - For each filter, it sets output variable named by the filter to the text:
   - 'true' - if any of changed files matches any of filter rules
@@ -249,12 +251,12 @@ Executes the following steps:
 
 ### action-create-github-release
 
-Action to create a GitHub Release.
+Action to create a GitHub release.
 
 Executes the following steps:
 
 1. Download a single artifact
-2. Create a GitHub Release
+2. Create a GitHub release
 
 <!-- prettier-ignore -->
 ```yaml
@@ -269,10 +271,10 @@ Executes the following steps:
     # Path to the artifacts (e.g. ./target/*.jar)
     artifact-path: ./target/*.jar
 
-    # If is draft release
+    # Whether it is a draft release or not
     draft: false
     
-    # If is prerelease
+    # Whether it is a prerelease or not
     prerelease: false
     
     # If release notes should be generated
@@ -281,8 +283,9 @@ Executes the following steps:
 
 ### action-dependency-review
 
-The dependency review action scans your pull requests for dependency changes, and will raise an error if any vulnerabilities or invalid licenses are being introduced.
-It will always use the baseline configuration in <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
+The dependency review action scans your pull requests for dependency changes, and will raise an error if any
+vulnerabilities or invalid licenses are being introduced. It will always use the baseline configuration in
+<https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
 
 Executes the following steps:
 
@@ -327,7 +330,7 @@ Executes the following steps:
 
 1. Checkout repository
 2. Setup Java version
-3. Execute Maven Build
+3. Execute Maven build
 4. Upload build artifact
 
 Output parameters:
@@ -348,16 +351,15 @@ Output parameters:
 
 ### action-maven-release
 
-Action to create a Maven Release and deploy it to Maven Central.
+Action to create a Maven release and deploy it to Maven Central.
 
 Executes the following steps:
 
 1. Checkout repository
 2. Setup Java version
-3. Execute Maven Release and deploy it to Maven Central
+3. Execute Maven release and deploy it to Maven Central
 4. Upload release artifact
-5. Create PR for version bump (if enabled)
-   - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
+5. Create PR for version bump (if enabled) using [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)
 
 Output parameters:
 
@@ -416,7 +418,7 @@ Executes the following steps:
 6. Run build
 7. Upload artifact
 
-Outputs:
+Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
 
@@ -449,8 +451,7 @@ Executes the following steps:
 1. Checkout repository
 2. Setup Node.js version
 3. Bump version and create Git tag
-4. Create PR for version bump (if enabled)
-   - Uses [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) for PR creation
+4. Create PR for version bump (if enabled) using [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)
 5. Run npm build
 6. Deploy npm artifact to Node.js
 

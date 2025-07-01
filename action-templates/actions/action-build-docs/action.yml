@@ -1,9 +1,10 @@
 # https://vitepress.dev/guide/deploy#github-pages
 name: "Build docs"
+description: "Build docs with VitePress or VuePress"
 
 inputs:
   docs-path:
-    description: "Path to vitepress docs project"
+    description: "Path to VitePress docs project"
     required: false
     default: "./docs"
   node-version:
@@ -11,18 +12,18 @@ inputs:
     required: false
     default: "22"
   build-cmd:
-    description: "Change build command, if using vuepress"
+    description: "Build command to run (e.g. for VuePress use: vuepress build)"
     required: false
     default: "build"
   dist-path:
-    description: "Vitepress output path, which should be uploaded to github pages"
+    description: "Output directory that will be uploaded to GitHub Pages"
     required: false
     default: ".vitepress/dist"
 
 runs:
   using: "composite"
   steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       with:
         fetch-depth: 0 # Required for vitepress lastUpdated
@@ -35,13 +36,13 @@ runs:
     - name: Setup Pages
       uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
     - name: Install dependencies
-      run: npm --prefix ./${{inputs.docs-path }}  ci
+      run: npm --prefix ./${{ inputs.docs-path }} ci
       shell: bash
     - name: Run lint
-      run: npm run --prefix  ./${{inputs.docs-path}} lint
+      run: npm run --prefix ./${{ inputs.docs-path }} lint
       shell: bash
     - name: Build with VitePress
-      run: npm --prefix ./${{inputs.docs-path }} run ${{ inputs.build-cmd }}
+      run: npm --prefix ./${{ inputs.docs-path }} run ${{ inputs.build-cmd }}
       shell: bash
     - name: Upload artifact
       uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1

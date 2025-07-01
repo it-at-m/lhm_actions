@@ -1,12 +1,13 @@
-name: "Npm Release"
+name: "Npm release"
+description: "Creates a new npm release pull request"
 
 inputs:
   node-version:
-    description: "node version"
+    description: "Node version"
     required: false
     default: "22"
   app-path:
-    description: "path where the package.json is located"
+    description: "Path to package.json file"
     required: true
   releaseVersion:
     description: "Select version increment type (follows Semantic Versioning)"
@@ -15,12 +16,12 @@ inputs:
     description: "npm token for release"
     required: true
   use-pr:
-    description: "use PR for version bump instead of direct push"
+    description: "Use PR for version bump instead of direct push"
     default: "false"
 
 outputs:
   ARTIFACT_VERSION:
-    description: version of the artifact upload
+    description: "Version number of the artifact upload"
     value: ${{steps.node-release.outputs.VERSION}}
 
 runs:
