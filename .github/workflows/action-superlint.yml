@@ -35,6 +35,7 @@ jobs:
           # Set your fix mode variables to true
           FIX_JSONC_PRETTIER: true
           FIX_MARKDOWN_PRETTIER: true
+          FIX_MARKDOWN: true
           FIX_YAML_PRETTIER: true
       - name: Commit and push linting fixes
         # Run only on:
