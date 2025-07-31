@@ -14,7 +14,8 @@ jobs:
 
     permissions:
       contents: read
-      packages: read
+      # To write linting fixes
+      packages: write
       # To report GitHub Actions status checks
       statuses: write
 
@@ -37,21 +38,6 @@ jobs:
           FIX_MARKDOWN: true
           FIX_YAML_PRETTIER: true
 
-  commit:
-    name: Commit Lint Fixes
-    runs-on: ubuntu-latest
-    # run commit job always after build (linting)
-    needs: build
-    if: ${{ always() }}
-
-    permissions:
-      contents: read
-      # To write linting fixes
-      packages: write
-      # To report GitHub Actions status checks
-      statuses: write
-
-    steps:
       - name: Commit and push linting fixes
         # Run only on:
         # - Pull requests
