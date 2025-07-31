@@ -32,7 +32,7 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Set your fix mode variables to true
+          # Fixing Lint Errors for JSONC, MARKDOWN_PRETTIER, MARKDOWN and YAML_PRETTIER
           FIX_JSONC_PRETTIER: true
           FIX_MARKDOWN_PRETTIER: true
           FIX_MARKDOWN: true
