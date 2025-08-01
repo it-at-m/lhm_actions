@@ -181,7 +181,7 @@ or `curl` are missing.
 and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
 
 <!-- prettier-ignore -->
-```yml
+```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
   id: changes
   with:
@@ -226,7 +226,7 @@ Executes the following steps:
 5. Perform CodeQL analysis for language type
 
 <!-- prettier-ignore -->
-```yaml
+```yml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql
   with:
     # CodeQL language name to scan with (e.g java-kotlin, javascript-typescript, python, ...)
