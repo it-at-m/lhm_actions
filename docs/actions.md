@@ -226,7 +226,7 @@ Executes the following steps:
 5. Perform CodeQL analysis for language type
 
 <!-- prettier-ignore -->
-```yml
+```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql
   with:
     # CodeQL language name to scan with (e.g java-kotlin, javascript-typescript, python, ...)
