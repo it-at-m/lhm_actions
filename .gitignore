@@ -185,3 +185,7 @@ nbdist/
 *.njsproj
 *.sln
 *.sw?
+
+# Superlinter output
+github_conf/
+super-linter-output/

@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      # to be able to commit
+      contents: write
       packages: read
       # To report GitHub Actions status checks
       statuses: write
@@ -31,3 +32,22 @@ jobs:
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Fixing Lint Errors for JSONC, MARKDOWN_PRETTIER, MARKDOWN and YAML_PRETTIER
+          FIX_JSONC_PRETTIER: true
+          FIX_MARKDOWN_PRETTIER: true
+          FIX_MARKDOWN: true
+          FIX_YAML_PRETTIER: true
+
+      - name: Commit and push linting fixes
+        # Run only on:
+        # - Pull requests
+        # - Not on the default branch
+        if: >
+          github.event_name == 'pull_request' &&
+          github.ref_name != github.event.repository.default_branch
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: ${{ github.event.pull_request.head.ref || github.head_ref || github.ref }}
+          commit_message: "chore: fix linting issues [skip ci]"
+          commit_user_name: super-linter
+          commit_user_email: super-linter@super-linter.dev
