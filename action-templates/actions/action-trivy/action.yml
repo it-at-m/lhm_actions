@@ -19,4 +19,4 @@ runs:
         scan-type: "fs"
         format: "table"
         exit-code: "1"
-        trivyignores: ${{ inputs.trifyignore-files }}
+        trivyignores: ${{ inputs.trivyignore-files }}
