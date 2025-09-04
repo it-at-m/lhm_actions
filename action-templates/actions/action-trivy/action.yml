@@ -1,0 +1,23 @@
+name: "Trivy dependency Scan"
+description: "Run Trivy-Scan on the Code"
+
+inputs:
+  trivyignore-files:
+    description: "CVEs that should be Ignored"
+    required: false
+    default: ".github/.trivyignore"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run Trivy vulnerability scanner in repository mode
+      uses: aquasecurity/trivy-action@0.28.0
+      with:
+        scan-type: 'fs'
+        format: 'table'
+        exit-code: '1'
+        trivyignores: ${{ inputs.trifyignore-files }}
+
