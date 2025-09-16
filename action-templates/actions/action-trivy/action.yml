@@ -5,7 +5,7 @@ inputs:
   trivyignore-files:
     description: "Path(s) to .trivyignore file(s) to ignore known CVEs (comma- or newline-separated)"
     required: false
-    default: ".github/.trivyignore"
+    default: ".trivyignore"
 
 runs:
   using: "composite"
