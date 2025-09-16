@@ -516,7 +516,7 @@ More information about the configuration of the `labeler.yml` file can be found 
 
 ### action-trivy
 
-Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Code. 
+Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Code.
 
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy
