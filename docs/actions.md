@@ -514,7 +514,7 @@ More information about the configuration of the `labeler.yml` file can be found 
     repository: ""
 ```
 
-### actin-trivy
+### action-trivy
 
 Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Code. 
 
