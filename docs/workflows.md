@@ -1,9 +1,11 @@
 # GitHub Actions
 
+[[toc]]
+
 We use GitHub Actions to build our software. The costs are minimal because we use free and public repositories.
 
 We designed templates to use GitHub Actions. The GitHub Action needs permission on the repository, for example, to create a release or push a tag. Here you can use automatic token authentication from GitHub.
-Therefore, you can use the access token via ${{ secrets.GITHUB_TOKEN }}. In contrast to the .gitlab-ci.yml, you can create more workflow files which are independent of each other. he it@M-Templates are flexibly designed to suit your project’s needs. You can create reusable actions for single steps.
+Therefore, you can use the access token via <span v-pre>{`${{ secrets.GITHUB_TOKEN }}`</span>. In contrast to the .gitlab-ci.yml, you can create more workflow files which are independent of each other. he it@M-Templates are flexibly designed to suit your project’s needs. You can create reusable actions for single steps.
 
 The templates can be activated under the "Actions" tab with the "New workflow" button. In the software catalog, the templates can be found under the category "By it@m".
 
@@ -37,7 +39,7 @@ Artifacts (without a version) will be linked in maven over a combination out of 
 
 For the groupId the following rules are applied:
 
-- release is part of a project: de.muenchen.oss.<project-abbreviation> for example de.muenchen.oss.appswitcher
+- release is part of a project: `de.muenchen.oss.<project-abbreviation>` for example de.muenchen.oss.appswitcher
 - release is not part of a large project: only de.muenchen.oss
 
 Release on Maven Central
@@ -46,7 +48,7 @@ Before publishing releases to `maven central` please read the official guide [So
 
 Pom
 
-The pom.xml needs to include special information, for example <scm>, project information and the needed plugins.
+The pom.xml needs to include special information, for example `<scm>`, project information and the needed plugins.
 
 The following element should be included in the pom:
 
