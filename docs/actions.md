@@ -515,3 +515,15 @@ More information about the configuration of the `labeler.yml` file can be found 
     # Default: ""
     repository: ""
 ```
+
+### action-trivy
+
+Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Code.
+
+```yaml
+- uses: it-at-m/lhm_actions/action-templates/actions/action-trivy
+  with:
+    # Relative Path to the trivyignore files
+    # Default: ".trivyignore"
+    trivyignore-files: ".trivyignore"
+```
