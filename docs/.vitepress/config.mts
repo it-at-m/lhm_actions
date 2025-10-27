@@ -10,7 +10,6 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: "lhm-actions",
         items: [
           { text: "Actions", link: "/actions" },
           { text: "Deployment", link: "/deployment" },
