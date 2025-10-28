@@ -207,5 +207,5 @@ The npm-default is that scoped packages are only published private. You need to 
 }
 ```
 
-1. If someone has a new project that they want to publish on npm, an NPM admin must enable the trusted publisher, according to the [documentation](https://docs.npmjs.com/trusted-publishers#step-1-add-a-trusted-publisher-on-npmjscom).
+1. If someone has a new project that they want to publish on npm, an npm admin must enable the trusted publisher, according to the [documentation](https://docs.npmjs.com/trusted-publishers#step-1-add-a-trusted-publisher-on-npmjscom).
 1. The GitHub actions must be granted the appropriate permissions. See the [documentation](https://docs.npmjs.com/trusted-publishers#step-2-configure-your-cicd-workflow).
