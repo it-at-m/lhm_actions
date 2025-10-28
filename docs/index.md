@@ -4,8 +4,7 @@ layout: home
 
 hero:
   name: "lhm-actions"
-  text: "lhm-actions"
-  tagline: lhm-actions
+  text: "Github Actions Templates for the it-at-m organisation"
   actions:
     - theme: brand
       text: Actions
