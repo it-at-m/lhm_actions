@@ -1,5 +1,7 @@
 # Deployment Overview
 
+[[toc]]
+
 ![architecture-overview](images/ci_cd_github_big_picture_public.drawio.png)
 \_The diagram shows an overview of the steps for delivering our applications, from code changes to deployment in our environment:
 

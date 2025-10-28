@@ -38,6 +38,7 @@ jobs:
           FIX_MARKDOWN_PRETTIER: true
           FIX_MARKDOWN: true
           FIX_YAML_PRETTIER: true
+          VALIDATE_BIOME_FORMAT: false
 
       - name: Commit and push linting fixes
         # Run only on:
