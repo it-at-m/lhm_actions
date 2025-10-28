@@ -3,6 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "lhm-actions",
+  base: "/lhm_actions/",
   description: "GitHub Actions for the workflows of the it-at-m organisation",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
