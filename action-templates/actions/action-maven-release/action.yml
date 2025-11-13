@@ -67,10 +67,7 @@ runs:
         # configure git
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
-        # get maven artifact id and provide as output
-        MVN_ARTIFACT_ID=$(mvn -f ./${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-        echo $MVN_ARTIFACT_ID
-        echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
+
         # prepare the maven arguments
         MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true"
         # set maven deploy skip if skipDeployment is true
@@ -81,6 +78,10 @@ runs:
         mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
           -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} \
           $MAVEN_ARGS
+        # get maven artifact id and provide as output
+        MVN_ARTIFACT_ID=$(mvn -f ./${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+        echo $MVN_ARTIFACT_ID
+        echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
       env:
         SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS }}
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
