@@ -33,5 +33,7 @@ runs:
         bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) $VERSION
       shell: bash
     - name: Check GitHub action files
-      run: ${{ steps.get_actionlint.outputs.executable }} -color
+      env:
+        ACTION_LINT_EXECUTABLE: ${{ steps.get_actionlint.outputs.executable }}
+      run: $ACTION_LINT_EXECUTABLE -color
       shell: bash
