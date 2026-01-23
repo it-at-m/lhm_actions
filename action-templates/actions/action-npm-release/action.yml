@@ -38,16 +38,19 @@ runs:
         cache-dependency-path: "./${{inputs.app-path}}/package-lock.json"
     - id: node-release
       name: Bump version and create git tag
+      env:
+        APP_PATH: ${{ inputs.app-path }}
+        RELEASE_VERSION: ${{inputs.releaseVersion}}
       working-directory: ./${{inputs.app-path}}
       shell: bash
       run: |
-        NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
+        NEW_VERSION=$(npm version $RELEASE_VERSION) || exit 1
         echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
         echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
         git add package.json package-lock.json
-        git commit -m "chore(${{ inputs.app-path }}): bump version to ${NEW_VERSION}" || exit 1
+        git commit -m "chore($APP_PATH): bump version to ${NEW_VERSION}" || exit 1
 
     - name: Push changes
       if: ${{ inputs.use-pr != 'true' }}
