@@ -28,7 +28,9 @@ runs:
         cache: "maven"
         cache-dependency-path: "./${{inputs.app-path}}/pom.xml"
     - name: Build with Maven
-      run: mvn --update-snapshots -f ./${{inputs.app-path}}/pom.xml install
+      env:
+        APP_PATH: ${{inputs.app-path}}
+      run: mvn --update-snapshots -f ./$APP_PATH/pom.xml install
       shell: bash
     - id: artifact-name
       name: Set output variable $GITHUB_OUTPUT
