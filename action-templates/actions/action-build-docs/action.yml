@@ -36,13 +36,16 @@ runs:
     - name: Setup Pages
       uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
     - name: Install dependencies
-      run: npm --prefix ./${{ inputs.docs-path }} ci
+      env:
+        DOCS_PATH: ${{ inputs.docs-path }}
+        BUILD_CMD: ${{ inputs.build-cmd }}
+      run: npm --prefix ./$DOCS_PATH ci
       shell: bash
     - name: Run lint
-      run: npm run --prefix ./${{ inputs.docs-path }} lint
+      run: npm run --prefix ./$DOCS_PATH lint
       shell: bash
     - name: Build with VitePress
-      run: npm --prefix ./${{ inputs.docs-path }} run ${{ inputs.build-cmd }}
+      run: npm --prefix ./$DOCS_PATH run $BUILD_CMD
       shell: bash
     - name: Upload artifact
       uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
