@@ -46,7 +46,6 @@ runs:
       run: |
         NEW_VERSION=$(npm version $RELEASE_VERSION) || exit 1
         echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
-        echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
         git add package.json package-lock.json
@@ -62,7 +61,7 @@ runs:
       uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
       with:
         title: "chore(${{ inputs.app-path }}): bump release version to ${{ env.NEW_VERSION }}"
-        branch: "release-${{ inputs.app-path }}-${{ env.NEW_VERSION }}"
+        branch: "release-${{ inputs.app-path }}-${{ steps.node-release.outputs.VERSION }}"
         base: "${{ github.ref_name }}"
         body: "This PR is auto-generated"
         assignees: "${{ github.actor }}"
