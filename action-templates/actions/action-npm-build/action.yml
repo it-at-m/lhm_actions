@@ -33,18 +33,26 @@ runs:
         cache: "npm"
         cache-dependency-path: "./${{inputs.app-path}}/package-lock.json"
     - name: Install dependencies
-      run: npm --prefix ./${{inputs.app-path}} ci
+      env:
+        APP_PATH: ${{inputs.app-path}}
+      run: npm --prefix ./$APP_PATH ci
       shell: bash
     - name: Run lint
+      env:
+        APP_PATH: ${{inputs.app-path}}
       if: ${{ inputs.run-lint == 'true' }}
-      run: npm run --prefix  ./${{inputs.app-path}} lint
+      run: npm run --prefix  ./$APP_PATH lint
       shell: bash
     - name: Run test
+      env:
+        APP_PATH: ${{inputs.app-path}}
       if: ${{ inputs.run-test == 'true' }}
-      run: npm run  --prefix ./${{inputs.app-path}} test
+      run: npm run  --prefix ./$APP_PATH test
       shell: bash
     - name: Run build
-      run: npm run  --prefix ./${{inputs.app-path}} build
+      env:
+        APP_PATH: ${{inputs.app-path}}
+      run: npm run  --prefix ./$APP_PATH build
       shell: bash
     - id: artifact-name
       name: Sets output variable $GITHUB_OUTPUT
