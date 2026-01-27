@@ -29,6 +29,8 @@ runs:
   steps:
     - name: Checkout repository
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      with:
+        persist-credentials: true
     - name: Set up Node.js
       uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
       with:
@@ -38,16 +40,18 @@ runs:
         cache-dependency-path: "./${{inputs.app-path}}/package-lock.json"
     - id: node-release
       name: Bump version and create git tag
+      env:
+        APP_PATH: ${{ inputs.app-path }}
+        RELEASE_VERSION: ${{inputs.releaseVersion}}
       working-directory: ./${{inputs.app-path}}
       shell: bash
       run: |
-        NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
+        NEW_VERSION=$(npm version $RELEASE_VERSION) || exit 1
         echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
-        echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
         git add package.json package-lock.json
-        git commit -m "chore(${{ inputs.app-path }}): bump version to ${NEW_VERSION}" || exit 1
+        git commit -m "chore($APP_PATH): bump version to ${NEW_VERSION}" || exit 1
 
     - name: Push changes
       if: ${{ inputs.use-pr != 'true' }}
@@ -59,7 +63,7 @@ runs:
       uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
       with:
         title: "chore(${{ inputs.app-path }}): bump release version to ${{ env.NEW_VERSION }}"
-        branch: "release-${{ inputs.app-path }}-${{ env.NEW_VERSION }}"
+        branch: "release-${{ inputs.app-path }}-${{ steps.node-release.outputs.VERSION }}"
         base: "${{ github.ref_name }}"
         body: "This PR is auto-generated"
         assignees: "${{ github.actor }}"

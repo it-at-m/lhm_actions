@@ -48,6 +48,8 @@ runs:
     # Checkout source code, set up Java, etc. Then...
     - name: Checkout repository
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      with:
+        persist-credentials: true
     - name: Set up JDK
       uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
       with:
@@ -71,21 +73,25 @@ runs:
         # prepare the maven arguments
         MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true"
         # set maven deploy skip if skipDeployment is true
-        if [[ "${{ inputs.skipDeployment }}" == "true" ]]; then
+        if [[ "$SKIP_DEPLOYMENT" == "true" ]]; then
           MAVEN_ARGS="$MAVEN_ARGS -Darguments='-Dmaven.deploy.skip=true'"
         fi
         # run maven release
-        mvn release:prepare release:perform -f ./${{inputs.app-path}}/pom.xml -B \
-          -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} \
+        mvn release:prepare release:perform -f ./$APP_PATH/pom.xml -B \
+          -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$DEPLOYMENT_VERSION \
           $MAVEN_ARGS
         # get maven artifact id and provide as output
-        MVN_ARTIFACT_ID=$(mvn -f ./${{inputs.app-path}}/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+        MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
       env:
         SIGN_KEY_PASS: ${{ inputs.SIGN_KEY_PASS }}
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
         CENTRAL_PASSWORD: ${{ inputs.CENTRAL_PASSWORD }}
+        SKIP_DEPLOYMENT: ${{ inputs.skipDeployment }}
+        APP_PATH: ${{inputs.app-path}}
+        RELEASE_VERSION: ${{ inputs.releaseVersion }}
+        DEPLOYMENT_VERSION: ${{ inputs.developmentVersion }}
 
     - id: artifact-name
       name: Set output variable $GITHUB_OUTPUT

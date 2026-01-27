@@ -20,6 +20,8 @@ runs:
   steps:
     - name: Checkout repository
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      with:
+        persist-credentials: false
     - name: Set up JDK
       uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
       with:
@@ -28,7 +30,9 @@ runs:
         cache: "maven"
         cache-dependency-path: "./${{inputs.app-path}}/pom.xml"
     - name: Build with Maven
-      run: mvn --update-snapshots -f ./${{inputs.app-path}}/pom.xml install
+      env:
+        APP_PATH: ${{inputs.app-path}}
+      run: mvn --update-snapshots -f ./$APP_PATH/pom.xml install
       shell: bash
     - id: artifact-name
       name: Set output variable $GITHUB_OUTPUT
