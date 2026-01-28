@@ -1,5 +1,9 @@
 name: "Checkout repository"
-description: "A wrapper for actions/checkout with no args"
+description: "A wrapper for actions/checkout setting persist-credentials per default to false"
+inputs:
+  persistCredentials:
+    description: "Whether to persist your credentials or not"
+    default: "false"
 
 runs:
   using: "composite"
@@ -7,4 +11,4 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       with:
-        persist-credentials: false
+        persist-credentials: ${{ inputs.persistCredentials }}
