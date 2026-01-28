@@ -8,7 +8,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository
+    - name: Checkout repository without persisting credentials
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      if: ${{ inputs.persist-credentials != true }}
       with:
-        persist-credentials: ${{ inputs.persist-credentials }}
+        persist-credentials: false
+    - name: Checkout repository with persisting credentials
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      if: ${{ inputs.persist-credentials == true }}
+      with:
+        persist-credentials: true
