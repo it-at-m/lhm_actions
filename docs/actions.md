@@ -132,6 +132,10 @@ Executes the following steps:
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
+  with:
+    # Persist credentials or not
+    # Default: false
+    persist-credentials: false
 ```
 
 ### action-dockercompose-healthcheck
