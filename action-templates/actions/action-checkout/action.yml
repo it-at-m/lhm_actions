@@ -3,7 +3,7 @@ description: "A wrapper for actions/checkout setting persist-credentials per def
 inputs:
   persist-credentials:
     description: "Whether to persist your credentials or not"
-    default: "false"
+    default: false
     type: boolean
 
 runs:
