@@ -4,6 +4,7 @@ inputs:
   persist-credentials:
     description: "Whether to persist your credentials or not"
     default: "false"
+    type: boolean
 
 runs:
   using: "composite"
