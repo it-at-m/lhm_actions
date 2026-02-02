@@ -47,7 +47,7 @@ runs:
       env:
         DOCS_PATH: ${{ inputs.docs-path }}
     - name: Build with VitePress
-      run: npm --prefix "$DOCS_PATH" run $BUILD_CMD
+      run: npm --prefix "$DOCS_PATH" run "$BUILD_CMD"
       shell: bash
       env:
         DOCS_PATH: ${{ inputs.docs-path }}
