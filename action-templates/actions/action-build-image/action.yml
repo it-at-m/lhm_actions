@@ -31,9 +31,6 @@ inputs:
   artifact-name:
     description: "Name of artifact to download "
     required: true
-  github-token:
-    description: GitHub Token used to authenticate against a repository for Git context (default ${{ github.token }})
-    default: ${{ github.token }}
 
 runs:
   using: "composite"
@@ -69,4 +66,4 @@ runs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        github-token: ${{ inputs.github-token }}
+        github-token: ${{ github-token }}
