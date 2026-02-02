@@ -136,7 +136,6 @@ Executes the following steps:
     # Persist credentials or not
     # Default: false
     persist-credentials: false
-
 ```
 
 ### action-dockercompose-healthcheck
