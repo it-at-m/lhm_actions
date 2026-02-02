@@ -37,7 +37,7 @@ runs:
     - name: Setup Pages
       uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
     - name: Install dependencies
-      run: npm --prefix ./$DOCS_PATH ci
+      run: npm --prefix "$DOCS_PATH" ci
       shell: bash
       env:
         DOCS_PATH: ${{ inputs.docs-path }}
