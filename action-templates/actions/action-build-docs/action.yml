@@ -43,13 +43,13 @@ runs:
         DOCS_PATH: ${{ inputs.docs-path }}
         BUILD_CMD: ${{ inputs.build-cmd }}
     - name: Run lint
-      run: npm run --prefix ./$DOCS_PATH lint
+      run: npm run --prefix "$DOCS_PATH" lint
       shell: bash
       env:
         DOCS_PATH: ${{ inputs.docs-path }}
         BUILD_CMD: ${{ inputs.build-cmd }}
     - name: Build with VitePress
-      run: npm --prefix ./$DOCS_PATH run $BUILD_CMD
+      run: npm --prefix "$DOCS_PATH" run $BUILD_CMD
       shell: bash
       env:
         DOCS_PATH: ${{ inputs.docs-path }}
