@@ -41,7 +41,7 @@ runs:
       env:
         DOCS_PATH: ${{ inputs.docs-path }}
         BUILD_CMD: ${{ inputs.build-cmd }}
-      run:  |
+      run: |
         npm --prefix "$DOCS_PATH" ci
         npm --prefix "$DOCS_PATH"  run  lint
         npm --prefix "$DOCS_PATH" run "$BUILD_CMD"
