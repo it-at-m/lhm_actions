@@ -23,7 +23,7 @@ inputs:
     default: |
       org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}
   path:
-    description: "Path to the Dockerfile to build image from"
+    description: "Path to the build context directory (containing the Dockerfile)"
     required: true
   image-name:
     description: "Name to give the image"
