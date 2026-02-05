@@ -23,7 +23,7 @@ inputs:
     default: |
       org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}
   path:
-    description: "Path to the Dockerfile to build image from"
+    description: "Path to the build context directory (containing the Dockerfile)"
     required: true
   image-name:
     description: "Name to give the image"
@@ -49,7 +49,6 @@ runs:
         registry: ${{ inputs.registry }}
         username: ${{ inputs.registry-username }}
         password: ${{ inputs.registry-password }}
-
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
@@ -57,12 +56,12 @@ runs:
         images: "${{ inputs.registry }}/${{ github.repository }}/${{ inputs.image-name }}"
         tags: ${{inputs.image-tags}}
         labels: ${{inputs.image-labels}}
+
     - name: Build and push image
-      env:
-        PATH: ${{ inputs.path }}
       uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
       with:
-        context: ./$PATH
+        context: ./${{ inputs.path }} # zizmor: ignore[template-injection]
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        github-token: ${{ github.token }}
