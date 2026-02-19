@@ -29,4 +29,4 @@ runs:
       with:
         name: trivy-report
         path: trivy-report.txt
-        retention-days: 1
+        retention-days: 7
