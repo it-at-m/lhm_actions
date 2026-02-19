@@ -11,15 +11,22 @@ runs:
   using: "composite"
   steps:
     - name: Checkout code
-      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-      with:
-        persist-credentials: false
+      uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
 
     - name: Run Trivy vulnerability scanner in repository mode
-      uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
+      uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 # 0.28.0
       with:
         scan-type: "fs"
         scan-ref: "."
         format: "table"
         exit-code: "1"
         trivyignores: ${{ inputs.trivyignore-files }}
+        output: trivy-report.txt
+
+    - name: Upload Vulnerability Scan Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: trivy-report
+        path: trivy-report.txt
+        retention-days: 1
