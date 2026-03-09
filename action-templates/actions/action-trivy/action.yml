@@ -31,5 +31,5 @@ runs:
       if: always()
       with:
         name: trivy-report
-        path: trivy-report.txt
+        path: trivy-report.json
         retention-days: 7
