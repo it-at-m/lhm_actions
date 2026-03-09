@@ -24,7 +24,7 @@ runs:
         format: "table"
         exit-code: "1"
         trivyignores: ${{ inputs.trivyignore-files }}
-        output: trivy-report.txt
+        output: trivy-report.json
 
     - name: Upload Vulnerability Scan Results
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
