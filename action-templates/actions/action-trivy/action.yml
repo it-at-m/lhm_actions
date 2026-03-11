@@ -21,7 +21,7 @@ runs:
       with:
         scan-type: "fs"
         scan-ref: "."
-        format: "table"
+        format: "json"
         exit-code: "1"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
