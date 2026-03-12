@@ -15,6 +15,12 @@ runs:
       with:
         fetch-depth: 0 # Required for vitepress lastUpdated
         persist-credentials: false
+    - name: Run Trivy vulnerability scanner in repository mode
+      uses: aquasecurity/trivy-action@97e0b3872f55f89b95b2f65b3dbab56962816478 # 0.34.2
+      with:
+        scan-type: "fs"
+        scan-ref: "."
+        format: "table"
 
     - name: Run Trivy vulnerability scanner in repository mode
       uses: aquasecurity/trivy-action@97e0b3872f55f89b95b2f65b3dbab56962816478 # 0.34.2
