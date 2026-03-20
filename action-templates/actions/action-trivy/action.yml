@@ -30,7 +30,7 @@ runs:
       run: |
         trivy convert --format table --output trivy-results.txt  trivy-report.json
         cat trivy-results.txt
-        trivy convert --format sarif --output trivy-results.txt  trivy-results.sarif
+        trivy convert --format sarif --output trivy-results.sarif  trivy-report.json
 
     - name: Upload Vulnerability Scan Results
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
