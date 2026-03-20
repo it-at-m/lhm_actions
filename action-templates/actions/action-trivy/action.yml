@@ -24,7 +24,7 @@ runs:
         exit-code: "1"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
-    - name: abc
+    - name: convert
       if: always()
       shell: bash
       run: |
