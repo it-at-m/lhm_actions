@@ -30,6 +30,7 @@ runs:
       run: |
         trivy convert --format table --output trivy-results.txt  trivy-report.json
         cat trivy-results.txt
+        trivy convert --format sarif --output trivy-results.txt  trivy-results.sarif
 
     - name: Upload Vulnerability Scan Results
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
@@ -38,3 +39,9 @@ runs:
         name: trivy-report
         path: trivy-report.json
         retention-days: 7
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      if: always()
+      uses: github/codeql-action/upload-sarif@v4
+      with:
+          sarif_file: 'trivy-results.sarif'
