@@ -49,6 +49,7 @@ runs:
         registry: ${{ inputs.registry }}
         username: ${{ inputs.registry-username }}
         password: ${{ inputs.registry-password }}
+        scope: 'it-at-m@push'
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
