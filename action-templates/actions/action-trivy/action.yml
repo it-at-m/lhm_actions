@@ -6,6 +6,10 @@ inputs:
     description: "Path(s) to .trivyignore file(s) to ignore known CVEs (comma- or newline-separated)"
     required: false
     default: ".trivyignore"
+  timeout: 
+    description: "timeout for trivy scan"
+    required: false
+    default: 15m0s
 
 runs:
   using: "composite"
@@ -21,6 +25,7 @@ runs:
         scan-type: "fs"
         scan-ref: "."
         format: "table"
+        timeout: "${{ inputs.timeout }}"
         trivyignores: ${{ inputs.trivyignore-files }}
 
     - name: Run Trivy vulnerability scanner in repository mode
@@ -30,6 +35,7 @@ runs:
         scan-ref: "."
         format: "json"
         exit-code: "1"
+        timeout: "${{ inputs.timeout }}"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
 
