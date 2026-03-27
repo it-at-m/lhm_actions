@@ -25,7 +25,7 @@ runs:
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
     - name: convert
-      if: always()
+      if: ${{ always() && hashFiles('trivy-report.json') != '' }}
       shell: bash
       run: |
         trivy convert --format table --output trivy-results.txt  trivy-report.json
