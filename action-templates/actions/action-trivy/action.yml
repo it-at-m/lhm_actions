@@ -6,7 +6,7 @@ inputs:
     description: "Path(s) to .trivyignore file(s) to ignore known CVEs (comma- or newline-separated)"
     required: false
     default: ".trivyignore"
-  timeout: 
+  timeout:
     description: "timeout for trivy scan"
     required: false
     default: 15m0s
