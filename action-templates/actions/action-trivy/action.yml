@@ -25,7 +25,7 @@ runs:
         scan-type: "fs"
         scan-ref: "."
         format: "json"
-        # exit-code: "1"
+        exit-code: "1"
         timeout: "${{ inputs.timeout }}"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
