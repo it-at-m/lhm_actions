@@ -24,20 +24,18 @@ runs:
       with:
         scan-type: "fs"
         scan-ref: "."
-        format: "table"
-        timeout: "${{ inputs.timeout }}"
-        trivyignores: ${{ inputs.trivyignore-files }}
-
-    - name: Run Trivy vulnerability scanner in repository mode
-      uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
-      with:
-        scan-type: "fs"
-        scan-ref: "."
         format: "json"
         exit-code: "1"
         timeout: "${{ inputs.timeout }}"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
+    - name: convert
+      if: ${{ always() && hashFiles('trivy-report.json') != '' }}
+      shell: bash
+      run: |
+        trivy convert --format table --output trivy-results.txt  trivy-report.json
+        cat trivy-results.txt
+        trivy convert --format sarif --output trivy-results.sarif  trivy-report.json
 
     - name: Upload Vulnerability Scan Results
       uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
@@ -46,3 +44,9 @@ runs:
         name: trivy-report
         path: trivy-report.json
         retention-days: 7
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      if: ${{ always() && hashFiles('trivy-results.sarif') != '' }}
+      uses: github/codeql-action/upload-sarif@v4
+      with:
+        sarif_file: "trivy-results.sarif"
