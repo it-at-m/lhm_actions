@@ -23,6 +23,12 @@ Executes the following steps:
 2. Download specified actionlint version
 3. Run actionlint on your workflow files
 
+Workflows using that action need the following permissions:
+
+| Permission       | Purpose                      | Required |
+| ---------------- | ---------------------------- | -------- |
+| `contents: read` | Checkout repository contents |   yes    |
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint
@@ -53,6 +59,12 @@ Executes the following steps:
 2. Build VitePress docs project
 3. Uploads the build output as an artifact.<br/>
    The uploaded artifact can be used to deploy the docs to a web page (see [action-deploy-docs](#action-deploy-docs))
+
+Workflows using that action need the following permissions:
+
+| Permission       | Purpose                                          | Required |
+| ---------------- | ------------------------------------------------ | -------- |
+| `contents: read` | Acess to check out code and install dependencies |   yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -85,6 +97,13 @@ Executes the following steps:
 2. Login to Registry
 3. Extract metadata (tags, labels) for Docker
 4. Build and push image to a registry
+
+Workflows using that action need the following permissions:
+
+| Permission        | Purpose                             | Required |
+| ----------------- | ----------------------------------- | -------- |
+| `contents: read`  | Checkout repository contents        |   yes    |
+| `packages: write` | Pushes the image to GitHub Packages |   yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -129,6 +148,12 @@ Executes the following steps:
 
 1. Checkout current branch
 
+Workflows using that action need the following permissions:
+
+| Permission       | Purpose                        | Required |
+| ---------------- | ------------------------------ | -------- |
+| `contents: read` | Read workflow and action files |   yes    |
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
@@ -146,6 +171,12 @@ This action allows validating the functionality of containers by using health ch
 Executes the following steps:
 
 1. Run health check using Docker Compose file
+
+Workflows using that action need the following permissions:
+
+| Permission       | Purpose                      | Required |
+| ---------------- | ---------------------------- | -------- |
+| `contents: read` | Checkout repository contents |   yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -186,6 +217,23 @@ or `curl` are missing.
 [Path-Filter](https://github.com/dorny/paths-filter) GitHub Action enables conditional execution of workflow steps
 and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
 
+Executes the following steps:
+
+1. Check changed files and directories
+
+Output parameters:
+
+- For each filter, it sets output variable named by the filter to the text:
+  - 'true' - if any of changed files matches any of filter rules
+  - 'false' - if none of changed files matches any of filter rules
+
+Workflows using that action need the following permissions:
+
+| Permission            | Purpose                              |                                        Required                                         |
+| --------------------- | ------------------------------------ | --------------------------------------------------------------------------------------- |
+| `contents: read`      | Checkout repository contents         | Optional. Necessary to detect changes against long-lived branches (main, releases etc.) |
+| `pull-requests: read` | Ability to read pull request content |       Optional. Necessary to detect changes against the pull request base branch        |
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
@@ -213,12 +261,6 @@ and jobs, based on the files modified by pull request, on a feature branch, or b
   run: ...
 ```
 
-Output parameters:
-
-- For each filter, it sets output variable named by the filter to the text:
-  - 'true' - if any of changed files matches any of filter rules
-  - 'false' - if none of changed files matches any of filter rules
-
 ### action-codeql
 
 Action to scan a repository using provided CodeQL language, buildmode and query scan set
@@ -230,6 +272,13 @@ Executes the following steps:
 3. Initialize CodeQL for language type
 4. Build using Autobuild
 5. Perform CodeQL analysis for language type
+
+Workflows using that action need the following permissions:
+
+| Permission               | Purpose                                                    | Required |
+| ------------------------ | ---------------------------------------------------------- | -------- |
+| `contents: read`         | Checkout repository contents                               |   yes    |
+| `security-events: write` | Report security problems (e.g. "Security and quality" tab) |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -263,6 +312,12 @@ Executes the following steps:
 
 1. Download a single artifact
 2. Create a GitHub release
+
+Workflows using that action need the following permissions:
+
+| Permission        | Purpose                   | Required |
+| ----------------- | ------------------------- | -------- |
+| `contents: write` | Create the GitHub Release |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -298,6 +353,12 @@ Executes the following steps:
 1. Checkout repository
 2. Execute dependency review check
 
+Workflows using that action need the following permissions:
+
+| Permission       | Purpose                      | Required |
+| ---------------- | ---------------------------- | -------- |
+| `contents: read` | Checkout repository contents |   yes    |
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review
@@ -314,6 +375,13 @@ Action to deploy a docs artifact to a web page.
 Executes the following steps:
 
 1. Deploy docs to a web page
+
+Workflows using that action need the following permissions:
+
+| Permission        | Purpose                                                     | Required |
+| ----------------- | ----------------------------------------------------------- | -------- |
+| `pages: write`    | Deploy to GitHub Pages                                      |   yes    |
+| `id-token: write` | Verify the deployment originates from an appropriate source |   yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -343,6 +411,12 @@ Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
 
+Workflows using that action need the following permissions:
+
+| Permission       | Purpose                      | Required |
+| ---------------- | ---------------------------- | -------- |
+| `contents: read` | Checkout repository contents |   yes    |
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build
@@ -371,6 +445,13 @@ Output parameters:
 
 1. `MVN_ARTIFACT_ID`: Artifact name of pom.xml
 2. `artifact-name`: Name of the uploaded artifact
+
+Workflows using that action need the following permissions:
+
+| Permission             | Purpose                          |                             Required                             |
+| ---------------------- | -------------------------------- | ---------------------------------------------------------------- |
+| `contents: write`      | Change artifact's version number |                               yes                                |
+| `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -428,6 +509,12 @@ Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
 
+Workflows using that action need the following permissions:
+
+| Permission       | Purpose                      | Required |
+| ---------------- | ---------------------------- | -------- |
+| `contents: read` | Checkout repository contents |   yes    |
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build
@@ -466,6 +553,13 @@ Output parameters:
 1. `ARTIFACT_NAME`: Name of artifact
 2. `ARTIFACT_VERSION`: Version of the uploaded artifact
 
+Workflows using that action need the following permissions:
+
+| Permission             | Purpose                          |                             Required                             |
+| ---------------------- | -------------------------------- | ---------------------------------------------------------------- |
+| `contents: write`      | Change artifact's version number |                               yes                                |
+| `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release
@@ -493,6 +587,8 @@ Output parameters:
 
 Action to enforce ticking of all checklist items inside a PR (useful for PR templates)
 
+Workflows using that action do not require any explicit additional permissions.
+
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-pr-checklist
@@ -506,6 +602,14 @@ Action to enforce ticking of all checklist items inside a PR (useful for PR temp
 
 Action to automatically label pull requests using the configuration file in `.github/labeler.yml` of the repositories.
 More information about the configuration of the `labeler.yml` file can be found in [official documentation](https://github.com/actions/labeler)
+
+Workflows using that action need the following permissions:
+
+| Permission             | Purpose                      | Required |
+| ---------------------- | ---------------------------- | -------- |
+| `contents: read`       | Checkout repository contents |   yes    |
+| `pull-requests: write` | Add labels to pull requests  |   yes    |
+| `issues: write`        | Create labels if not exist   |   yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -523,6 +627,13 @@ More information about the configuration of the `labeler.yml` file can be found 
 ### action-trivy
 
 Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Code.
+
+Workflows using that action need the following permissions:
+
+| Permission               | Purpose                                                   | Required |
+| ------------------------ | --------------------------------------------------------- | -------- |
+| `contents: read`         | Checkout repository contents                              |   yes    |
+| `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   yes    |
 
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy
