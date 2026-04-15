@@ -26,7 +26,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | :--------------------------- | :------: |
+| ---------------- | ---------------------------- | -------- |
 | `contents: read` | Checkout repository contents |   yes    |
 
 <!-- prettier-ignore -->
@@ -63,7 +63,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                                          | Required |
-| ---------------- | :----------------------------------------------- | :------: |
+| ---------------- | ------------------------------------------------ | -------- |
 | `contents: read` | Acess to check out code and install dependencies |   yes    |
 
 <!-- prettier-ignore -->
@@ -101,7 +101,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                             | Required |
-| ----------------- | :---------------------------------- | :------: |
+| ----------------- | ----------------------------------- | -------- |
 | `contents: read`  | Checkout repository contents        |   yes    |
 | `packages: write` | Pushes the image to GitHub Packages |   yes    |
 
@@ -151,7 +151,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                        | Required |
-| ---------------- | :----------------------------- | :------: |
+| ---------------- | ------------------------------ | -------- |
 | `contents: read` | Read workflow and action files |   yes    |
 
 <!-- prettier-ignore -->
@@ -175,7 +175,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | :--------------------------- | :------: |
+| ---------------- | ---------------------------- | -------- |
 | `contents: read` | Checkout repository contents |   yes    |
 
 <!-- prettier-ignore -->
@@ -230,7 +230,7 @@ Output parameters:
 Workflows using that action need the following permissions:
 
 | Permission            | Purpose                              |                                        Required                                         |
-| --------------------- | :----------------------------------- | :-------------------------------------------------------------------------------------: |
+| --------------------- | ------------------------------------ | --------------------------------------------------------------------------------------- |
 | `contents: read`      | Checkout repository contents         | Optional. Necessary to detect changes against long-lived branches (main, releases etc.) |
 | `pull-requests: read` | Ability to read pull request content |       Optional. Necessary to detect changes against the pull request base branch        |
 
@@ -276,7 +276,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission               | Purpose                                                    | Required |
-| ------------------------ | :--------------------------------------------------------- | :------: |
+| ------------------------ | ---------------------------------------------------------- | -------- |
 | `contents: read`         | Checkout repository contents                               |   yes    |
 | `security-events: write` | Report security problems (e.g. "Security and quality" tab) |   Yes    |
 
@@ -316,7 +316,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                   | Required |
-| ----------------- | :------------------------ | :------: |
+| ----------------- | ------------------------- | -------- |
 | `contents: write` | Create the GitHub Release |   Yes    |
 
 <!-- prettier-ignore -->
@@ -356,7 +356,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | :--------------------------- | :------: |
+| ---------------- | ---------------------------- | -------- |
 | `contents: read` | Checkout repository contents |   yes    |
 
 <!-- prettier-ignore -->
@@ -379,7 +379,7 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                                                     | Required |
-| ----------------- | :---------------------------------------------------------- | :------: |
+| ----------------- | ----------------------------------------------------------- | -------- |
 | `pages: write`    | Deploy to GitHub Pages                                      |   yes    |
 | `id-token: write` | Verify the deployment originates from an appropriate source |   yes    |
 
@@ -414,7 +414,7 @@ Output parameters:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | :--------------------------- | :------: |
+| ---------------- | ---------------------------- | -------- |
 | `contents: read` | Checkout repository contents |   yes    |
 
 <!-- prettier-ignore -->
@@ -449,7 +449,7 @@ Output parameters:
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                          |                             Required                             |
-| ---------------------- | :------------------------------- | :--------------------------------------------------------------: |
+| ---------------------- | -------------------------------- | ---------------------------------------------------------------- |
 | `contents: write`      | Change artifact's version number |                               yes                                |
 | `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
 
@@ -512,7 +512,7 @@ Output parameters:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | :--------------------------- | :------: |
+| ---------------- | ---------------------------- | -------- |
 | `contents: read` | Checkout repository contents |   yes    |
 
 <!-- prettier-ignore -->
@@ -556,7 +556,7 @@ Output parameters:
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                          |                             Required                             |
-| ---------------------- | :------------------------------- | :--------------------------------------------------------------: |
+| ---------------------- | -------------------------------- | ---------------------------------------------------------------- |
 | `contents: write`      | Change artifact's version number |                               yes                                |
 | `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
 
@@ -606,7 +606,7 @@ More information about the configuration of the `labeler.yml` file can be found 
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                      | Required |
-| ---------------------- | :--------------------------- | :------: |
+| ---------------------- | ---------------------------- | -------- |
 | `contents: read`       | Checkout repository contents |   yes    |
 | `pull-requests: write` | Add labels to pull requests  |   yes    |
 | `issues: write`        | Create labels if not exist   |   yes    |
@@ -631,7 +631,7 @@ Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Co
 Workflows using that action need the following permissions:
 
 | Permission               | Purpose                                                   | Required |
-| ------------------------ | :-------------------------------------------------------- | :------: |
+| ------------------------ | --------------------------------------------------------- | -------- |
 | `contents: read`         | Checkout repository contents                              |   yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   yes    |
 
