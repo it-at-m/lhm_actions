@@ -278,7 +278,7 @@ Workflows using that action need the following permissions:
 | Permission               | Purpose                                                    | Required |
 | ------------------------ | ---------------------------------------------------------- | -------- |
 | `contents: read`         | Checkout repository contents                               | yes      |
-| `security-events: write` | Report security problems (e.g. "Security and quality" tab) | Yes      |
+| `security-events: write` | Report security problems (e.g. "Security and quality" tab) | yes      |
 
 <!-- prettier-ignore -->
 ```yaml
