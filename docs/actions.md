@@ -355,9 +355,10 @@ Executes the following steps:
 
 Workflows using that action need the following permissions:
 
-| Permission       | Purpose                      | Required |
-| ---------------- | ---------------------------- | -------- |
-| `contents: read` | Checkout repository contents | yes      |
+| Permission             | Purpose                       | Required                                                                                         |
+| ---------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------ |
+| `contents: read`       | Checkout repository contents  | yes                                                                                              |
+| `pull-requests: write` | Write comment to pull request | Optional. Necessary, if configuration `comment-summary-in-pr` is set to `always` or `on-failure` |
 
 <!-- prettier-ignore -->
 ```yaml
