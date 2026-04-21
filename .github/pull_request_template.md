@@ -22,10 +22,9 @@ URL to pull request or branch in [sps-repo](https://github.com/it-at-m/sps) for 
 - [ ] Met all acceptance criteria of the issue
 - [ ] Added meaningful PR title and list of changes in the description
 - [ ] Documented changes in documentation files (docs/action.md, docs/workflows.md and/or docs/deployment.md)
-- [ ] Tested changes with sample project https://github.com/it-at-m/sps
+- [ ] Tested changes with sample project <https://github.com/it-at-m/sps>
 
 ### Code
 
 - [ ] Wrote code and comments in English
 - [ ] TBD: Added unit tests
-
