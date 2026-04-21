@@ -7,7 +7,7 @@
 
 ## Reference
 
-Issue: #XXX
+Relates to #XXX
 
 ### Testing
 
@@ -27,4 +27,4 @@ URL to pull request or branch in [sps-repo](https://github.com/it-at-m/sps) for 
 ### Code
 
 - [ ] Wrote code and comments in English
-- [ ] TBD: Added unit tests
+- [ ] Coming soon: Added unit tests
