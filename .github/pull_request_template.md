@@ -11,7 +11,7 @@ Relates to #XXX
 
 ### Testing
 
-URL to pull request or branch in [sps-repo](https://github.com/it-at-m/sps) for testing: please provide URL to pull request or branch
+URL to pull request or branch for testing your changes in [sps-repo](https://github.com/it-at-m/sps) : ...
 
 ## Checklist
 
