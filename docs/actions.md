@@ -26,8 +26,8 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | ---------------------------- | -------- |
-| `contents: read` | Checkout repository contents | yes      |
+| ---------------- | ---------------------------- | :------: |
+| `contents: read` | Checkout repository contents |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -62,9 +62,9 @@ Executes the following steps:
 
 Workflows using that action need the following permissions:
 
-| Permission       | Purpose                                          | Required |
-| ---------------- | ------------------------------------------------ | -------- |
-| `contents: read` | Checkout respository contents | yes      |
+| Permission       | Purpose                       | Required |
+| ---------------- | ----------------------------- | :------: |
+| `contents: read` | Checkout respository contents |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -101,9 +101,9 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                             | Required |
-| ----------------- | ----------------------------------- | -------- |
-| `contents: read`  | Checkout repository contents        | yes      |
-| `packages: write` | Pushes the image to GitHub Packages | yes      |
+| ----------------- | ----------------------------------- | :------: |
+| `contents: read`  | Checkout repository contents        |   Yes    |
+| `packages: write` | Pushes the image to GitHub Packages |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -151,8 +151,8 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                        | Required |
-| ---------------- | ------------------------------ | -------- |
-| `contents: read` | Read workflow and action files | yes      |
+| ---------------- | ------------------------------ | :------: |
+| `contents: read` | Read workflow and action files |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -175,8 +175,8 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | ---------------------------- | -------- |
-| `contents: read` | Checkout repository contents | yes      |
+| ---------------- | ---------------------------- | :------: |
+| `contents: read` | Checkout repository contents |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -229,10 +229,10 @@ Output parameters:
 
 Workflows using that action need the following permissions:
 
-| Permission            | Purpose                              | Required                                                                                |
-| --------------------- | ------------------------------------ | --------------------------------------------------------------------------------------- |
+| Permission            | Purpose                              |                                        Required                                         |
+| --------------------- | ------------------------------------ | :-------------------------------------------------------------------------------------: |
 | `contents: read`      | Checkout repository contents         | Optional. Necessary to detect changes against long-lived branches (main, releases etc.) |
-| `pull-requests: read` | Ability to read pull request content | Optional. Necessary to detect changes against the pull request base branch              |
+| `pull-requests: read` | Ability to read pull request content |       Optional. Necessary to detect changes against the pull request base branch        |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -276,9 +276,9 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission               | Purpose                                                    | Required |
-| ------------------------ | ---------------------------------------------------------- | -------- |
-| `contents: read`         | Checkout repository contents                               | yes      |
-| `security-events: write` | Report security problems (e.g. "Security and quality" tab) | yes      |
+| ------------------------ | ---------------------------------------------------------- | :------: |
+| `contents: read`         | Checkout repository contents                               |   Yes    |
+| `security-events: write` | Report security problems (e.g. "Security and quality" tab) |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -316,8 +316,8 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                   | Required |
-| ----------------- | ------------------------- | -------- |
-| `contents: write` | Create the GitHub Release | Yes      |
+| ----------------- | ------------------------- | :------: |
+| `contents: write` | Create the GitHub Release |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -355,9 +355,9 @@ Executes the following steps:
 
 Workflows using that action need the following permissions:
 
-| Permission             | Purpose                       | Required                                                                                         |
-| ---------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------ |
-| `contents: read`       | Checkout repository contents  | yes                                                                                              |
+| Permission             | Purpose                       |                                             Required                                             |
+| ---------------------- | ----------------------------- | :----------------------------------------------------------------------------------------------: |
+| `contents: read`       | Checkout repository contents  |                                               Yes                                                |
 | `pull-requests: write` | Write comment to pull request | Optional. Necessary, if configuration `comment-summary-in-pr` is set to `always` or `on-failure` |
 
 <!-- prettier-ignore -->
@@ -380,9 +380,9 @@ Executes the following steps:
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                                                     | Required |
-| ----------------- | ----------------------------------------------------------- | -------- |
-| `pages: write`    | Deploy to GitHub Pages                                      | yes      |
-| `id-token: write` | Verify the deployment originates from an appropriate source | yes      |
+| ----------------- | ----------------------------------------------------------- | :------: |
+| `pages: write`    | Deploy to GitHub Pages                                      |   Yes    |
+| `id-token: write` | Verify the deployment originates from an appropriate source |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -415,8 +415,8 @@ Output parameters:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | ---------------------------- | -------- |
-| `contents: read` | Checkout repository contents | yes      |
+| ---------------- | ---------------------------- | :------: |
+| `contents: read` | Checkout repository contents |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -449,9 +449,9 @@ Output parameters:
 
 Workflows using that action need the following permissions:
 
-| Permission             | Purpose                          | Required                                                         |
-| ---------------------- | -------------------------------- | ---------------------------------------------------------------- |
-| `contents: write`      | Change artifact's version number | yes                                                              |
+| Permission             | Purpose                          |                             Required                             |
+| ---------------------- | -------------------------------- | :--------------------------------------------------------------: |
+| `contents: write`      | Change artifact's version number |                               Yes                                |
 | `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
 
 <!-- prettier-ignore -->
@@ -513,8 +513,8 @@ Output parameters:
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
-| ---------------- | ---------------------------- | -------- |
-| `contents: read` | Checkout repository contents | yes      |
+| ---------------- | ---------------------------- | :------: |
+| `contents: read` | Checkout repository contents |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -556,9 +556,9 @@ Output parameters:
 
 Workflows using that action need the following permissions:
 
-| Permission             | Purpose                          | Required                                                         |
-| ---------------------- | -------------------------------- | ---------------------------------------------------------------- |
-| `contents: write`      | Change artifact's version number | yes                                                              |
+| Permission             | Purpose                          |                             Required                             |
+| ---------------------- | -------------------------------- | :--------------------------------------------------------------: |
+| `contents: write`      | Change artifact's version number |                               Yes                                |
 | `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
 
 <!-- prettier-ignore -->
@@ -607,10 +607,10 @@ More information about the configuration of the `labeler.yml` file can be found 
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                      | Required |
-| ---------------------- | ---------------------------- | -------- |
-| `contents: read`       | Checkout repository contents | yes      |
-| `pull-requests: write` | Add labels to pull requests  | yes      |
-| `issues: write`        | Create labels if not exist   | yes      |
+| ---------------------- | ---------------------------- | :------: |
+| `contents: read`       | Checkout repository contents |   Yes    |
+| `pull-requests: write` | Add labels to pull requests  |   Yes    |
+| `issues: write`        | Create labels if not exist   |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
@@ -632,9 +632,9 @@ Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Co
 Workflows using that action need the following permissions:
 
 | Permission               | Purpose                                                   | Required |
-| ------------------------ | --------------------------------------------------------- | -------- |
-| `contents: read`         | Checkout repository contents                              | yes      |
-| `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab | yes      |
+| ------------------------ | --------------------------------------------------------- | :------: |
+| `contents: read`         | Checkout repository contents                              |   Yes    |
+| `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
 
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy
