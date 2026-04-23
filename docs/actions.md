@@ -64,7 +64,7 @@ Workflows using that action need the following permissions:
 
 | Permission       | Purpose                                          | Required |
 | ---------------- | ------------------------------------------------ | -------- |
-| `contents: read` | Acess to check out code and install dependencies | yes      |
+| `contents: read` | Checkout respository contents | yes      |
 
 <!-- prettier-ignore -->
 ```yaml
