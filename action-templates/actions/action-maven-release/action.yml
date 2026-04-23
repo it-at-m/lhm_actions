@@ -18,9 +18,9 @@ inputs:
   skipDeployment:
     description: "Skip deployment to Maven Central"
     default: "true"
-  skipTest:
-    description: "Skip tests"
-    default: "true"
+  mavenArgsInput:
+    description: "additional maven arguments"
+    default: ""
   use-pr:
     description: "Use PR for version bump instead of direct push"
     default: "false"
