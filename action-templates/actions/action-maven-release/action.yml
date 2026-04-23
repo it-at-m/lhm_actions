@@ -96,7 +96,7 @@ runs:
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
         CENTRAL_PASSWORD: ${{ inputs.CENTRAL_PASSWORD }}
         SKIP_DEPLOYMENT: ${{ inputs.skipDeployment }}
-        SKIP_TEST: ${{ inputs.skipTest }}
+        MAVEN_ARGS_INPUT: ${{ inputs.mavenArgsInput}}
         APP_PATH: ${{inputs.app-path}}
         RELEASE_VERSION: ${{ inputs.releaseVersion }}
         DEPLOYMENT_VERSION: ${{ inputs.developmentVersion }}
