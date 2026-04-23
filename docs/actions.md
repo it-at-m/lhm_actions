@@ -204,6 +204,19 @@ and jobs, based on the files modified by pull request, on a feature branch, or b
     # Filters can be provided inline as a string (containing valid YAML document),
     # or as a relative path to a file (e.g.: .github/filters.yaml).
     # Filters syntax is documented by example - see examples section.
+   #     default: |
+   #         java:
+   #         - '**/*.java'
+   #       javascript-typescript-vue:
+   #         - '**/*.js'
+   #         - '**/*.cjs'
+   #         - '**/*.mjs'
+   #         - '**/*.ts'
+   #         - '**/*.cts'
+   #         - '**/*.mts'
+   #         - '**/*.vue'
+   #       python:
+   #         - '**/*.py'
     filters: |
       src:
         - 'src/**'
