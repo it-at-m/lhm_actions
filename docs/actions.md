@@ -383,8 +383,13 @@ Output parameters:
     # Path to pom.xml
     app-path: "."
 
+    
+
     # Version which will be released
     releaseVersion:
+
+    # add aditional maven arguments
+    mavenArgsInput:"-Dmaven.test.skip=true"
 
     # Next snapshot version
     developmentVersion:
