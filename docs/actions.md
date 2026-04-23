@@ -228,11 +228,9 @@ and jobs, based on the files modified by pull request, on a feature branch, or b
 
 Output parameters:
 
-- `java`: `'true'` if any changed file matches `**/*.java`, otherwise `'false'`
-- `javascript-typescript-vue`: `'true'` if any changed file matches JS/TS/Vue patterns (`**/*.js`, `**/*.ts`, `**/*.vue`, etc.), otherwise `'false'`
-- `python`: `'true'` if any changed file matches `**/*.py`, otherwise `'false'`
-
-> **Note**: These outputs are fixed. If you customize the `filters` input with additional or different filter names, no corresponding outputs will be available.
+- For each filter, it sets output variable named by the filter to the text:
+  - 'true' - if any of changed files matches any of filter rules
+  - 'false' - if none of changed files matches any of filter rules
 
 ### action-codeql
 
