@@ -150,8 +150,8 @@ Executes the following steps:
 
 Workflows using that action need the following permissions:
 
-| Permission       | Purpose                        | Required |
-| ---------------- | ------------------------------ | :------: |
+| Permission       | Purpose                      | Required |
+| ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
 
 <!-- prettier-ignore -->
