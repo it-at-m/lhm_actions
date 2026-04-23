@@ -79,7 +79,6 @@ runs:
         if [[ "$SKIP_TEST" == "true" ]]; then
           MAVEN_ARGS="$MAVEN_ARGS -Dmaven.test.skip=true"
         fi
-        # set maven deploy skip if skipDeployment is true
         if [[ "$SKIP_DEPLOYMENT" == "true" ]]; then
           MAVEN_ARGS="$MAVEN_ARGS -Darguments='-Dmaven.deploy.skip=true'"
         fi
