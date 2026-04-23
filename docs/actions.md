@@ -183,7 +183,7 @@ or `curl` are missing.
 
 ### action-filter
 
-[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action enables conditional execution of workflow steps
+GitHub Action [dorny/paths-filter](https://github.com/dorny/paths-filter) enables conditional execution of workflow steps
 and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
 
 <!-- prettier-ignore -->
