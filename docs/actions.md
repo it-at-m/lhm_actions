@@ -152,7 +152,7 @@ Workflows using that action need the following permissions:
 
 | Permission       | Purpose                        | Required |
 | ---------------- | ------------------------------ | :------: |
-| `contents: read` | Read workflow and action files |   Yes    |
+| `contents: read` | Checkout repository contents |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
