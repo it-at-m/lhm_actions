@@ -18,6 +18,9 @@ inputs:
   skipDeployment:
     description: "Skip deployment to Maven Central"
     default: "true"
+  skipTest:
+    description: "Skip tests"
+    default: "true"
   use-pr:
     description: "Use PR for version bump instead of direct push"
     default: "false"
@@ -72,6 +75,10 @@ runs:
 
         # prepare the maven arguments
         MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true"
+        # set maven skip tests if skipTest is true
+        if [[ "$SKIP_TEST" == "true" ]]; then
+          MAVEN_ARGS="$MAVEN_ARGS -Dmaven.test.skip=true"
+        fi
         # set maven deploy skip if skipDeployment is true
         if [[ "$SKIP_DEPLOYMENT" == "true" ]]; then
           MAVEN_ARGS="$MAVEN_ARGS -Darguments='-Dmaven.deploy.skip=true'"
@@ -89,6 +96,7 @@ runs:
         CENTRAL_USERNAME: ${{ inputs.CENTRAL_USERNAME }}
         CENTRAL_PASSWORD: ${{ inputs.CENTRAL_PASSWORD }}
         SKIP_DEPLOYMENT: ${{ inputs.skipDeployment }}
+        SKIP_TEST: ${{ inputs.skipTest }}
         APP_PATH: ${{inputs.app-path}}
         RELEASE_VERSION: ${{ inputs.releaseVersion }}
         DEPLOYMENT_VERSION: ${{ inputs.developmentVersion }}
