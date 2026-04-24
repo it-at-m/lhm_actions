@@ -383,8 +383,6 @@ Output parameters:
     # Path to pom.xml
     app-path: "."
 
-    
-
    # Version which will be released
    releaseVersion:
 
