@@ -82,7 +82,7 @@ runs:
         # run maven release
         mvn release:prepare release:perform -f ./$APP_PATH/pom.xml -B \
           -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$DEPLOYMENT_VERSION \
-          -Dmaven.test.skip=true $MAVEN_ARGS 
+          -Dmaven.test.skip=true $MAVEN_ARGS
         # get maven artifact id and provide as output
         MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
