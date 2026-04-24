@@ -468,8 +468,6 @@ Workflows using that action need the following permissions:
     # Version which will be released
     releaseVersion:
 
-    # add aditional maven arguments
-    mavenArgsInput: "-Dmaven.test.skip=true"
     # Next snapshot version
     developmentVersion:
 
