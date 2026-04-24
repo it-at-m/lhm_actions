@@ -39,6 +39,7 @@ jobs:
           FIX_MARKDOWN: true
           FIX_YAML_PRETTIER: true
           VALIDATE_BIOME_FORMAT: false
+          VALIDATE_JSCPD: false # Do not check for duplicates, docs may have it.
 
       - name: Commit and push linting fixes
         # Run only on:
