@@ -74,7 +74,7 @@ runs:
         git config --global user.name "GitHub Actions"
 
         # prepare the maven arguments
-        MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true $MAVEN_ARGS_INPUT" 
+        MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true" 
         # set maven deploy skip if skipDeployment is true
         if [[ "$SKIP_DEPLOYMENT" == "true" ]]; then
           MAVEN_ARGS="$MAVEN_ARGS -Darguments='-Dmaven.deploy.skip=true'"
@@ -82,7 +82,7 @@ runs:
         # run maven release
         mvn release:prepare release:perform -f ./$APP_PATH/pom.xml -B \
           -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$DEPLOYMENT_VERSION \
-          $MAVEN_ARGS
+          $MAVEN_ARGS  $MAVEN_ARGS_INPUT
         # get maven artifact id and provide as output
         MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
