@@ -385,12 +385,11 @@ Output parameters:
 
     
 
-    # Version which will be released
-    releaseVersion:
+   # Version which will be released
+   releaseVersion:
 
     # add aditional maven arguments
     mavenArgsInput:"-Dmaven.test.skip=true"
-
     # Next snapshot version
     developmentVersion:
 
