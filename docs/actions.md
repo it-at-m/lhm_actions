@@ -387,7 +387,7 @@ Output parameters:
    releaseVersion:
 
     # add aditional maven arguments
-    mavenArgsInput:"-Dmaven.test.skip=true"
+    mavenArgsInput: "-Dmaven.test.skip=true"
     # Next snapshot version
     developmentVersion:
 
