@@ -465,8 +465,8 @@ Workflows using that action need the following permissions:
     # Path to pom.xml
     app-path: "."
 
-   # Version which will be released
-   releaseVersion:
+    # Version which will be released
+    releaseVersion:
 
     # add aditional maven arguments
     mavenArgsInput: "-Dmaven.test.skip=true"
