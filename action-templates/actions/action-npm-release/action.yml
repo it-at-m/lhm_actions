@@ -12,9 +12,6 @@ inputs:
   releaseVersion:
     description: "Select version increment type (follows Semantic Versioning)"
     required: true
-  npm-token:
-    description: "npm token for release"
-    required: true
   use-pr:
     description: "Use PR for version bump instead of direct push"
     default: "false"
