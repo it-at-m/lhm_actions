@@ -25,3 +25,6 @@ jobs:
           persist-credentials: false
       - name: npm-release
         uses: ./.github/workflows/actions/action-npm-release
+        with:
+          app-path: "docs"
+          releaseVersion: "patch"
