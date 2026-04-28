@@ -28,3 +28,4 @@ jobs:
         with:
           app-path: "docs"
           releaseVersion: "patch"
+          use-pr: true
