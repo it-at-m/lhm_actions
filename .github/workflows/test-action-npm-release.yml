@@ -1,7 +1,24 @@
 name: Test Release actions
 
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      app-path:
+        description: "Path to npm resources"
+        default: "docs"
+      use-pr:
+        description: "Create PR"
+        default: "true"
+        options:
+          - "true"
+          - "false"
+      release-version:
+        description: "Semantic version upgrade"
+        default: "patch"
+        options:
+          - patch
+          - minor
+          - major
 #    branches:
 #      - main
 
