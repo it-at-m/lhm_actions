@@ -7,12 +7,14 @@ on:
         description: "Path to npm resources"
         default: "docs"
       use-pr:
+        type: choice
         description: "Create PR"
         default: "true"
         options:
           - "true"
           - "false"
       release-version:
+        type: choice
         description: "Semantic version upgrade"
         default: "patch"
         options:
