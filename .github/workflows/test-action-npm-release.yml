@@ -4,19 +4,19 @@ on:
   workflow_dispatch:
     inputs:
       app-path:
-        description: "Path to npm resources"
-        default: "docs"
+        description: "Path to npm resources (e.g. docs)"
+#        default: "docs"
       use-pr:
         type: choice
         description: "Create PR"
-        default: "true"
+#        default: "true"
         options:
           - "true"
           - "false"
       release-version:
         type: choice
         description: "Semantic version upgrade"
-        default: "patch"
+#        default: "patch"
         options:
           - patch
           - minor
@@ -45,6 +45,6 @@ jobs:
       - name: npm-release
         uses: ./action-templates/actions/action-npm-release
         with:
-          app-path: "docs"
-          releaseVersion: "patch"
-          use-pr: true
+          app-path: ${{ inputs.app-path }}
+          releaseVersion: ${{ inputs.release-version }}
+          use-pr: ${{ inputs.use-pr }}
