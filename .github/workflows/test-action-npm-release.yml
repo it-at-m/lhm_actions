@@ -2,25 +2,13 @@ name: Test Release actions
 
 on:
   workflow_dispatch:
-    inputs:
-      app-path:
-        description: 'Path to npm resources (e.g. docs)'
-        required: true
-        default: 'docs'
-        type: string
-      use-pr:
-        description: 'Create PR'
-        required: true
-        type: boolean
-      release-version:
-        description: 'Semantic version upgrade'
-        type: choice
-        required: true
-        default: 'patch'
-        options:
-          - patch
 #    branches:
 #      - main
+
+env:
+  app-path: 'docs'
+  use-pr: true
+  release-version: 'patch'
 
 permissions:
   contents: read # for checkout
@@ -43,6 +31,6 @@ jobs:
       - name: npm-release
         uses: ./action-templates/actions/action-npm-release
         with:
-          app-path: ${{ inputs.app-path }}
-          releaseVersion: ${{ inputs.release-version }}
-          use-pr: ${{ inputs.use-pr }}
+          app-path: ${{ github.events.inputs.app-path }}
+          releaseVersion: ${{ github.events.inputs.release-version }}
+          use-pr: ${{ github.events.inputs.use-pr }}
