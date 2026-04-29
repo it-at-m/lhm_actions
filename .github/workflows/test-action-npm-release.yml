@@ -31,6 +31,6 @@ jobs:
       - name: npm-release
         uses: ./action-templates/actions/action-npm-release
         with:
-          app-path: ${{ github.events.inputs.app-path }}
-          releaseVersion: ${{ github.events.inputs.release-version }}
-          use-pr: ${{ github.events.inputs.use-pr }}
+          app-path: ${{ env.app-path }}
+          releaseVersion: ${{ env.release-version }}
+          use-pr: ${{ env.use-pr }}
