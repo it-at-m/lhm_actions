@@ -253,19 +253,19 @@ Workflows using that action need the following permissions:
     # or as a relative path to a file (e.g.: .github/filters.yaml).
     # Filters syntax is documented by example - see examples section.
     # default value for filters
-    #     filters: |
-    #         java:
-    #         - '**/*.java'
-    #       javascript-typescript-vue:
-    #         - '**/*.js'
-    #         - '**/*.cjs'
-    #         - '**/*.mjs'
-    #         - '**/*.ts'
-    #         - '**/*.cts'
-    #         - '**/*.mts'
-    #         - '**/*.vue'
-    #       python:
-    #         - '**/*.py'
+    # filters: |
+    #  java:
+    #  - '**/*.java'
+    #  javascript-typescript-vue:
+    #  - '**/*.js'
+    #  - '**/*.cjs'
+    #  - '**/*.mjs'
+    #  - '**/*.ts'
+    #  - '**/*.cts'
+    #  - '**/*.mts'
+    #  - '**/*.vue'
+    #  python:
+    #  - '**/*.py'
     filters: |
       src:
         - 'src/**'
