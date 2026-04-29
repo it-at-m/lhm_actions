@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   test-npm-build:
-    name: test-npm-release
+    name: test-npm-build
     runs-on: ubuntu-latest
     steps:
       - name: checkout-local-actions
