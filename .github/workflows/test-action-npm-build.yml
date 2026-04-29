@@ -1,12 +1,13 @@
-name: Test action-npm-release
+name: Test action-npm-build
 
 on:
-  workflow_dispatch:
+  push:
 
 env:
+  node-version: "22"
   app-path: "docs"
-  use-pr: true
-  release-version: "patch"
+  run-lint: "true"
+  run-test: "true"
 
 permissions:
   contents: read # for checkout
@@ -26,9 +27,10 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: npm-release
-        uses: ./action-templates/actions/action-npm-release
+      - name: npm-build
+        uses: ./action-templates/actions/action-npm-build
         with:
+          node-version: ${{ env.node-version }}
           app-path: ${{ env.app-path }}
-          releaseVersion: ${{ env.release-version }}
-          use-pr: ${{ env.use-pr }}
+          run-lint: ${{ env.run-lint }}
+          run-test: ${{ env.app-test }}
