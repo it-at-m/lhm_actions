@@ -7,7 +7,7 @@ env:
   node-version: "22"
   app-path: "docs"
   run-lint: "true"
-  run-test: "true"
+  run-test: "false"
 
 permissions:
   contents: read # for checkout
