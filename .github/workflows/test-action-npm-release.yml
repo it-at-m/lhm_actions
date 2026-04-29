@@ -4,23 +4,21 @@ on:
   workflow_dispatch:
     inputs:
       app-path:
-        description: "Path to npm resources (e.g. docs)"
-#        default: "docs"
+        description: 'Path to npm resources (e.g. docs)'
+        required: true
+        default: 'docs'
+        type: string
       use-pr:
-        type: choice
-        description: "Create PR"
-#        default: "true"
-        options:
-          - "true"
-          - "false"
+        description: 'Create PR'
+        required: true
+        type: boolean
       release-version:
+        description: 'Semantic version upgrade'
         type: choice
-        description: "Semantic version upgrade"
-#        default: "patch"
+        required: true
+        default: 'patch'
         options:
           - patch
-          - minor
-          - major
 #    branches:
 #      - main
 
