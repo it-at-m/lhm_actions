@@ -51,7 +51,7 @@ More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 
 # How to make a release?
 
-We are using [semantic-release](https://github.com/semantic-release/semantic-release) to autogenerate releases. Before merging you need to add in a prefix in the commit message. 
+We are using [semantic-release](https://github.com/semantic-release/semantic-release) to autogenerate releases. Before merging you need to add in a prefix in the commit message in the pull request. 
 - fix -> patch
 - feat -> minor
 - perf -> major
