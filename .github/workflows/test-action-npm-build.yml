@@ -28,4 +28,4 @@ jobs:
           node-version: ${{ env.node-version }}
           app-path: ${{ env.app-path }}
           run-lint: ${{ env.run-lint }}
-          run-test: ${{ env.app-test }}
+          run-test: ${{ env.run-test }}
