@@ -49,6 +49,16 @@ Don't forget to give the project a star! Thanks again!
 
 More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 
+# How to make a release?
+
+We are using [semantic-release](https://github.com/semantic-release/semantic-release) to autogenerate releases. Before merging you need to add in a prefix in the commit message. 
+- fix -> patch
+- feat -> minor
+- perf -> major
+
+<img width="1313" height="562" alt="fd6a01e6-5b77-4b3d-8a20-9ba1bf4fcfa7" src="https://github.com/user-attachments/assets/1865e073-f70c-4c03-b573-a58c40bc2587" />
+
+
 ## License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) file for more information.
