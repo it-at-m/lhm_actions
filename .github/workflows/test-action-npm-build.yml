@@ -13,14 +13,9 @@ permissions:
   contents: read # for checkout
 
 jobs:
-  test-npm-release:
+  test-npm-build:
     name: test-npm-release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: checkout-local-actions
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
