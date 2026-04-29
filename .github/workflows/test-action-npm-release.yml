@@ -6,9 +6,9 @@ on:
 #      - main
 
 env:
-  app-path: 'docs'
+  app-path: "docs"
   use-pr: true
-  release-version: 'patch'
+  release-version: "patch"
 
 permissions:
   contents: read # for checkout
