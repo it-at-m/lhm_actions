@@ -1,0 +1,31 @@
+name: Test action-npm-build
+
+on:
+  push:
+
+env:
+  node-version: "22"
+  app-path: "docs"
+  run-lint: "true"
+  run-test: "false"
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+  test-npm-build:
+    name: test-npm-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout-local-actions
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: npm-build
+        uses: ./action-templates/actions/action-npm-build
+        with:
+          node-version: ${{ env.node-version }}
+          app-path: ${{ env.app-path }}
+          run-lint: ${{ env.run-lint }}
+          run-test: ${{ env.run-test }}
