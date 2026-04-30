@@ -9,7 +9,6 @@ inputs:
     required: true
   artifact-path:
     description: "Path to the artifacts (e.g. ./target/*.jar)"
-    required: true
   draft:
     description: "Whether it is a draft release or not"
     default: "false"
