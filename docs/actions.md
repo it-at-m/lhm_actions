@@ -214,7 +214,7 @@ or `curl` are missing.
 
 ### action-filter
 
-[Path-Filter](https://github.com/dorny/paths-filter) GitHub Action enables conditional execution of workflow steps
+GitHub Action [dorny/paths-filter](https://github.com/dorny/paths-filter) enables conditional execution of workflow steps
 and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
 
 Executes the following steps:
@@ -252,6 +252,20 @@ Workflows using that action need the following permissions:
     # Filters can be provided inline as a string (containing valid YAML document),
     # or as a relative path to a file (e.g.: .github/filters.yaml).
     # Filters syntax is documented by example - see examples section.
+    # default value for filters
+    # filters: |
+    #  java:
+    #  - '**/*.java'
+    #  javascript-typescript-vue:
+    #  - '**/*.js'
+    #  - '**/*.cjs'
+    #  - '**/*.mjs'
+    #  - '**/*.ts'
+    #  - '**/*.cts'
+    #  - '**/*.mts'
+    #  - '**/*.vue'
+    #  python:
+    #  - '**/*.py'
     filters: |
       src:
         - 'src/**'
