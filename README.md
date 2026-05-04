@@ -51,7 +51,7 @@ More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 
 ## How to do a release?
 
-We are using [semantic-release](https://github.com/semantic-release/semantic-release) to autogenerate releases. Before merging you need to add in a prefix in the pull request title. [Details](https://github.com/semantic-release/semantic-release#commit-message-format)
+We are using [semantic-release](https://github.com/semantic-release/semantic-release) to autogenerate releases. Before merging you need to add a prefix in the pull request title. [Details](https://github.com/semantic-release/semantic-release#commit-message-format)
 
 - `fix:` for patch
 - `feat:` for minor
