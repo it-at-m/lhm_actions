@@ -55,7 +55,7 @@ We are using [semantic-release](https://github.com/semantic-release/semantic-rel
 
 - `fix:` for patch
 - `feat:` for minor versions
-- `perf:` for major additional in the pr description `BREAKING CHANGE:`
+- `perf:` for major versions - additional in the pull request description `BREAKING CHANGE:`
 
 ## License
 
