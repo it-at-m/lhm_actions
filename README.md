@@ -53,7 +53,7 @@ More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
 
 We are using [semantic-release](https://github.com/semantic-release/semantic-release) to autogenerate releases. Before merging you need to add a prefix in the pull request title. [Details](https://github.com/semantic-release/semantic-release#commit-message-format)
 
-- `fix:` for patch
+- `fix:` for patch versions
 - `feat:` for minor versions
 - `perf:` for major versions - additional in the pull request description `BREAKING CHANGE:`
 
