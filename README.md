@@ -55,7 +55,7 @@ We are using [semantic-release](https://github.com/semantic-release/semantic-rel
 
 - `fix:` for patch versions
 - `feat:` for minor versions
-- `perf:` for major versions -  **Note**: When using squash merge, include `BREAKING CHANGE: description of breaking change` in the PR description body, which will be included in the squashed commit message.
+- `perf:` for major versions - **Note**: When using squash merge, include `BREAKING CHANGE: description of breaking change` in the PR description body, which will be included in the squashed commit message.
 
 ## License
 
