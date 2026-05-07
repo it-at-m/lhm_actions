@@ -55,7 +55,7 @@ We are using [semantic-release](https://github.com/semantic-release/semantic-rel
 
 - `fix:` for patch versions
 - `feat:` for minor versions
-- `BREAKING CHANGE: ` in the PR description body, which will be included in the squashed commit message for major versions.
+- `BREAKING CHANGE:` in the PR description body, which will be included in the squashed commit message for major versions.
 
 ## License
 
