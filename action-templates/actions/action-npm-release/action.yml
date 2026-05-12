@@ -12,9 +12,6 @@ inputs:
   releaseVersion:
     description: "Select version increment type (follows Semantic Versioning)"
     required: true
-  npm-token:
-    description: "npm token for release"
-    required: true
   use-pr:
     description: "Use PR for version bump instead of direct push"
     default: "false"
@@ -28,7 +25,7 @@ runs:
   using: "composite"
   steps:
     - name: Checkout repository
-      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
       with:
         persist-credentials: true
     - name: Set up Node.js
