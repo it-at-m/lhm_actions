@@ -35,7 +35,7 @@ runs:
     - name: Install dependencies
       env:
         APP_PATH: ${{inputs.app-path}}
-      run: npm --prefix ./$APP_PATH ci
+      run: npm --prefix ./$APP_PATH ci --ignore-scripts 
       shell: bash
     - name: Run lint
       env:
