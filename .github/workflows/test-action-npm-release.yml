@@ -1,15 +1,19 @@
-name: Release actions
+name: Test action-npm-release
+
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+
+env:
+  app-path: "docs"
+  use-pr: true
+  release-version: "patch"
 
 permissions:
   contents: read # for checkout
 
 jobs:
-  release:
-    name: Release
+  test-npm-release:
+    name: test-npm-release
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -17,21 +21,14 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
     steps:
-      - name: Checkout
+      - name: checkout-local-actions
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Setup Node.js
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      - name: npm-release
+        uses: ./action-templates/actions/action-npm-release
         with:
-          node-version: "lts/*"
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          npm install -g semantic-release
-          npm install -g @semantic-release/exec
-          npx semantic-release
+          app-path: ${{ env.app-path }}
+          releaseVersion: ${{ env.release-version }}
+          use-pr: ${{ env.use-pr }}
