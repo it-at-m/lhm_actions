@@ -2,6 +2,7 @@
 name: Test action action-trivy
 
 on:
+  push:
   workflow_dispatch:
 
 jobs:
