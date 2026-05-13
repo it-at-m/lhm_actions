@@ -2,14 +2,16 @@
 name: Test action action-trivy
 
 on:
-  push:
   workflow_dispatch:
 
+permissions:
+  contents: read # for checkout
+
 jobs:
-  trivy:
+  test-trivy:
+    name: test-trivy
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       security-events: write # Required to upload SARIF results to the GitHub Security tab
     steps:
       - name: checkout-local-actions
