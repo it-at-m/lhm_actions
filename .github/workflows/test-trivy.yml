@@ -1,0 +1,19 @@
+# Workflow for running security scan using Trivy
+name: trivy
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * 1'
+      timezone: "Europe/Berlin"
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write # Required to upload SARIF results to the GitHub Security tab
+    if: github.event_name != 'schedule' || github.ref == 'refs/heads/main'
+    steps:
+      - uses: ./action-templates/actions/action-trivy
