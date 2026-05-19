@@ -24,7 +24,11 @@ jobs:
           persist-credentials: false
       - uses: ./action-templates/actions/action-checkout
       - name: persist-credentials-default
-        run: ls $RUNNER_TEMP
+        run: |
+          if [ -e $RUNNER_TEMP/git-credentials-*.config ]; then
+            echo "Detected credential file"
+            exit 1
+          fi
 
   test-checkout-persist-credentials-false:
     name: test-persist-credentials-false
@@ -39,7 +43,11 @@ jobs:
         with:
           persist-credentials: false
       - name: persist-credentials-false
-        run: ls $RUNNER_TEMP
+        run: |
+          if [ -e $RUNNER_TEMP/git-credentials-*.config ]; then
+            echo "Detected credential file"
+            exit 1
+          fi
 
   test-checkout-persist-credentials-true:
     name: test-persist-credentials-true
@@ -54,4 +62,8 @@ jobs:
         with:
           persist-credentials: true
       - name: persist-credentials-true
-        run: ls $RUNNER_TEMP
+        run: |
+          if [ ! -e $RUNNER_TEMP/git-credentials-*.config ]; then
+            echo "Couldn't detect credential file"
+            exit 1
+          fi
