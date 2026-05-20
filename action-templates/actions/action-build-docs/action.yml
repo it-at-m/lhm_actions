@@ -19,6 +19,10 @@ inputs:
     description: "Output directory that will be uploaded to GitHub Pages"
     required: false
     default: ".vitepress/dist"
+  npm-ci-parameter:
+    description: "Webcomponents needs to override that `--ignore-scripts` https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
+    required: false
+    default: "--ignore-scripts"
 
 runs:
   using: "composite"
@@ -41,8 +45,9 @@ runs:
       env:
         DOCS_PATH: ${{ inputs.docs-path }}
         BUILD_CMD: ${{ inputs.build-cmd }}
+        NPM_CI_PARAMETER: ${{ inputs.npm-ci-parameter }}
       run: |
-        npm --prefix "$DOCS_PATH" ci --ignore-scripts 
+        npm --prefix "$DOCS_PATH" ci $NPM_CI_PARAMETER
         npm --prefix "$DOCS_PATH" run  lint
         npm --prefix "$DOCS_PATH" run "$BUILD_CMD"
     - name: Upload artifact
