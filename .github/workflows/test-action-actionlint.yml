@@ -5,12 +5,14 @@ on:
   push:
     branches:
       - main
+      - 185-test-workflows-for-lhm_actions
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read # for checkout
 
+# minimal test that action-actionlint is running as the implementation should change (see https://github.com/it-at-m/lhm_actions/issues/275)
 jobs:
   test-actionlint-with-default-settings:
     name: test-actionlint-with-default-settings
