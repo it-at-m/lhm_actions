@@ -8,6 +8,6 @@
     <artifactId>helloworld</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>Hello World App</name>
+    <name>HelloWorld</name>
 
 </project>

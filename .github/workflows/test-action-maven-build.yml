@@ -1,5 +1,5 @@
-# Workflow to checkout repository
-name: Test action action-checkout
+# Workflow to test Action action-maven-build
+name: Test action action-maven-build
 
 on:
   push:
@@ -13,8 +13,8 @@ permissions:
   contents: read # for checkout
 
 jobs:
-  test-checkout-persist-credentials-default:
-    name: test-persist-credentials-default
+  test-action-maven-build:
+    name: test-action-maven-build
     runs-on: ubuntu-latest
     steps:
       - name: checkout-local-actions
@@ -22,57 +22,6 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: ./action-templates/actions/action-checkout
-      - name: persist-credentials-default
-        run: |
-          for file in "$RUNNER_TEMP"/git-credentials-*.config
-          do
-            if [ -e "$file" ]; then
-              echo "Detected credential file"
-              exit 1
-            fi
-          done
-
-  test-checkout-persist-credentials-false:
-    name: test-persist-credentials-false
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout-local-actions
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./action-templates/actions/action-maven-build
         with:
-          fetch-depth: 0
-          persist-credentials: false
-      - uses: ./action-templates/actions/action-checkout
-        with:
-          persist-credentials: false
-      - name: persist-credentials-false
-        run: |
-          for file in "$RUNNER_TEMP"/git-credentials-*.config
-          do
-            if [ -e "$file" ]; then
-              echo "Detected credential file"
-              exit 1
-            fi
-          done
-
-  test-checkout-persist-credentials-true:
-    name: test-persist-credentials-true
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout-local-actions
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - uses: ./action-templates/actions/action-checkout
-        with:
-          persist-credentials: true
-      - name: persist-credentials-true
-        run: |
-          for file in "$RUNNER_TEMP"/git-credentials-*.config
-          do
-            if [ ! -e "$file" ]; then
-              echo "Couldn't detect credential file"
-              exit 1
-            fi
-          done
+          app-path: __tests__/maven-helloworld
