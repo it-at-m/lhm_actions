@@ -1,18 +1,18 @@
 package de.muenchen.helloworld;
 
 /**
- * Sample application to execute tests for actions
+ * Sample application to execute tests for actions.
  */
 public final class HelloWorld {
     /**
-     * prevent instantiation
+     * prevent instantiation.
      */
     private HelloWorld() {
         // Prevent instantiation
     }
 
     /**
-     * Main method to execute
+     * Main method to execute.
      *
      * @param args any string argument. Will be ignored
      */
