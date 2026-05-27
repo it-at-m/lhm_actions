@@ -71,11 +71,14 @@ runs:
         git config --global user.name "GitHub Actions"
 
         # prepare the maven arguments
-        MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true -Dmaven.test.skip"
+        DARGUMENTS="-Dmaven.test.skip"
+        MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true"
         # set maven deploy skip if skipDeployment is true
         if [[ "$SKIP_DEPLOYMENT" == "true" ]]; then
-          MAVEN_ARGS="$MAVEN_ARGS -Darguments='-Dmaven.deploy.skip=true'"
+          DARGUMENTS="$DARGUMENTS -Dmaven.deploy.skip=true"
         fi
+        MAVEN_ARGS="$MAVEN_ARGS -Darguments='$DARGUMENTS'"
+
         # run maven release
         mvn release:prepare release:perform -f ./$APP_PATH/pom.xml -B \
           -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$DEPLOYMENT_VERSION \
