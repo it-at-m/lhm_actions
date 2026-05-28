@@ -71,7 +71,7 @@ runs:
         git config --global user.name "GitHub Actions"
 
         # prepare the maven arguments
-        DARGUMENTS="-Dmaven.test.skip"
+        DARGUMENTS="-Dmaven.test.skip=true"
         MAVEN_ARGS="-DpushChanges=${{ inputs.use-pr != 'true' }} -DremoteTagging=false -DlocalCheckout=true"
         # set maven deploy skip if skipDeployment is true
         if [[ "$SKIP_DEPLOYMENT" == "true" ]]; then
