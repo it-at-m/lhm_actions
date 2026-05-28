@@ -77,7 +77,7 @@ runs:
         if [[ "$SKIP_DEPLOYMENT" == "true" ]]; then
           DARGUMENTS="$DARGUMENTS -Dmaven.deploy.skip=true"
         fi
-        MAVEN_ARGS="$MAVEN_ARGS -Darguments='"'$DARGUMENTS"'"
+        MAVEN_ARGS="$MAVEN_ARGS -Darguments='"'$DARGUMENTS'"'"
         echo $MAVEN_ARGS
 
         # run maven release
