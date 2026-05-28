@@ -78,6 +78,7 @@ runs:
           DARGUMENTS="$DARGUMENTS -Dmaven.deploy.skip=true"
         fi
         MAVEN_ARGS="$MAVEN_ARGS -Darguments='$DARGUMENTS'"
+        echo $MAVEN_ARGS
 
         # run maven release
         mvn release:prepare release:perform -f ./$APP_PATH/pom.xml -B \
