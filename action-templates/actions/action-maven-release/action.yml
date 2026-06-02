@@ -23,16 +23,16 @@ inputs:
     default: "false"
   GPG_PRIVATE_KEY:
     description: "GPG private key to import"
-    required: true
+    required: false
   SIGN_KEY_PASS:
     description: "Environment variable name for the GPG private key passphrase"
-    required: true
+    required: false
   CENTRAL_USERNAME:
     description: "Environment variable name for the username for authentication to Maven Central"
-    required: true
+    required: false
   CENTRAL_PASSWORD:
     description: "Environment variable name for password or token for authentication to Maven Central"
-    required: true
+    required: false
 
 outputs:
   MVN_ARTIFACT_ID:
