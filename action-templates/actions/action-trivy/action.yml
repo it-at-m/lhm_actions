@@ -13,7 +13,7 @@ inputs:
   allow-failure:
     description: "If the action should succeed even if trivy fails"
     required: false
-    default: 'false'
+    default: "false"
 
 runs:
   using: "composite"
