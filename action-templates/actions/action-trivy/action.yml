@@ -7,15 +7,15 @@ inputs:
     required: false
     default: ".trivyignore"
   timeout:
-    description: "timeout for trivy scan"
+    description: "Timeout for Trivy scan"
     required: false
     default: 15m0s
   allow-failure:
-    description: "If the action should succeed even if trivy fails"
+    description: "If the action should succeed even if Trivy fails"
     required: false
     default: "false"
   path:
-    description: "Path to run trivy at"
+    description: "Path to run Trivy at"
     required: false
     default: "."
 
