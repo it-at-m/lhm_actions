@@ -657,12 +657,12 @@ Workflows using that action need the following permissions:
     # Default: ".trivyignore"
     trivyignore-files: ".trivyignore"
     # Timeout for Trivy scan
-    # Default: 15m
+    # Default: 15m0s
     timeout: "15m0s"
     # If the action should succeed even if Trivy fails
     # Default: false
     allow-failure: "false"
-    # Path to run Trivy at
+    # Path to scan with Trivy
     # Default: .
     path: "."
 ```
