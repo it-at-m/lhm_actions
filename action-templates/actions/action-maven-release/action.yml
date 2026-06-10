@@ -21,6 +21,9 @@ inputs:
   use-pr:
     description: "Use PR for version bump instead of direct push"
     default: "false"
+  mavenDArgsInput:
+    description: "Additional maven arguments"
+    default: ""
   GPG_PRIVATE_KEY:
     description: "GPG private key to import"
     required: false
