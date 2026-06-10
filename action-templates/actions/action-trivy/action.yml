@@ -10,6 +10,10 @@ inputs:
     description: "timeout for trivy scan"
     required: false
     default: 15m0s
+  allow-failure:
+    description: "If the action should succeed even if trivy fails"
+    required: false
+    default: 'false'
 
 runs:
   using: "composite"
@@ -21,6 +25,7 @@ runs:
         persist-credentials: false
     - name: Run Trivy vulnerability scanner in repository mode
       uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+      continue-on-error: ${{ inputs.allow-failure == 'true' }}
       env:
         TRIVY_INCLUDE_DEV_DEPS: "true"
       with:
