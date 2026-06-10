@@ -489,6 +489,9 @@ Workflows using that action need the following permissions:
     # Default: true
     skipDeployment: "false"
 
+    # Add additional parameter to -darguments
+    mavenDArgsInput: ""
+
     # Use a PR for the version bump instead of directly pushing it
     # default: false
     use-pr: "true"
