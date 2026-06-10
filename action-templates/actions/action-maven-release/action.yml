@@ -23,16 +23,16 @@ inputs:
     default: "false"
   GPG_PRIVATE_KEY:
     description: "GPG private key to import"
-    required: true
+    required: false
   SIGN_KEY_PASS:
     description: "Environment variable name for the GPG private key passphrase"
-    required: true
+    required: false
   CENTRAL_USERNAME:
     description: "Environment variable name for the username for authentication to Maven Central"
-    required: true
+    required: false
   CENTRAL_PASSWORD:
     description: "Environment variable name for password or token for authentication to Maven Central"
-    required: true
+    required: false
 
 outputs:
   MVN_ARTIFACT_ID:
@@ -47,7 +47,7 @@ runs:
   steps:
     # Checkout source code, set up Java, etc. Then...
     - name: Checkout repository
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         persist-credentials: true
     - name: Set up JDK
