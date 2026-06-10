@@ -14,6 +14,10 @@ inputs:
     description: "If the action should succeed even if trivy fails"
     required: false
     default: "false"
+  path:
+    description: "Path to run trivy at"
+    required: false
+    default: "."
 
 runs:
   using: "composite"
@@ -30,7 +34,7 @@ runs:
         TRIVY_INCLUDE_DEV_DEPS: "true"
       with:
         scan-type: "fs"
-        scan-ref: "."
+        scan-ref: ${{ inputs.path }}
         format: "json"
         exit-code: "1"
         timeout: "${{ inputs.timeout }}"
