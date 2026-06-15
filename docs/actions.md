@@ -489,8 +489,15 @@ Workflows using that action need the following permissions:
     # Default: true
     skipDeployment: "false"
 
-    # Add additional parameter to -darguments
-    mavenDArgsInput: ""
+    # Add additional parameter to -Darguments
+    
+    Default: ""
+    
+    # To skip unit tests
+    mavenDArgsInput: "-Dmaven.test.skip=true"
+    
+    # To skip deployment
+     mavenDArgsInput: "-Dmaven.deploy.skip=true"
 
     # Use a PR for the version bump instead of directly pushing it
     # default: false
