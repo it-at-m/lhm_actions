@@ -485,7 +485,7 @@ Workflows using that action need the following permissions:
     # Next snapshot version
     developmentVersion:
 
-    # Deprecated:
+    # Deprecated: Use mavenDArgsInput instead.
     # Skip deployment to maven central 
     # Default: true
     skipDeployment: "false"
