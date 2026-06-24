@@ -49,6 +49,7 @@ runs:
         registry: ${{ inputs.registry }}
         username: ${{ inputs.registry-username }}
         password: ${{ inputs.registry-password }}
+        scope: "@push"
     - name: Extract metadata (tags, labels) for Docker
       id: meta
       uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
@@ -64,4 +65,4 @@ runs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        github-token: ${{ github.token }}
+        # github-token: ${{ github.token }}
