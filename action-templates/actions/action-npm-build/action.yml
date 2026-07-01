@@ -21,7 +21,7 @@ inputs:
     description: "Webcomponents needs to override that `--ignore-scripts` https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
     required: false
     default: "--ignore-scripts"
-    
+
 outputs:
   artifact-name:
     description: "Name of the artifact upload"
