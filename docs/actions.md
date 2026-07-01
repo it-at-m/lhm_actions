@@ -485,24 +485,31 @@ Workflows using that action need the following permissions:
     # Next snapshot version
     developmentVersion:
 
-    # Skip deployment to maven central
+    # Deprecated: Use mavenDArgsInput instead.
+    # Skip deployment to maven central 
     # Default: true
     skipDeployment: "false"
+
+    # Additional parameters forwarded via -Darguments
+    # Default: ""
+    # Example (skip unit tests, skip deployment):
+    # mavenDArgsInput: "-Dmaven.test.skip=true -Dmaven.deploy.skip=true"
+
 
     # Use a PR for the version bump instead of directly pushing it
     # default: false
     use-pr: "true"
 
-    # Environment variable for GPG private key passphrase
+    # Optional: Environment variable for GPG private key passphrase
     SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
 
-    # Environment variable for Maven central username
+    # Optional: Environment variable for Maven central username
     CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
 
-    # Env variable for Maven central token
+    # Optional:  Env variable for Maven central token
     CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
 
-    # Value of the GPG private key to import
+    # Optional:  Value of the GPG private key to import
     GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
 ```
 
