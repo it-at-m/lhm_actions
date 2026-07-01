@@ -18,9 +18,9 @@ inputs:
     required: false
     default: "true"
   npm-ci-parameter:
-    description: "Webcomponents needs to override that `--ignore-scripts` https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
+    description: "https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
     required: false
-    default: "--ignore-scripts"
+    default: "--ignore-scripts=true --allow-git=none --min-release-age=3"
 
 outputs:
   artifact-name:
