@@ -85,6 +85,10 @@ Workflows using that action need the following permissions:
     # VitePress output path that will be uploaded as artifact
     # Default: .vitepress/dist
     dist-path: ".vitepress/dist"
+
+    # https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
+    # Default: "--ignore-scripts=true --allow-git=none --min-release-age=3"
+    npm-ci-parameter:
 ```
 
 ### action-build-image
@@ -555,6 +559,10 @@ Workflows using that action need the following permissions:
     # Controls the execution of the 'npm run test' script
     # Default: true
     run-test: "true"
+
+    # https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
+    # Default: "--ignore-scripts=true --allow-git=none --min-release-age=3"
+    npm-ci-parameter:
 ```
 
 ### action-npm-release
