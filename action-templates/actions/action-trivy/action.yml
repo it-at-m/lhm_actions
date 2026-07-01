@@ -7,9 +7,17 @@ inputs:
     required: false
     default: ".trivyignore"
   timeout:
-    description: "timeout for trivy scan"
+    description: "Timeout for Trivy scan"
     required: false
     default: 15m0s
+  allow-failure:
+    description: "If the action should succeed even if Trivy fails"
+    required: false
+    default: "false"
+  path:
+    description: "Path to scan with Trivy"
+    required: false
+    default: "."
 
 runs:
   using: "composite"
@@ -25,9 +33,9 @@ runs:
         TRIVY_INCLUDE_DEV_DEPS: "true"
       with:
         scan-type: "fs"
-        scan-ref: "."
+        scan-ref: ${{ inputs.path }}
         format: "json"
-        exit-code: "1"
+        exit-code: ${{ inputs.allow-failure == 'true' && '0' || '1' }}
         timeout: "${{ inputs.timeout }}"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
