@@ -26,4 +26,4 @@ jobs:
       - name: test-actionlint-with-default-settings
         uses: ./action-templates/actions/action-actionlint
         with:
-          DISPLAY_FINDINGS: false
+          display-findings: false
