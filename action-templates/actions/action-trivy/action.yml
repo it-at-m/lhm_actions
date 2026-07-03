@@ -10,7 +10,15 @@ inputs:
     description: "timeout for trivy scan"
     required: false
     default: 15m0s
-
+  path:
+    description: "Path to scan with Trivy"
+    required: false
+    default: "."
+  scan-type:
+    description: "scan type, e.g. fs or sbom"
+    required: false
+    default: "fs"
+    
 runs:
   using: "composite"
   steps:
@@ -24,8 +32,8 @@ runs:
       env:
         TRIVY_INCLUDE_DEV_DEPS: "true"
       with:
-        scan-type: "fs"
-        scan-ref: "."
+        scan-type: "${{ inputs.scan-type }}"
+        scan-ref: "${{ inputs.path }}"
         format: "json"
         exit-code: "1"
         timeout: "${{ inputs.timeout }}"
