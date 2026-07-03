@@ -44,5 +44,4 @@ runs:
       with:
         name: ${{steps.artifact-name.outputs.artifact-name}}
         path: "**/target"
-        archive: false
         retention-days: 5
