@@ -22,6 +22,8 @@ outputs:
   artifact-name:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
+  cyclone-artifact-id:
+    value: ${{steps.upload-sbom-artifact.outputs.artifact-id}}
   cyclone-path:
     value:  ${{steps.artifact-name.outputs.cyclone-path}}
 runs:
@@ -67,11 +69,11 @@ runs:
         name: ${{steps.artifact-name.outputs.artifact-name}}
         path: "**/dist"
         retention-days: 5
-    - id: upload-artifact1
+    - id: upload-sbom-artifact
       name: Upload artifact1
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
-        name: ${{inputs.app-path}}
+        # name: ${{inputs.app-path}}
         path: "${{inputs.app-path}}/dist/application.cdx.json"
         retention-days: 5
-        # archive: false
+        archive: false
