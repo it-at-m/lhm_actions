@@ -74,4 +74,4 @@ runs:
         name: ${{inputs.app-path}}
         path: "${{inputs.app-path}}/dist/application.cdx.json"
         retention-days: 5
-        archive: false
+        # archive: false
