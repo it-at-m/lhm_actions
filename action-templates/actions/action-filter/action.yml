@@ -32,7 +32,7 @@ outputs:
   change:
     description: folders that changes
     value: ${{ steps.filter.outputs.changes }}
-  
+
 runs:
   using: "composite"
   steps:
