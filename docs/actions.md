@@ -463,7 +463,6 @@ Output parameters:
 3. `cyclone-artifact-id`: id of the sbom artifact
 4. `cyclone-path`: path of the sbom
 
-
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                          |                             Required                             |
