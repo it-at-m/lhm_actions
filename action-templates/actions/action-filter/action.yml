@@ -29,7 +29,10 @@ outputs:
   python:
     description: "Name of the python artifact upload"
     value: ${{ steps.filter.outputs.python }}
-
+  change:
+    description: folders that changes
+    value: ${{ steps.filter.outputs.changes }}
+  
 runs:
   using: "composite"
   steps:
