@@ -460,6 +460,9 @@ Output parameters:
 
 1. `MVN_ARTIFACT_ID`: Artifact name of pom.xml
 2. `artifact-name`: Name of the uploaded artifact
+3. `cyclone-artifact-id: id of the sbom artifact
+4. `cyclone-path`: path of the sbom
+
 
 Workflows using that action need the following permissions:
 
@@ -530,6 +533,8 @@ Executes the following steps:
 Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
+2. `cyclone-artifact-id: id of the sbom artifact
+3. `cyclone-path`: path of the sbom
 
 Workflows using that action need the following permissions:
 
