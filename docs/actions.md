@@ -663,4 +663,13 @@ Workflows using that action need the following permissions:
     # Relative Path to the trivyignore files
     # Default: ".trivyignore"
     trivyignore-files: ".trivyignore"
+    # Timeout for Trivy scan
+    # Default: 15m0s
+    timeout: "15m0s"
+    # scan type, e.g. fs or sbom
+    # defualt: fs
+    scan-type: fs
+    # Path to scan with Trivy
+    # Default: .
+    path: "."
 ```
