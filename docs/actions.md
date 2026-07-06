@@ -485,9 +485,16 @@ Workflows using that action need the following permissions:
     # Next snapshot version
     developmentVersion:
 
-    # Skip deployment to maven central
+    # Deprecated: Use mavenDArgsInput instead.
+    # Skip deployment to maven central 
     # Default: true
     skipDeployment: "false"
+
+    # Additional parameters forwarded via -Darguments
+    # Default: ""
+    # Example (skip unit tests, skip deployment):
+    # mavenDArgsInput: "-Dmaven.test.skip=true -Dmaven.deploy.skip=true"
+
 
     # Use a PR for the version bump instead of directly pushing it
     # default: false
