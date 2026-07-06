@@ -25,7 +25,7 @@ outputs:
   cyclone-artifact-id:
     value: ${{steps.upload-sbom-artifact.outputs.artifact-id}}
   cyclone-path:
-    value:  ${{steps.artifact-name.outputs.cyclone-path}}
+    value: ${{steps.artifact-name.outputs.cyclone-path}}
 runs:
   using: "composite"
   steps:
