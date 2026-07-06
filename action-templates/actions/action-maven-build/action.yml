@@ -15,7 +15,7 @@ outputs:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
   cyclone-artifact-id:
-    description: "id of the sbom artifact"
+    description: "ID of the sbom artifact"
     value: ${{steps.upload-sbom-artifact.outputs.artifact-id}}
   cyclone-path:
     description: "path of the sbom"
