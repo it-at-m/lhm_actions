@@ -11,7 +11,7 @@ inputs:
     required: false
     default: 15m0s
   path:
-    description: "Path to scan with Trivy"
+    description: "Path to scan with Trivy. For scan-type=sbom, this must point to a specific SBOM file (e.g. sbom.cdx.json), not a directory."
     required: false
     default: "."
   scan-type:
