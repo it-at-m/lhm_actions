@@ -85,7 +85,9 @@ Workflows using that action need the following permissions:
     # VitePress output path that will be uploaded as artifact
     # Default: .vitepress/dist
     dist-path: ".vitepress/dist"
-```
+    # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
+    # Default: "--ignore-scripts"
+    npm-ci-parameter: "--ignore-scripts"
 
 ### action-build-image
 
@@ -223,9 +225,10 @@ Executes the following steps:
 
 Output parameters:
 
-- For each filter, it sets output variable named by the filter to the text:
+- For each filter (Java, javascript-typescript-vue, python), it sets output variable named by the filter to the text:
   - 'true' - if any of changed files matches any of filter rules
   - 'false' - if none of changed files matches any of filter rules
+- 'changes' - JSON array with names of all filters matching any of the changed files.
 
 Workflows using that action need the following permissions:
 
@@ -425,6 +428,8 @@ Executes the following steps:
 Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
+2. `cyclone-artifact-id`: ID of the sbom artifact
+3. `cyclone-path`: path of the sbom
 
 Workflows using that action need the following permissions:
 
@@ -530,6 +535,8 @@ Executes the following steps:
 Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
+2. `cyclone-artifact-id`: ID of the sbom artifact
+3. `cyclone-path`: path of the sbom
 
 Workflows using that action need the following permissions:
 
@@ -555,7 +562,9 @@ Workflows using that action need the following permissions:
     # Controls the execution of the 'npm run test' script
     # Default: true
     run-test: "true"
-```
+    # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
+    # Default: "--ignore-scripts=true"
+    npm-ci-parameter: "--ignore-scripts=true"
 
 ### action-npm-release
 
@@ -663,4 +672,13 @@ Workflows using that action need the following permissions:
     # Relative Path to the trivyignore files
     # Default: ".trivyignore"
     trivyignore-files: ".trivyignore"
+    # Timeout for Trivy scan
+    # Default: 15m0s
+    timeout: "15m0s"
+    # scan type, e.g. fs or sbom
+    # default: fs
+    scan-type: fs
+    # Path to scan with Trivy
+    # Default: .
+    path: "."
 ```
