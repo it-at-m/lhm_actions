@@ -20,10 +20,6 @@ inputs:
     required: false
     default: ".vitepress/dist"
   npm-ci-parameter:
-    description: "https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
-    required: false
-    default: "--ignore-scripts=true"
-  npm-ci-parameter:
     description: "disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
     required: false
     default: "--ignore-scripts"
