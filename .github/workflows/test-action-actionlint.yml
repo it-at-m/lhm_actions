@@ -27,7 +27,7 @@ jobs:
         uses: ./action-templates/actions/action-actionlint
 
   test-actionlint-with-display-findings-false:
-    name: test-actionlint-with-default-settings
+    name: test-actionlint-with-display-findings-false
     runs-on: ubuntu-latest
     steps:
       - name: checkout-local-actions
