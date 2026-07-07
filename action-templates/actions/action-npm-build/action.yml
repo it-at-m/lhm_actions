@@ -20,7 +20,7 @@ inputs:
   npm-ci-parameter:
     description: "isallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
     required: false
-    default: "--ignore-scripts=true --allow-git=none --min-release-age=3"
+    default: "--ignore-scripts=true"
 
 outputs:
   artifact-name:
