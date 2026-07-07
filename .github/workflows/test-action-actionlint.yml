@@ -35,7 +35,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: test-actionlint-with-default-settings
+      - name: test-actionlint-with-display-findings-false
         uses: ./action-templates/actions/action-actionlint
         with:
           display-findings: false
