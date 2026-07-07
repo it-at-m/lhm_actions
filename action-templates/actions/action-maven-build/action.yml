@@ -14,6 +14,12 @@ outputs:
   artifact-name:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
+  cyclone-artifact-id:
+    description: "ID of the sbom artifact"
+    value: ${{steps.upload-sbom-artifact.outputs.artifact-id}}
+  cyclone-path:
+    description: "path of the sbom"
+    value: ${{steps.artifact-name.outputs.cyclone-path}}
 
 runs:
   using: "composite"
@@ -36,7 +42,11 @@ runs:
       shell: bash
     - id: artifact-name
       name: Set output variable $GITHUB_OUTPUT
-      run: echo "artifact-name=${{hashFiles(format('./{0}/pom.xml', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
+      env:
+        APP_PATH: ${{inputs.app-path}}
+      run: |
+        echo "artifact-name=${{hashFiles(format('./{0}/pom.xml', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
+        echo "cyclone-path=$APP_PATH/target/classes/META-INF/sbom/application.cdx.json" >> "$GITHUB_OUTPUT"
       shell: bash
     - id: upload-artifact
       name: Upload artifact
@@ -45,3 +55,11 @@ runs:
         name: ${{steps.artifact-name.outputs.artifact-name}}
         path: "**/target"
         retention-days: 5
+    - id: upload-sbom-artifact
+      name: upload-sbom-artifact
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: ${{inputs.app-path}}
+        path: "${{inputs.app-path}}/target/classes/META-INF/sbom/application.cdx.json"
+        retention-days: 5
+        archive: false
