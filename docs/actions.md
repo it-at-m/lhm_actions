@@ -223,7 +223,7 @@ Executes the following steps:
 
 Output parameters:
 
-- For each filter (java, javascript-typescript-vue, python), it sets output variable named by the filter to the text:
+- For each filter (Java, javascript-typescript-vue, python), it sets output variable named by the filter to the text:
   - 'true' - if any of changed files matches any of filter rules
   - 'false' - if none of changed files matches any of filter rules
 - 'changes' - JSON array with names of all filters matching any of the changed files.
