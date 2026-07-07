@@ -428,6 +428,8 @@ Executes the following steps:
 Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
+2. `cyclone-artifact-id`: ID of the sbom artifact
+3. `cyclone-path`: path of the sbom
 
 Workflows using that action need the following permissions:
 
@@ -533,6 +535,8 @@ Executes the following steps:
 Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
+2. `cyclone-artifact-id`: ID of the sbom artifact
+3. `cyclone-path`: path of the sbom
 
 Workflows using that action need the following permissions:
 
@@ -674,6 +678,9 @@ Workflows using that action need the following permissions:
     # If the action should succeed even if Trivy fails
     # Default: false
     allow-failure: "false"
+    # scan type, e.g. fs or sbom
+    # defualt: fs
+    scan-type: fs
     # Path to scan with Trivy
     # Default: .
     path: "."

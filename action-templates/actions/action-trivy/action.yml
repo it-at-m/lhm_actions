@@ -15,14 +15,19 @@ inputs:
     required: false
     default: "false"
   path:
-    description: "Path to scan with Trivy"
+    description: "Path to scan with Trivy. For scan-type=sbom, this must point to a specific SBOM file (e.g. sbom.cdx.json), not a directory."
     required: false
     default: "."
+  scan-type:
+    description: "scan type, e.g. fs or sbom"
+    required: false
+    default: "fs"
 
 runs:
   using: "composite"
   steps:
     - name: Checkout repository
+      if: inputs.scan-type  == 'fs'
       uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         fetch-depth: 0 # Required for vitepress lastUpdated
@@ -32,8 +37,8 @@ runs:
       env:
         TRIVY_INCLUDE_DEV_DEPS: "true"
       with:
-        scan-type: "fs"
-        scan-ref: ${{ inputs.path }}
+        scan-type: "${{ inputs.scan-type }}"
+        scan-ref: "${{ inputs.path }}"
         format: "json"
         exit-code: ${{ inputs.allow-failure == 'true' && '0' || '1' }}
         timeout: "${{ inputs.timeout }}"
