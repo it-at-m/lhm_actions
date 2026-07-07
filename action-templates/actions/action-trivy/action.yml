@@ -10,10 +10,6 @@ inputs:
     description: "Timeout for Trivy scan"
     required: false
     default: 15m0s
-  allow-failure:
-    description: "If the action should succeed even if Trivy fails"
-    required: false
-    default: "false"
   path:
     description: "Path to scan with Trivy. For scan-type=sbom, this must point to a specific SBOM file (e.g. sbom.cdx.json), not a directory."
     required: false
@@ -40,7 +36,7 @@ runs:
         scan-type: "${{ inputs.scan-type }}"
         scan-ref: "${{ inputs.path }}"
         format: "json"
-        exit-code: ${{ inputs.allow-failure == 'true' && '0' || '1' }}
+        exit-code: "1"
         timeout: "${{ inputs.timeout }}"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
