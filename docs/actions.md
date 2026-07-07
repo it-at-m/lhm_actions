@@ -225,9 +225,10 @@ Executes the following steps:
 
 Output parameters:
 
-- For each filter, it sets output variable named by the filter to the text:
+- For each filter (Java, javascript-typescript-vue, python), it sets output variable named by the filter to the text:
   - 'true' - if any of changed files matches any of filter rules
   - 'false' - if none of changed files matches any of filter rules
+- 'changes' - JSON array with names of all filters matching any of the changed files.
 
 Workflows using that action need the following permissions:
 
@@ -675,7 +676,7 @@ Workflows using that action need the following permissions:
     # Default: 15m0s
     timeout: "15m0s"
     # scan type, e.g. fs or sbom
-    # defualt: fs
+    # default: fs
     scan-type: fs
     # Path to scan with Trivy
     # Default: .
