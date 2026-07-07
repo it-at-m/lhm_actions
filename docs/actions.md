@@ -675,9 +675,6 @@ Workflows using that action need the following permissions:
     # Timeout for Trivy scan
     # Default: 15m0s
     timeout: "15m0s"
-    # If the action should succeed even if Trivy fails
-    # Default: false
-    allow-failure: "false"
     # scan type, e.g. fs or sbom
     # default: fs
     scan-type: fs
