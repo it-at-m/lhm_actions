@@ -557,11 +557,9 @@ Workflows using that action need the following permissions:
     # Controls the execution of the 'npm run test' script
     # Default: true
     run-test: "true"
-
     # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
-    # Default: "--ignore-scripts=true --allow-git=none --min-release-age=3"
-    npm-ci-parameter:
-```
+    # Default: "--ignore-scripts=true"
+    npm-ci-parameter: "--ignore-scripts=true"
 
 ### action-npm-release
 
