@@ -679,7 +679,7 @@ Workflows using that action need the following permissions:
     # Default: false
     allow-failure: "false"
     # scan type, e.g. fs or sbom
-    # defualt: fs
+    # default: fs
     scan-type: fs
     # Path to scan with Trivy
     # Default: .
