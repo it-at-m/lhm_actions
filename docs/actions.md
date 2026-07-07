@@ -226,6 +226,7 @@ Output parameters:
 - For each filter, it sets output variable named by the filter to the text:
   - 'true' - if any of changed files matches any of filter rules
   - 'false' - if none of changed files matches any of filter rules
+- 'changes' - JSON array with names of all filters matching any of the changed files.
 
 Workflows using that action need the following permissions:
 
