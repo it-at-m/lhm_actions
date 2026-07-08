@@ -1,6 +1,5 @@
 # Workflow to test Action action-maven-build
 name: Test action action-maven-build
-
 on:
   push:
     branches:
@@ -10,6 +9,10 @@ on:
 
 permissions:
   contents: read # for checkout
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test-action-maven-build:
