@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout-local-actions
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@v1.1.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@6db6885319cb1f85f75cd2947caa96596047711b
         with:
           fetch-depth: 0
           persist-credentials: false
