@@ -34,7 +34,7 @@ runs:
       uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
       with:
         java-version: ${{ inputs.java-version }}
-        java-verion-file: ${{inputs.app-path}}/${{inputs.java-version-file}}
+        java-version-file: ${{inputs.app-path}}/${{inputs.java-version-file}}
         distribution: "temurin"
         cache: "maven"
         cache-dependency-path: "./${{inputs.app-path}}/pom.xml"
