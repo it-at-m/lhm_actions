@@ -5,10 +5,6 @@ inputs:
   node-version:
     description: "node version"
     required: false
-  node-version-file:
-    description: "File containing the version Spec of the version to use."
-    required: false
-    default: package.json
   app-path:
     description: "Path to package.json file"
     required: true

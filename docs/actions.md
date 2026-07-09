@@ -74,12 +74,8 @@ Workflows using that action need the following permissions:
     # Default: ./docs
     docs-path: "./docs"
 
-    # Node version
+    # Node version. If node-version and node-version-file are both provided the action will use version from node-version.
     node-version: "22"
-    # File containing the version Spec of the version to use.  Examples: package.json
-    # If node-version and node-version-file are both provided the action will use version from node-version.
-    # Default: "package.json
-    node-version-file: "package.json"
 
     # Build command to run (e.g. "vuepress build" for VuePress projects)
     # Default: build
@@ -551,12 +547,8 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build
   with:
-    # Node Version to use
-    node-version: "22.11.0"
-    # File containing the version Spec of the version to use.  Examples: package.json
-    # If node-version and node-version-file are both provided the action will use version from node-version.
-    # Default: "package.json
-    node-version-file: "package.json"
+    # Node Version to use.  If node-version and node-version-file are both provided the action will use version from node-version.
+    node-version: "22"
 
     # Path to package.json
     app-path: "."
@@ -601,12 +593,8 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release
   with:
-    # Node Version to use
+    # Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version.
     node-version: "22"
-    # File containing the version Spec of the version to use.  Examples: package.json
-    # If node-version and node-version-file are both provided the action will use version from node-version.
-    # Default: "package.json
-    node-version-file: "package.json"
 
     # Path to package.json
     # "" would be equal to "./package.json" and "test-frontend" to "./test-frontend/package.json"

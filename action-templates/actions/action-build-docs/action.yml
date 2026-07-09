@@ -10,10 +10,6 @@ inputs:
   node-version:
     description: "Node version"
     required: false
-  node-version-file:
-    description: "File containing the version Spec of the version to use."
-    required: false
-    default: package.json
   build-cmd:
     description: "Build command to run (e.g. for VuePress use: vuepress build)"
     required: false
