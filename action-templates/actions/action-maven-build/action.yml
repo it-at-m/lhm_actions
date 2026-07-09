@@ -5,11 +5,13 @@ inputs:
   java-version:
     description: "Java version to use for the build"
     required: false
-    default: "21"
+  java-version-file:
+    description: "The path to a file containing java version."
+    default: "pom.xml"
+    required: false
   app-path:
     description: "Path to the project’s pom.xml file"
     required: true
-
 outputs:
   artifact-name:
     description: "Name of the artifact upload"
@@ -32,6 +34,7 @@ runs:
       uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
       with:
         java-version: ${{ inputs.java-version }}
+        java-verion-file: ${{inputs.app-path}}/${{inputs.java-version-file}}
         distribution: "temurin"
         cache: "maven"
         cache-dependency-path: "./${{inputs.app-path}}/pom.xml"
