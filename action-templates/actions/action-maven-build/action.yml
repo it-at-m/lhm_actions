@@ -30,11 +30,36 @@ runs:
       uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         persist-credentials: false
+    - name: Extract Java Version from pom.xml
+      id: get-java-version
+      shell: bash
+      env:
+        APP_PATH: ${{inputs.app-path}}
+      run: |
+        # Check if the input java-version is empty
+        if [ -z "${{ inputs.java-version }}" ]; then
+            # Extract from pom.xml if input is empty
+            VERSION=$(grep -oP '(?<=<(java.version)>)[^<]+' "$APP_PATH/pom.xml" | head -n 1)
+        else
+            # Use the provided input
+            VERSION="${{ inputs.java-version }}"
+        fi
+        
+        # Fail the build if no version could be determined at all
+        if [ -z "$VERSION" ]; then
+            echo "Error: Java version could not be determined!"
+            exit 1
+        fi
+        
+        # Save the version to step outputs
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          
+          
+
     - name: Set up JDK
       uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
       with:
-        java-version: ${{ inputs.java-version }}
-        java-version-file: ${{inputs.app-path}}/${{inputs.java-version-file}}
+        java-version:  ${{ steps.get-java-version.outputs.version }}
         distribution: "temurin"
         cache: "maven"
         cache-dependency-path: "./${{inputs.app-path}}/pom.xml"
