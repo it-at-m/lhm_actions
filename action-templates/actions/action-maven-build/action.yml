@@ -5,10 +5,6 @@ inputs:
   java-version:
     description: "Java version to use for the build"
     required: false
-  java-version-file:
-    description: "The path to a file containing java version."
-    default: "pom.xml"
-    required: false
   app-path:
     description: "Path to the project’s pom.xml file"
     required: true
