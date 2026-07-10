@@ -3,7 +3,7 @@ description: "Executes a Maven build and uploads the generated artifact to Maven
 
 inputs:
   java-version:
-    description: "Java version to use for the build"
+    description: "Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`."
     required: false
   app-path:
     description: "Path to the project’s pom.xml file"

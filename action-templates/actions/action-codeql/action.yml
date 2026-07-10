@@ -17,7 +17,7 @@ inputs:
     required: false
     default: "security-and-quality"
   java-version:
-    description: "Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild)"
+    description: "Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild). If not set extract the version from the `pom.xml` on the attribute `java.version`."
     required: false
   path:
     description: "Path to scan files in"
