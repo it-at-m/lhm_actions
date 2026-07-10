@@ -74,8 +74,7 @@ Workflows using that action need the following permissions:
     # Default: ./docs
     docs-path: "./docs"
 
-    # Node version
-    # Default: 22
+    # Node version to use. If node-version and node-version-file are both provided the action will use version from node-version.
     node-version: "22"
 
     # Build command to run (e.g. "vuepress build" for VuePress projects)
@@ -548,9 +547,8 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build
   with:
-    # Node Version to use
-    # Default: 22.11.0
-    node-version: "22.11.0"
+    # Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version.
+    node-version: "22"
 
     # Path to package.json
     app-path: "."
@@ -595,8 +593,7 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release
   with:
-    # Node Version to use
-    # Default: see action-npm-build
+    # Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version.
     node-version: "22"
 
     # Path to package.json
