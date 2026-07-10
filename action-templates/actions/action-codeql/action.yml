@@ -52,7 +52,7 @@ runs:
         fi
 
         # Save the version to step outputs
-        echo "java-version=$JAVA_VERSION" >> "$GITHUB_OUTPUT"        
+        echo "java-version=$JAVA_VERSION" >> "$GITHUB_OUTPUT"
     - name: Set up JDK
       if: inputs.codeql-language == 'java-kotlin' && inputs.codeql-buildmode == 'autobuild'
       uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
