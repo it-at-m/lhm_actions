@@ -19,7 +19,6 @@ inputs:
   java-version:
     description: "Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild)"
     required: false
-    default: "21"
   path:
     description: "Path to scan files in"
     required: false
@@ -32,11 +31,33 @@ runs:
       uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         persist-credentials: false
+    - name: Extract Java Version from pom.xml
+      id: get-java-version
+      if: inputs.codeql-language == 'java-kotlin' && inputs.codeql-buildmode == 'autobuild'
+      shell: bash
+      env:
+        APP_PATH: ${{inputs.path}}
+        JAVA_VERSION: ${{ inputs.java-version }}
+      run: |
+        # Check if the input java-version is empty
+        if [ -z "$JAVA_VERSION" ]; then
+            # Extract from pom.xml if input is empty
+            JAVA_VERSION=$(grep -oP '(?<=<(java.version)>)[^<]+' "$APP_PATH/pom.xml" | head -n 1)
+        fi
+
+        # Fail the build if no version could be determined at all
+        if [ -z "$JAVA_VERSION" ]; then
+            echo "Error: Java version could not be determined!"
+            exit 1
+        fi
+
+        # Save the version to step outputs
+        echo "java-version=$JAVA_VERSION" >> "$GITHUB_OUTPUT"        
     - name: Set up JDK
       if: inputs.codeql-language == 'java-kotlin' && inputs.codeql-buildmode == 'autobuild'
       uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
       with:
-        java-version: ${{ inputs.java-version }}
+        java-version: ${{ steps.get-java-version.outputs.java-version }}
         distribution: "temurin"
         cache: "maven"
         cache-dependency-path: "${{ inputs.path }}/pom.xml"
