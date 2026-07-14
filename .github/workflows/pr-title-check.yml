@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check PR Title
-        uses: Slashgear/action-check-pr-title@v4.3.0
+        uses: Slashgear/action-check-pr-title@76166c63ec0b25cdbe693e5e972e83ca186313fb
         with:
           # Erlaubt feat:, fix:, chore:, docs: etc. gefolgt von Text
           regexp:  '^(feat|fix|docs)(\(.+\))?: .+'
