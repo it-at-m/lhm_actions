@@ -15,5 +15,5 @@ jobs:
         uses: Slashgear/action-check-pr-title@v4.3.0
         with:
           # Erlaubt feat:, fix:, chore:, docs: etc. gefolgt von Text
-          regexp: "(feat|fix|docs): .++" # Regex the title should match.
+          regexp:  '^(feat|fix|docs)(\(.+\))?: .+'
           helpMessage: "Bitte nutze Conventional Commits (z.B. 'feat: add login')."
