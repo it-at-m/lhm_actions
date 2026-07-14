@@ -2,10 +2,10 @@ name: "Execute paths-filter"
 description: "Execute paths-filter with input of filters"
 
 inputs:
-  base: 
+  base:
     description: "Branch, tag, or commit SHA against which the changes will be detected."
     required: false
-    default: ''
+    default: ""
   filters:
     description: "Defines filters applied to detected changed files"
     required: false
