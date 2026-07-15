@@ -271,6 +271,9 @@ Workflows using that action need the following permissions:
     filters: |
       src:
         - 'src/**'
+    # Branch, tag, or commit SHA against which the changes will be detected.
+    # default ''
+    base: ''
 
   # run only if some file in 'src' folder was changed
 - if: steps.changes.outputs.src == 'true'
