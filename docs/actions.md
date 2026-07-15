@@ -271,6 +271,9 @@ Workflows using that action need the following permissions:
     filters: |
       src:
         - 'src/**'
+    # Branch, tag, or commit SHA against which the changes will be detected.
+    # default ''
+    base: ''
 
   # run only if some file in 'src' folder was changed
 - if: steps.changes.outputs.src == 'true'
@@ -311,8 +314,7 @@ Workflows using that action need the following permissions:
     # Default: security-and-quality
     codeql-query: "security-and-quality"
 
-    # Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild)
-    # Default: 21
+    # Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild). If not set extract the version from the `pom.xml` on the attribute `java.version`.
     java-version: "21"
 
     # Path to scan files in
@@ -440,8 +442,7 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build
   with:
-    # Java Version to use
-    # Default: 21
+    # Java Version to use. If not set extract the version from the `pom.xml` on the attribute `java.version`.
     java-version: "21"
 
     # Path to pom.xml
@@ -476,8 +477,7 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release
   with:
-    # Java Version to use
-    # Default: 21
+    # Java Version to use. If not set extract the version from the `pom.xml` on the attribute `java.version`.
     java-version: "21"
 
     # Path to pom.xml
