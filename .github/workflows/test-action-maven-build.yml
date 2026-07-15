@@ -27,3 +27,4 @@ jobs:
       - uses: ./action-templates/actions/action-maven-build
         with:
           app-path: __tests__/maven-helloworld
+          java-version: "21"

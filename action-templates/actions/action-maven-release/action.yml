@@ -3,9 +3,8 @@ description: "Creates a Maven release pull request"
 
 inputs:
   java-version:
-    description: "Java version to use for the build"
+    description: "Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`."
     required: false
-    default: "21"
   app-path:
     description: "Path to the project’s pom.xml file"
     required: true
@@ -54,10 +53,31 @@ runs:
       uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       with:
         persist-credentials: true
+    - name: Extract Java Version from pom.xml
+      id: get-java-version
+      shell: bash
+      env:
+        APP_PATH: ${{inputs.app-path}}
+        JAVA_VERSION: ${{ inputs.java-version }}
+      run: |
+        # Check if the input java-version is empty
+        if [ -z "$JAVA_VERSION" ]; then
+            # Extract from pom.xml if input is empty
+            JAVA_VERSION=$(grep -oP '(?<=<(java.version)>)[^<]+' "$APP_PATH/pom.xml" | head -n 1)
+        fi
+
+        # Fail the build if no version could be determined at all
+        if [ -z "$JAVA_VERSION" ]; then
+            echo "Error: Java version could not be determined!"
+            exit 1
+        fi
+
+        # Save the version to step outputs
+        echo "java-version=$JAVA_VERSION" >> "$GITHUB_OUTPUT"
     - name: Set up JDK
       uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
       with:
-        java-version: ${{ inputs.java-version }}
+        java-version: ${{ steps.get-java-version.outputs.java-version }}
         distribution: "temurin"
         cache: "maven"
         cache-dependency-path: "./${{ inputs.app-path}}/pom.xml"
