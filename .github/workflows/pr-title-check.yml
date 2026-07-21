@@ -14,9 +14,10 @@ jobs:
       - name: Check title prefix
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
+          REGEX: "^(feat|fix|docs)(\(.*\))?:"
         run: |
           # The regex checks for line start (^), followed by keywords, and an optional description format
-          if [[ "$PR_TITLE" =~ ^(feat|fix|docs)(\(.*\))?: ]]; then
+          if [[ "$PR_TITLE" =~ $REGEX ]]; then
             echo "Success: PR title starts with a valid prefix."
           else
             echo "Error: PR title must start with 'feat:', 'fix:', or 'docs:'."
