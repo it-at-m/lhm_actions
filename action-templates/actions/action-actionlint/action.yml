@@ -23,7 +23,6 @@ runs:
       with:
         persist-credentials: false
 
-        
     - name: Download actionlint
       id: get_actionlint
       env:
@@ -34,11 +33,11 @@ runs:
         if [[ "$DISPLAY_FINDINGS" == "true" ]]; then
           echo "::add-matcher::$PROBLEM_MATCHER_PATH"
         fi
- #       bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) $VERSION
+      #       bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) $VERSION
       shell: bash
     - uses: devops-actions/actionlint@e7ee33fbf5aa8c9f9ee1145137f3e52e25d6a35b #v0.1.3
   #  - name: Check GitHub action files
- #     env:
- #       ACTION_LINT_EXECUTABLE: ${{ steps.get_actionlint.outputs.executable }}
- #     run: $ACTION_LINT_EXECUTABLE -color
- #     shell: bash
+  #     env:
+  #       ACTION_LINT_EXECUTABLE: ${{ steps.get_actionlint.outputs.executable }}
+  #     run: $ACTION_LINT_EXECUTABLE -color
+  #     shell: bash
