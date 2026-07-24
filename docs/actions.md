@@ -25,10 +25,10 @@ Executes the following steps:
 
 Workflows using that action need the following permissions:
 
-| Permission       | Purpose                      | Required |
-| ---------------- | ---------------------------- | :------: |
-| `contents: read` | Checkout repository contents |   Yes    |
-| `pull-requests: write` |  needed to annotate the files in a pull request with comments |   Yes    |
+| Permission             | Purpose                                                      | Required |
+| ---------------------- | ------------------------------------------------------------ | :------: |
+| `contents: read`       | Checkout repository contents                                 |   Yes    |
+| `pull-requests: write` | needed to annotate the files in a pull request with comments |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
