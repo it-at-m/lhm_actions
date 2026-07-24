@@ -36,5 +36,3 @@ jobs:
           persist-credentials: false
       - name: test-actionlint-with-display-findings-false
         uses: ./action-templates/actions/action-actionlint
-        with:
-          display-findings: false
