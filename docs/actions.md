@@ -21,7 +21,7 @@ Executes the following steps:
 
 1. Checkout code
 2. Run actionlint on your workflow files
-Workflows using that action need the following permissions:
+   Workflows using that action need the following permissions:
 
 | Permission             | Purpose                                                      | Required |
 | ---------------------- | ------------------------------------------------------------ | :------: |
