@@ -20,8 +20,6 @@ Action to lint your workflows using [actionlint](https://github.com/rhysd/action
 Executes the following steps:
 
 1. Checkout code
-2. Download specified actionlint version
-3. Run actionlint on your workflow files
 2. Run actionlint on your workflow files
 Workflows using that action need the following permissions:
 
