@@ -20,30 +20,19 @@ Action to lint your workflows using [actionlint](https://github.com/rhysd/action
 Executes the following steps:
 
 1. Checkout code
-2. Download specified actionlint version
-3. Run actionlint on your workflow files
+2. Run actionlint on your workflow files
 
 Workflows using that action need the following permissions:
 
-| Permission       | Purpose                      | Required |
-| ---------------- | ---------------------------- | :------: |
-| `contents: read` | Checkout repository contents |   Yes    |
+| Permission             | Purpose                                                      | Required |
+| ---------------------- | ------------------------------------------------------------ | :------: |
+| `contents: read`       | Checkout repository contents                                 |   Yes    |
+| `pull-requests: write` | needed to annotate the files in a pull request with comments |   Yes    |
 
 <!-- prettier-ignore -->
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint
-  with:
-    # Version of actionlint to use
-    # Default: latest
-    version: "latest"
 
-    # Whether to display findings in PR UI or not
-    # Default: true
-    display-findings: "true"
-
-    # Path to the problem matcher file when using display-findings: true
-    # Default: .github/problem-matcher.json
-    problem-matcher-path: ".github/problem-matcher.json"
 ```
 
 **Note**: The usage of `display-findings: true` requires additional setup.
