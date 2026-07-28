@@ -1,0 +1,26 @@
+name: "PR Title Check"
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  check-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check title prefix
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          REGEX: '^(feat|fix|docs|chore)(\(.*\))?:'
+        run: |
+          # The regex checks for line start (^), followed by keywords, and an optional description format
+          if [[ "$PR_TITLE" =~ $REGEX ]]; then
+            echo "Success: PR title starts with a valid prefix."
+          else
+            echo "Error: PR title must start with 'feat:', 'fix:', or 'docs:'."
+            echo "Current title: $PR_TITLE"
+            exit 1
+          fi
