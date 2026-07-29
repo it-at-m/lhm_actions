@@ -42,7 +42,7 @@ inputs:
 outputs:
   MVN_ARTIFACT_ID:
     description: "Artifact name from pom"
-    value: ${{ steps.maven-release-step.outputs.MVN_ARTIFACT_ID }}
+    value: ${{ steps.maven-release-step.outputs.RELEASE }}
   artifact-name:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
@@ -122,7 +122,7 @@ runs:
         DEVELOPMENT_VERSION=$(echo $MAJOR.$MINOR.$PATCH-SNAPSHOT)
         echo "apfel"
         echo $MVN_ARTIFACT_IDe
-        echo $RELEASE
+        echo $RELEASE >> $GITHUB_OUTPUT
         echo $DEVELOPMENT_VERSION
         echo "DEVELOPMENT_VERSION=$DEVELOPMENT_VERSION" >> $GITHUB_OUTPUT
 
@@ -138,7 +138,7 @@ runs:
 
         # run maven release
         mvn release:prepare release:perform -f ./$APP_PATH/pom.xml -B \
-          -DdevelopmentVersion=$DEVELOPMENT_VERSION -DreleaseVersion=$RELEASE \
+          -DreleaseVersion=$RELEASE -DdevelopmentVersion=$DEVELOPMENT_VERSION  \
           $MAVEN_ARGS \
           -Darguments="$DARGUMENTS"
 
