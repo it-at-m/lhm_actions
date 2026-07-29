@@ -9,15 +9,13 @@ inputs:
     description: "Path to the project’s pom.xml file"
     required: true
   releaseMethod:
-     description: "Release-Methode = patch, minor oder major"
-     required: false
+    description: "Release-Methode = patch, minor oder major"
+    required: false
 
   releaseVersion:
     description: "Version to be released"
     required: false
 
-    
-    
   skipDeployment:
     description: "Skip deployment to Maven Central"
     default: "true"
@@ -102,7 +100,7 @@ runs:
         APP_PATH: ${{inputs.app-path}}
         RELEASE_VERSION: ${{ inputs.releaseVersion }}
         # DEPLOYMENT_VERSION: ${{ inputs.developmentVersion }}
-        RELEASE_METHOD:  ${{ inputs.releaseMethod }}
+        RELEASE_METHOD: ${{ inputs.releaseMethod }}
         DARGUMENTS: ${{ inputs.mavenDArgsInput }}
       run: |
         # configure git
