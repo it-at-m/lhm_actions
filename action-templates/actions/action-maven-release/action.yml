@@ -114,7 +114,7 @@ runs:
 
         MVN_VERSION=$(mvn -f $APP_PATH/pom.xml $MAVEN_CLI_OPTS org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout )
 
-        if [ -v $RELEASE_VERSION ]; then RELEASE="${MVN_VERSION/-SNAPSHOT/""}"; else RELEASE=$RELEASE_VERSION; fi
+        if [ -z $RELEASE_VERSION ]; then RELEASE="${MVN_VERSION/-SNAPSHOT/""}"; else RELEASE=$RELEASE_VERSION; fi
         echo $RELEASE
         if [ "$RELEASE_METHOD" == "major" ]; then MAJOR=$(( $(echo $RELEASE | awk -F. '{print $1}') + 1 )); else MAJOR=$(echo $RELEASE | awk -F. '{print $1}'); fi
         if [ "$RELEASE_METHOD" == "major" ]; then MINOR=0; elif [ "$RELEASE_METHOD" == "minor" ]; then MINOR=$(( $(echo $RELEASE | awk -F. '{print $2}' ) + 1 )); else MINOR=$(echo $RELEASE | awk -F. '{print $2}' ); fi
