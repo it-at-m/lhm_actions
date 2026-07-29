@@ -47,6 +47,9 @@ outputs:
   artifact-name:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
+  RELEASE:
+    description: "Name of the artifact upload"
+    value: ${{steps.maven-release-step.outputs.RELEASE }}
 
 runs:
   using: "composite"
