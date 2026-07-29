@@ -122,7 +122,7 @@ runs:
         DEVELOPMENT_VERSION=$(echo $MAJOR.$MINOR.$PATCH-SNAPSHOT)
         echo "apfel"
         echo $MVN_ARTIFACT_IDe
-        echo $RELEASE >> $GITHUB_OUTPUT
+        echo RELEASE_$RELEASE >> $GITHUB_OUTPUT
         echo $DEVELOPMENT_VERSION
         echo "DEVELOPMENT_VERSION=$DEVELOPMENT_VERSION" >> $GITHUB_OUTPUT
 
