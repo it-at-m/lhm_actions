@@ -120,7 +120,6 @@ runs:
         if [ "$RELEASE_METHOD" == "major" ]; then MINOR=0; elif [ "$RELEASE_METHOD" == "minor" ]; then MINOR=$(( $(echo $RELEASE | awk -F. '{print $2}' ) + 1 )); else MINOR=$(echo $RELEASE | awk -F. '{print $2}' ); fi
         if [ "$RELEASE_METHOD" != "major" ] && [ "$RELEASE_METHOD" != "minor" ]; then PATCH=$(( $(echo $RELEASE | awk -F. '{print $3}') + 1 )); else PATCH=0; fi
         DEVELOPMENT_VERSION=$(echo $MAJOR.$MINOR.$PATCH-SNAPSHOT)
-        echo "apfel"
         echo $MVN_ARTIFACT_IDe
         echo RELEASE=$RELEASE >> $GITHUB_OUTPUT
         echo $DEVELOPMENT_VERSION
