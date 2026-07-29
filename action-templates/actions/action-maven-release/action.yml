@@ -16,7 +16,7 @@ inputs:
   releaseVersion:
     description: "Version to be released"
     required: false
-
+    default: ""
   skipDeployment:
     description: "Skip deployment to Maven Central"
     default: "true"
