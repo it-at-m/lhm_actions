@@ -8,12 +8,14 @@ inputs:
   app-path:
     description: "Path to the project’s pom.xml file"
     required: true
+  release-method:
+    description: "Release-Methode = patch, minor oder major"
+    required: false
+    default: "patch"
   releaseVersion:
     description: "Version to be released"
-    required: true
-  developmentVersion:
-    description: "Next version with snapshot"
-    required: true
+    required: false
+    default: ""
   skipDeployment:
     description: "Skip deployment to Maven Central"
     default: "true"
@@ -44,6 +46,9 @@ outputs:
   artifact-name:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
+  release-version:
+    description: "calculated release version"
+    value: ${{steps.maven-release-step.outputs.FINAL_RELEASE_VERSION }}
 
 runs:
   using: "composite"
@@ -97,12 +102,29 @@ runs:
         USE_PR: ${{ inputs.use-pr != 'true' }}
         APP_PATH: ${{inputs.app-path}}
         RELEASE_VERSION: ${{ inputs.releaseVersion }}
-        DEPLOYMENT_VERSION: ${{ inputs.developmentVersion }}
+        RELEASE_METHOD: ${{ inputs.release-method }}
         DARGUMENTS: ${{ inputs.mavenDArgsInput }}
       run: |
         # configure git
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
+
+        # get maven artifact id and provide as output
+        MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -DforceStdout | tee /dev/stderr | tail -n 1)
+        echo $MVN_ARTIFACT_ID
+        echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
+
+        MVN_VERSION=$(mvn -f $APP_PATH/pom.xml $MAVEN_CLI_OPTS org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout )
+
+        if [ -z $RELEASE_VERSION ]; then RELEASE="${MVN_VERSION/-SNAPSHOT/""}"; else RELEASE=$RELEASE_VERSION; fi
+        echo $RELEASE
+        if [ "$RELEASE_METHOD" == "major" ]; then MAJOR=$( $(echo $RELEASE | awk -F. '{print $1}') + 1 ); else MAJOR=$(echo $RELEASE | awk -F. '{print $1}'); fi
+        if [ "$RELEASE_METHOD" == "major" ]; then MINOR=0; elif [ "$RELEASE_METHOD" == "minor" ]; then MINOR=$(( $(echo $RELEASE | awk -F. '{print $2}' ) + 1 )); else MINOR=$(echo $RELEASE | awk -F. '{print $2}' ); fi
+        if [ "$RELEASE_METHOD" != "major" ] && [ "$RELEASE_METHOD" != "minor" ]; then PATCH=$(( $(echo $RELEASE | awk -F. '{print $3}') + 1 )); else PATCH=0; fi
+
+        DEVELOPMENT_VERSION=$(echo $MAJOR.$MINOR.$PATCH-SNAPSHOT)
+        echo FINAL_RELEASE_VERSION=$RELEASE >> $GITHUB_OUTPUT
+        echo "DEVELOPMENT_VERSION=$DEVELOPMENT_VERSION" >> $GITHUB_OUTPUT
 
         # prepare the maven arguments
         MAVEN_ARGS="-DpushChanges=$USE_PR -DremoteTagging=false -DlocalCheckout=true"
@@ -113,13 +135,10 @@ runs:
 
         # run maven release
         mvn release:prepare release:perform -f ./$APP_PATH/pom.xml -B \
-          -DreleaseVersion=$RELEASE_VERSION -DdevelopmentVersion=$DEPLOYMENT_VERSION \
+          -DreleaseVersion=$RELEASE -DdevelopmentVersion=$DEVELOPMENT_VERSION  \
           $MAVEN_ARGS \
           -Darguments="$DARGUMENTS"
-        # get maven artifact id and provide as output
-        MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
-        echo $MVN_ARTIFACT_ID
-        echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
+
     - id: artifact-name
       name: Set output variable $GITHUB_OUTPUT
       run: echo "artifact-name=${{hashFiles(format('./{0}/pom.xml', inputs.app-path))}}" >> "$GITHUB_OUTPUT"
@@ -135,8 +154,8 @@ runs:
       if: ${{ inputs.use-pr == 'true' }}
       uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
       with:
-        title: "chore(${{ inputs.app-path }}): bump release version to ${{ inputs.developmentVersion }}"
-        branch: "release-${{ inputs.app-path }}-${{ inputs.developmentVersion }}"
+        title: "chore(${{ inputs.app-path }}): bump release version to ${{ steps.maven-release-step.outputs.DEVELOPMENT_VERSION }}"
+        branch: "release-${{ inputs.app-path }}-${{ steps.maven-release-step.outputs.DEVELOPMENT_VERSION }}"
         base: "${{ github.ref_name }}"
         body: "This PR is auto-generated"
         assignees: "${{ github.actor }}"
