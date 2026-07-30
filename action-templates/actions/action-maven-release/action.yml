@@ -8,7 +8,7 @@ inputs:
   app-path:
     description: "Path to the project’s pom.xml file"
     required: true
-  releaseMethod:
+  release-method:
     description: "Release-Methode = patch, minor oder major"
     required: false
     default: "patch"
@@ -46,9 +46,9 @@ outputs:
   artifact-name:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
-  RELEASE:
-    description: "Name of the artifact upload"
-    value: ${{steps.maven-release-step.outputs.RELEASE }}
+  release-version:
+    description: "calculated release version"
+    value: ${{steps.maven-release-step.outputs.FINAL_RELEASE_VERSION }}
 
 runs:
   using: "composite"
@@ -102,7 +102,7 @@ runs:
         USE_PR: ${{ inputs.use-pr != 'true' }}
         APP_PATH: ${{inputs.app-path}}
         RELEASE_VERSION: ${{ inputs.releaseVersion }}
-        RELEASE_METHOD: ${{ inputs.releaseMethod }}
+        RELEASE_METHOD: ${{ inputs.release-method }}
         DARGUMENTS: ${{ inputs.mavenDArgsInput }}
       run: |
         # configure git
@@ -121,14 +121,10 @@ runs:
         if [ "$RELEASE_METHOD" == "major" ]; then MAJOR=$( $(echo $RELEASE | awk -F. '{print $1}') + 1 ); else MAJOR=$(echo $RELEASE | awk -F. '{print $1}'); fi
         if [ "$RELEASE_METHOD" == "major" ]; then MINOR=0; elif [ "$RELEASE_METHOD" == "minor" ]; then MINOR=$(( $(echo $RELEASE | awk -F. '{print $2}' ) + 1 )); else MINOR=$(echo $RELEASE | awk -F. '{print $2}' ); fi
         if [ "$RELEASE_METHOD" != "major" ] && [ "$RELEASE_METHOD" != "minor" ]; then PATCH=$(( $(echo $RELEASE | awk -F. '{print $3}') + 1 )); else PATCH=0; fi
+        
         DEVELOPMENT_VERSION=$(echo $MAJOR.$MINOR.$PATCH-SNAPSHOT)
-        echo $MVN_ARTIFACT_IDe
-        echo RELEASE=$RELEASE >> $GITHUB_OUTPUT
-        echo $DEVELOPMENT_VERSION
+        echo FINAL_RELEASE_VERSION=$RELEASE >> $GITHUB_OUTPUT
         echo "DEVELOPMENT_VERSION=$DEVELOPMENT_VERSION" >> $GITHUB_OUTPUT
-
-
-
 
         # prepare the maven arguments
         MAVEN_ARGS="-DpushChanges=$USE_PR -DremoteTagging=false -DlocalCheckout=true"
