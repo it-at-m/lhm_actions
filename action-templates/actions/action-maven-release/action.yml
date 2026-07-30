@@ -12,7 +12,6 @@ inputs:
     description: "Release-Methode = patch, minor oder major"
     required: false
     default: "patch"
-
   releaseVersion:
     description: "Version to be released"
     required: false
