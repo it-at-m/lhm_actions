@@ -24,6 +24,7 @@ inputs:
         - '**/*.py'
       actions:
         - '.github/**/*.yml'
+        - '.github/**/*.yaml'
 
 outputs:
   java:
@@ -36,7 +37,7 @@ outputs:
     description: "Name of the python artifact upload"
     value: ${{ steps.filter.outputs.python }}
   actions:
-    description: "Name of the actions artifact upload"
+    description: "Whether an Actions or workflow file changed"
     value: ${{ steps.filter.outputs.actions }}
   changes:
     description: "JSON array of filter names that have matched changes"
