@@ -351,8 +351,8 @@ Workflows using that action need the following permissions:
 
 ### action-dependency-review
 
-The dependency review action scans your pull requests for dependency changes, and will raise an error if any
-vulnerabilities or invalid licenses are being introduced. It will always use the baseline configuration in
+The dependency review action scans your pull requests for dependency changes, and will raise an error if any 
+invalid licenses are being used. It will always use the baseline configuration in
 <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
 
 Executes the following steps:
