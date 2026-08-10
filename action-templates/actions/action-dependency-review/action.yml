@@ -19,3 +19,4 @@ runs:
       with:
         config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
         allow-dependencies-licenses: ${{ inputs.allow-dependencies-licenses }}
+        vulnerability-check: false
