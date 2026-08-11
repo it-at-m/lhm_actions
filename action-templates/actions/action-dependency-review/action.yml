@@ -6,6 +6,14 @@ inputs:
     description: "Contains a comma separated string of packages that will be excluded from license checks"
     required: false
     default: ""
+  vulnerability-check:
+    description: "Enables/Disables vulnerability scanning of dependencies"
+    required: false
+    default: "false"
+  allow-ghsas:
+    description: "Contains a comma separated string of GHSAs (not CVEs) that will be suppressed from vulnerability scanning"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -19,3 +27,5 @@ runs:
       with:
         config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
         allow-dependencies-licenses: ${{ inputs.allow-dependencies-licenses }}
+        vulnerability-check: ${{ inputs.vulnerability-check }}
+        allow-ghsas: ${{ inputs.allow-ghsas }}
