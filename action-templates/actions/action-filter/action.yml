@@ -22,6 +22,9 @@ inputs:
         - '**/*.vue'
       python:
         - '**/*.py'
+      actions:
+        - '.github/**/*.yml'
+        - '.github/**/*.yaml'
 
 outputs:
   java:
@@ -33,6 +36,9 @@ outputs:
   python:
     description: "Name of the python artifact upload"
     value: ${{ steps.filter.outputs.python }}
+  actions:
+    description: "Whether an Actions or workflow file changed"
+    value: ${{ steps.filter.outputs.actions }}
   changes:
     description: "JSON array of filter names that have matched changes"
     value: ${{ steps.filter.outputs.changes }}
