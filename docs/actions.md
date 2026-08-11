@@ -354,6 +354,7 @@ Workflows using that action need the following permissions:
 The dependency review action scans your pull requests for dependency changes, and will raise an error if any
 invalid licenses are being used. It will always use the baseline configuration in
 <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
+Vulnerability scanning can be optionally enabled as well, however in most cases [action-trivy](#action-trivy) should be used instead.
 
 Executes the following steps:
 
@@ -373,7 +374,15 @@ Workflows using that action need the following permissions:
   with:
     # Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information)
     # Default: ""
-     allow-dependencies-licenses: "pkg:maven/com.github.spotbugs/spotbugs-annotations, pkg:maven/com.h3xstream.findsecbugs:findsecbugs-plugin"
+    allow-dependencies-licenses: "pkg:maven/com.github.spotbugs/spotbugs-annotations, pkg:maven/com.h3xstream.findsecbugs:findsecbugs-plugin"
+    
+    # Enable / Disable vulnerability scanning of dependencies
+    # Default: "false"
+    vulnerability-check: "true"
+
+    # Additional comma separated string of CVEs/GHAs (see https://github.com/advisories) to be suppressed by the vulnerability check
+    # Default: ""
+    vulnerability-suppressions: "CVE-1234-5678, GHSA-abcd-efgh-ijkl"
 ```
 
 ### action-deploy-docs
