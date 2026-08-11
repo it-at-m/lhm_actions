@@ -383,9 +383,10 @@ Workflows using that action need the following permissions:
     # Default: "false"
     vulnerability-check: "true"
 
-    # Additional comma separated string of CVEs/GHAs (see https://github.com/advisories) to be suppressed by the vulnerability check
+    # Additional comma separated string of GHSAs (see https://github.com/advisories) to be suppressed by the vulnerability check.
+    # For CVEs, the corresponding GHSA ID has to be used instead of directly using the CVE identifier.
     # Default: ""
-    vulnerability-suppressions: "CVE-1234-5678, GHSA-abcd-efgh-ijkl"
+    allow-ghsas: "GHSA-abcd-efgh-ijkl"
 ```
 
 ### action-deploy-docs

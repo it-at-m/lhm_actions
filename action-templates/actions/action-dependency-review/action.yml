@@ -10,8 +10,8 @@ inputs:
     description: "Enables/Disables vulnerability scanning of dependencies"
     required: false
     default: "false"
-  vulnerability-suppressions:
-    description: "Contains a comma separated string of CVEs/GHSAs that will be suppressed from vulnerability scanning"
+  allow-ghsas:
+    description: "Contains a comma separated string of GHSAs (not CVEs) that will be suppressed from vulnerability scanning"
     required: false
     default: ""
 
@@ -28,4 +28,4 @@ runs:
         config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
         allow-dependencies-licenses: ${{ inputs.allow-dependencies-licenses }}
         vulnerability-check: ${{ inputs.vulnerability-check }}
-        allow-ghsas: ${{ inputs.vulnerability-suppressions }}
+        allow-ghsas: ${{ inputs.allow-ghsas }}
