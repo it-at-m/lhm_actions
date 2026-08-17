@@ -6,12 +6,20 @@ inputs:
     description: "Contains a comma separated string of packages that will be excluded from license checks"
     required: false
     default: ""
+  vulnerability-check:
+    description: "Enables/Disables vulnerability scanning of dependencies"
+    required: false
+    default: "false"
+  allow-ghsas:
+    description: "Contains a comma separated string of GHSAs (not CVEs) that will be suppressed from vulnerability scanning"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
   steps:
     - name: Checkout repository
-      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
         persist-credentials: false
     - name: Dependency review
@@ -19,3 +27,5 @@ runs:
       with:
         config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
         allow-dependencies-licenses: ${{ inputs.allow-dependencies-licenses }}
+        vulnerability-check: ${{ inputs.vulnerability-check }}
+        allow-ghsas: ${{ inputs.allow-ghsas }}
