@@ -61,4 +61,4 @@ runs:
       uses: github/codeql-action/upload-sarif@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
       with:
         sarif_file: "trivy-results.sarif"
-        categorie: ${{ inputs.path }}
+        category: ${{ inputs.path }}
