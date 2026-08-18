@@ -76,17 +76,20 @@ Workflows using that action need the following permissions:
     # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
     # Default: "--ignore-scripts"
     npm-ci-parameter: "--ignore-scripts"
+```
 
 ### action-build-image
 
-Action to build a Docker image and push it to a registry.
+Action to build a multi-architecture Docker image with multi-architecture support and push it to a registry.
 
 Executes the following steps:
 
 1. Checkout code
-2. Login to Registry
-3. Extract metadata (tags, labels) for Docker
-4. Build and push image to a registry
+2. Setup QEMU emulation for multi-architecture builds
+3. Setup buildx build tool
+4. Login to Registry
+5. Extract metadata (tags, labels) for Docker
+6. Build and push image to a registry
 
 Workflows using that action need the following permissions:
 
@@ -127,6 +130,15 @@ Workflows using that action need the following permissions:
 
     # Name of the artifact to download
     artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
+
+    # List of comma separated target Docker platforms to build images for, e.g. linux/amd64,linux/arm64
+    # Note: This also requires a compatible base image in the Dockerfile of the application
+    # Default: linux/amd64
+    target-platforms: linux/amd64,linux/arm64
+
+    # List of comma separated QEMU architectures to enable for emulation, e.g. "arm64" required for "linux/arm64" target on a amd64 GitHub runner
+    # Default: ""
+    emulated-platforms: arm64
 ```
 
 ### action-checkout
@@ -565,6 +577,7 @@ Workflows using that action need the following permissions:
     # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
     # Default: "--ignore-scripts=true"
     npm-ci-parameter: "--ignore-scripts=true"
+```
 
 ### action-npm-release
 
