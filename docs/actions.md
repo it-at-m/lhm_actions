@@ -131,14 +131,10 @@ Workflows using that action need the following permissions:
     # Name of the artifact to download
     artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
 
-    # List of comma separated target Docker platforms to build images for, e.g. linux/amd64,linux/arm64
+    # List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64
     # Note: This also requires a compatible base image in the Dockerfile of the application
     # Default: linux/amd64
-    target-platforms: linux/amd64,linux/arm64
-
-    # List of comma separated QEMU architectures to enable for emulation, e.g. "arm64" required for "linux/arm64" target on a amd64 GitHub runner
-    # Default: ""
-    emulated-platforms: arm64
+    platforms: linux/amd64,linux/arm64
 ```
 
 ### action-checkout
