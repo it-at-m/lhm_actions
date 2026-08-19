@@ -2,14 +2,10 @@ name: "Validate docker stack"
 description: "Validates a docker compose stack using its defined health checks"
 
 inputs:
-  max-retries:
-    description: "Maximum number of retry attempts"
+  timeout:
+    description: "Maximum timeout in seconds to wait for stack being healthy"
     required: false
-    default: "10"
-  retry-interval:
-    description: "Interval between retries in seconds"
-    required: false
-    default: "10"
+    default: "60"
   compose-file-path:
     description: "Path to the docker compose file"
     required: false
@@ -18,14 +14,6 @@ inputs:
     description: "Name of the docker compose file"
     required: false
     default: "docker-compose.yml"
-  skip-exited:
-    description: "Skip checking exited containers (useful for init containers)"
-    required: false
-    default: "false"
-  skip-no-healthcheck:
-    description: "Skip checking containers without health checks"
-    required: false
-    default: "false"
 
 runs:
   using: "composite"
@@ -34,18 +22,9 @@ runs:
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
         persist-credentials: false
-    - name: Start Docker Compose services
-      env:
-        COMPOSE_FILE_PATH: ${{ inputs.compose-file-path }}
-      run: |
-        cd $COMPOSE_FILE_PATH
-        docker compose up -d
-      shell: bash
-    - name: Run health check
-      uses: jaracogmbh/docker-compose-health-check-action@973fbdccf7c8e396b652d3501984c8e530a9fa80 # v1.0.0
+    - name: Start stack and wait for health
+      uses: hoverkraft-tech/compose-action@ee6af68587292d72db67743171809c19787df4c9 # v3.1.0
       with:
-        max-retries: ${{ inputs.max-retries }}
-        retry-interval: ${{ inputs.retry-interval }}
-        compose-file: ${{ inputs.compose-file-path }}${{ inputs.compose-file-name }}
-        skip-exited: ${{ inputs.skip-exited }}
-        skip-no-healthcheck: ${{ inputs.skip-no-healthcheck }}
+        cwd: ${{ inputs.compose-file-path }}
+        compose-file: ${{ inputs.compose-file-name }}
+        up-flags: --wait --wait-timeout ${{ inputs.timeout }}

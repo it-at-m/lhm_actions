@@ -163,7 +163,7 @@ Workflows using that action need the following permissions:
 
 ### action-dockercompose-healthcheck
 
-Action to wrap [docker-compose-health-check](https://github.com/marketplace/actions/docker-compose-health-check).
+Action to wrap [docker-compose-action](https://github.com/marketplace/actions/docker-compose-action).
 This action allows validating the functionality of containers by using health checks defined in the Docker compose file.
 
 Executes the following steps:
@@ -180,13 +180,9 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
   with:
-    # Maximum number of retry attempts
-    # Default: 10
-    max-retries: 10
-    
-    # Interval between retries in seconds
-    # Default: 10
-    retry-interval: 10
+    # Maximum timeout in seconds to wait
+    # Default: 60
+    timeout: 20
     
     # Path to the docker compose file
     # Default: "./" (root directory)
@@ -195,20 +191,12 @@ Workflows using that action need the following permissions:
     # Name of the docker compose file
     # Default: docker-compose.yml
     compose-file-name: "docker-compose.yml"
-    
-    # Skip checking exited containers (useful for init containers)
-    # Default: false
-    skip-exited: false
-
-    # Skip checking containers without health checks
-    # Default: false
-    skip-no-healthcheck: false
 ```
 
-**Note**: The usage of `skip-no-healthcheck: true` is only suggested when an image inside your stack does not provide a
-health check and also the [definition of a custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck)
-is not possible. This could be e.g. the case when a barebone Unix image (like `alpine`) is used and tools like `wget`
-or `curl` are missing.
+**Note**: It is suggested to use images that provide a predefined health check.
+Alternatively a [custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) should be defined.
+In some cases (e.g. when a barebone Unix image (like `alpine`) is used) health check might not be possible due to missing binaries
+such as `wget` or `curl`.
 
 ### action-filter
 
