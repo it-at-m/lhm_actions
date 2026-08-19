@@ -85,10 +85,10 @@ Action to build a multi-architecture Docker image with multi-architecture suppor
 Executes the following steps:
 
 1. Checkout code
-2. Setup QEMU emulation for multi-architecture builds
+2. Setup QEMU emulation to support multi-architecture builds
 3. Setup buildx build tool
 4. Login to Registry
-5. Extract metadata (tags, labels) for Docker
+5. Extract metadata (tags, labels, annotations) for Docker
 6. Build and push image to a registry
 
 Workflows using that action need the following permissions:
