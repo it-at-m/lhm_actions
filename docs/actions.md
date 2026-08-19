@@ -116,7 +116,7 @@ Workflows using that action need the following permissions:
     # Default: type=raw,value=latest
     image-tags: type=raw,value=latest
 
-    # Labels to add to image  
+    # Labels or OCI manifest annotations to add to image
     # Default: org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}
     # Optional
     image-labels: |

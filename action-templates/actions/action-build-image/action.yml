@@ -18,7 +18,7 @@ inputs:
     default: |
       type=raw,value=latest
   image-labels:
-    description: "Labels to add to image"
+    description: "Labels or OCI manifest annotations to add to image"
     required: false
     default: |
       org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}
@@ -57,13 +57,16 @@ runs:
         registry: ${{ inputs.registry }}
         username: ${{ inputs.registry-username }}
         password: ${{ inputs.registry-password }}
-    - name: Extract metadata (tags, labels) for Docker
+    - name: Extract metadata (tags, labels, annotations) for Docker
       id: meta
       uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+      env:
+        DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
       with:
         images: "${{ inputs.registry }}/${{ github.repository }}/${{ inputs.image-name }}"
-        tags: ${{inputs.image-tags}}
-        labels: ${{inputs.image-labels}}
+        tags: ${{ inputs.image-tags }}
+        labels: ${{ inputs.image-labels }}
+        annotations: ${{ inputs.image-labels }}
     - name: Build and push image
       uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
       with:
@@ -72,4 +75,5 @@ runs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        annotations: ${{ steps.meta.outputs.annotations }}
         github-token: ${{ github.token }}
