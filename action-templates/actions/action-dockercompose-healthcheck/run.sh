@@ -4,6 +4,7 @@ set -euo pipefail
 MAX_RETRIES="${MAX_RETRIES:-10}"
 RETRY_INTERVAL="${RETRY_INTERVAL:-10}"
 COMPOSE_FILE_NAME="${COMPOSE_FILE_NAME:-"docker-compose.yml"}"
+SKIP_NO_HEALTHCHECK="${SKIP_NO_HEALTHCHECK:-false}"
 
 retry_count=0
 
@@ -29,6 +30,8 @@ while ((retry_count < MAX_RETRIES)); do
                 failed_services+=("$service (unhealthy)")
             elif [[ -n "$health" && "$health" != "healthy" ]]; then
                 pending_services+=("$service (health: $health)")
+            elif [[ -z "$health" && "$SKIP_NO_HEALTHCHECK" != "true" ]]; then
+                pending_services+=("$service (no health check)")
             fi
 
         elif [[ "$status" == "exited" ]]; then

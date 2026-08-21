@@ -18,6 +18,10 @@ inputs:
     description: "Name of the docker compose file"
     required: false
     default: "docker-compose.yml"
+  skip-no-healthcheck:
+    description: "Skip checking containers without health checks"
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
@@ -37,4 +41,5 @@ runs:
         MAX_RETRIES: ${{ inputs.max-retries }}
         RETRY_INTERVAL: ${{ inputs.retry-interval }}
         COMPOSE_FILE_NAME: ${{ inputs.compose-file-name }}
+        SKIP_NO_HEALTHCHECK: $${{ inputs.skip-no-healthcheck }}
       run: ${{ github.action_path }}/run.sh
