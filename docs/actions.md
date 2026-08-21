@@ -365,7 +365,7 @@ Workflows using that action need the following permissions:
 The dependency review action scans your pull requests for dependency changes, and will raise an error if any
 invalid licenses are being used. It will always use the baseline configuration in
 <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
-Vulnerability scanning can be optionally enabled as well, however in most cases [action-trivy](#action-trivy) should be used instead.
+Vulnerability scanning can be optionally enabled as well, however in most cases [action-trivy](#action-trivy) should be used instead. If you use the action with a matrix, you should watch that the path is different for each call.
 
 Executes the following steps:
 
