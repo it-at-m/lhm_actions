@@ -2,10 +2,14 @@ name: "Validate docker stack"
 description: "Validates a docker compose stack using its defined health checks"
 
 inputs:
-  timeout:
-    description: "Maximum timeout in seconds to wait for stack being healthy"
+  max-retries:
+    description: "Maximum number of retry attempts"
     required: false
-    default: "60"
+    default: "10"
+  retry-interval:
+    description: "Interval between retries in seconds"
+    required: false
+    default: "10"
   compose-file-path:
     description: "Path to the docker compose file"
     required: false
@@ -22,9 +26,15 @@ runs:
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
         persist-credentials: false
-    - name: Start stack and wait for health
-      uses: hoverkraft-tech/compose-action@ee6af68587292d72db67743171809c19787df4c9 # v3.1.0
-      with:
-        cwd: ${{ inputs.compose-file-path }}
-        compose-file: ${{ inputs.compose-file-name }}
-        up-flags: --wait --wait-timeout ${{ inputs.timeout }}
+    - name: Run Docker Compose stack
+      working-directory: ${{ inputs.compose-file-path }}
+      shell: bash
+      run: docker compose up -f ${{ inputs.compose-file-name }} -d
+    - name: Run Docker Compose healthcheck
+      working-directory: ${{ inputs.compose-file-path }}
+      shell: bash
+      env:
+        MAX_RETRIES: ${{ inputs.max-retries }}
+        RETRY_INTERVAL: ${{ inputs.retry-interval }}
+        COMPOSE_FILE_NAME: ${{ inputs.compose-file-name }}
+      run: ${{ github.action_path }}/run.sh
