@@ -1,0 +1,34 @@
+name: Test action-maven-release
+
+on:
+  workflow_dispatch:
+
+env:
+  app-path: "__tests__/maven-helloworld"
+  use-pr: true
+  release-method: "patch"
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+  test-maven-release:
+    name: test-maven-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: checkout-local-actions
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: maven-release
+        uses: ./action-templates/actions/action-maven-release
+        with:
+          app-path: ${{ env.app-path }}
+          releaseVersion: ${{ env.release-version }}
+          use-pr: ${{ env.use-pr }}
