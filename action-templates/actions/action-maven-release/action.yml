@@ -16,6 +16,10 @@ inputs:
     description: "Version to be released"
     required: false
     default: ""
+  developmentVersion:
+    description: "Deprecated: Next version with snapshot"
+    required: false
+    default: ""
   skipDeployment:
     description: "Skip deployment to Maven Central"
     default: "true"
@@ -103,6 +107,7 @@ runs:
         APP_PATH: ${{inputs.app-path}}
         RELEASE_VERSION: ${{ inputs.releaseVersion }}
         RELEASE_METHOD: ${{ inputs.release-method }}
+        DEPLOYMENT_VERSION: ${{ inputs.developmentVersion }}
         DARGUMENTS: ${{ inputs.mavenDArgsInput }}
       run: |
         # configure git
@@ -121,8 +126,9 @@ runs:
         if [ "$RELEASE_METHOD" == "major" ]; then MAJOR=$( $(echo $RELEASE | awk -F. '{print $1}') + 1 ); else MAJOR=$(echo $RELEASE | awk -F. '{print $1}'); fi
         if [ "$RELEASE_METHOD" == "major" ]; then MINOR=0; elif [ "$RELEASE_METHOD" == "minor" ]; then MINOR=$(( $(echo $RELEASE | awk -F. '{print $2}' ) + 1 )); else MINOR=$(echo $RELEASE | awk -F. '{print $2}' ); fi
         if [ "$RELEASE_METHOD" != "major" ] && [ "$RELEASE_METHOD" != "minor" ]; then PATCH=$(( $(echo $RELEASE | awk -F. '{print $3}') + 1 )); else PATCH=0; fi
-
-        DEVELOPMENT_VERSION=$(echo $MAJOR.$MINOR.$PATCH-SNAPSHOT)
+        if [[ -z "$DEPLOYMENT_VERSION" ]]; then
+           DEVELOPMENT_VERSION=$(echo $MAJOR.$MINOR.$PATCH-SNAPSHOT)
+        fi
         echo FINAL_RELEASE_VERSION=$RELEASE >> $GITHUB_OUTPUT
         echo "DEVELOPMENT_VERSION=$DEVELOPMENT_VERSION" >> $GITHUB_OUTPUT
 
