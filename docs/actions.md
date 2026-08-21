@@ -496,8 +496,11 @@ Workflows using that action need the following permissions:
     # Version which will be released
     releaseVersion:
 
-    # Next snapshot version
+    # Deprecated: Next snapshot version
     developmentVersion:
+
+    # Release-Methode = patch, minor or major
+    release-method:
 
     # Deprecated: Use mavenDArgsInput instead.
     # Skip deployment to maven central 
