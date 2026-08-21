@@ -56,16 +56,5 @@ while ((retry_count < MAX_RETRIES)); do
     fi
 done
 
-echo "Maximum retries (${MAX_RETRIES}) reached." >&2
-
-if ((${#failed_services[@]} > 0)); then
-    echo "Failed services:" >&2
-    printf '  %s\n' "${failed_services[@]}" >&2
-fi
-
-if ((${#pending_services[@]} > 0)); then
-    echo "Pending services:" >&2
-    printf '  %s\n' "${pending_services[@]}" >&2
-fi
-
+echo "Maximum retries (${MAX_RETRIES}) reached. Exiting with status code 1." >&2
 exit 1
