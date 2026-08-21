@@ -33,7 +33,7 @@ runs:
     - name: Run Docker Compose stack
       working-directory: ${{ inputs.compose-file-path }}
       shell: bash
-      run: docker compose up -f ${{ inputs.compose-file-name }} -d
+      run: docker compose -f ${{ inputs.compose-file-name }} up -d
     - name: Run Docker Compose healthcheck
       working-directory: ${{ inputs.compose-file-path }}
       shell: bash
