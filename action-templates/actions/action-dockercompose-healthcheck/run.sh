@@ -3,6 +3,7 @@ set -euo pipefail
 
 MAX_RETRIES="${MAX_RETRIES:-10}"
 RETRY_INTERVAL="${RETRY_INTERVAL:-10}"
+COMPOSE_FILE_NAME="${COMPOSE_FILE_NAME:-"docker-compose.yml"}"
 
 retry_count=0
 
@@ -14,7 +15,7 @@ while ((retry_count < MAX_RETRIES)); do
 
     # Query all services once.
     ps_output="$(
-        docker compose ps -a --format '{{.Service}};{{.State}};{{.Health}};{{.ExitCode}}'
+        docker compose -f "$COMPOSE_FILE_NAME" ps -a --format '{{.Service}};{{.State}};{{.Health}};{{.ExitCode}}'
     )"
 
     while IFS=$';' read -r service status health exit_code; do
