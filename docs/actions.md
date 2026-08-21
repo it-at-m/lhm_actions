@@ -163,8 +163,7 @@ Workflows using that action need the following permissions:
 
 ### action-dockercompose-healthcheck
 
-Action to wrap [docker-compose-action](https://github.com/marketplace/actions/docker-compose-action).
-This action allows validating the functionality of containers by using health checks defined in the Docker compose file.
+Action to validate the functionality of Docker Compose containers by using defined health checks.
 
 Executes the following steps:
 

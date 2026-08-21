@@ -3,7 +3,7 @@ set -euo pipefail
 
 MAX_RETRIES="${MAX_RETRIES:-10}"
 RETRY_INTERVAL="${RETRY_INTERVAL:-10}"
-COMPOSE_FILE_NAME="${COMPOSE_FILE_NAME:-"docker-compose.yml"}"
+COMPOSE_FILE_NAME="${COMPOSE_FILE_NAME:-'docker-compose.yml'}"
 SKIP_NO_HEALTHCHECK="${SKIP_NO_HEALTHCHECK:-false}"
 
 retry_count=0
