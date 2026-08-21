@@ -180,9 +180,13 @@ Workflows using that action need the following permissions:
 ```yaml
 - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
   with:
-    # Maximum timeout in seconds to wait
-    # Default: 60
-    timeout: 20
+    # Maximum number of retry attempts
+    # Default: 10
+    max-retries: 10
+
+    # Interval between retries in seconds
+    # Default: 10
+    retry-interval: 10
     
     # Path to the docker compose file
     # Default: "./" (root directory)
@@ -191,6 +195,11 @@ Workflows using that action need the following permissions:
     # Name of the docker compose file
     # Default: docker-compose.yml
     compose-file-name: "docker-compose.yml"
+
+    # Skip checking containers without health checks
+    # Note: This applies to both persistent and existing containers.
+    # Default: false
+    skip-no-healthcheck: false
 ```
 
 **Note**: It is suggested to use images that provide a predefined health check.
