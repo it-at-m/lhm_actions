@@ -76,17 +76,20 @@ Workflows using that action need the following permissions:
     # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
     # Default: "--ignore-scripts"
     npm-ci-parameter: "--ignore-scripts"
+```
 
 ### action-build-image
 
-Action to build a Docker image and push it to a registry.
+Action to build a multi-architecture Docker image with multi-architecture support and push it to a registry.
 
 Executes the following steps:
 
 1. Checkout code
-2. Login to Registry
-3. Extract metadata (tags, labels) for Docker
-4. Build and push image to a registry
+2. Setup QEMU emulation to support multi-architecture builds
+3. Setup buildx build tool
+4. Login to Registry
+5. Extract metadata (tags, labels, annotations) for Docker
+6. Build and push image to a registry
 
 Workflows using that action need the following permissions:
 
@@ -113,7 +116,7 @@ Workflows using that action need the following permissions:
     # Default: type=raw,value=latest
     image-tags: type=raw,value=latest
 
-    # Labels to add to image  
+    # Labels or OCI manifest annotations to add to image
     # Default: org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}
     # Optional
     image-labels: |
@@ -127,6 +130,11 @@ Workflows using that action need the following permissions:
 
     # Name of the artifact to download
     artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
+
+    # List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64
+    # Note: This also requires a compatible base image in the Dockerfile of the application
+    # Default: linux/amd64
+    platforms: linux/amd64,linux/arm64
 ```
 
 ### action-checkout
@@ -357,7 +365,7 @@ Workflows using that action need the following permissions:
 The dependency review action scans your pull requests for dependency changes, and will raise an error if any
 invalid licenses are being used. It will always use the baseline configuration in
 <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
-Vulnerability scanning can be optionally enabled as well, however in most cases [action-trivy](#action-trivy) should be used instead.
+Vulnerability scanning can be optionally enabled as well, however in most cases [action-trivy](#action-trivy) should be used instead. If you use the action with a matrix, you should watch that the path is different for each call.
 
 Executes the following steps:
 
@@ -565,6 +573,7 @@ Workflows using that action need the following permissions:
     # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
     # Default: "--ignore-scripts=true"
     npm-ci-parameter: "--ignore-scripts=true"
+```
 
 ### action-npm-release
 
