@@ -167,7 +167,8 @@ Action to validate the functionality of Docker Compose containers by using defin
 
 Executes the following steps:
 
-1. Run health check using Docker Compose file
+1. Start the Docker Compose stack
+2. Run health check against the started services
 
 Workflows using that action need the following permissions:
 
@@ -195,6 +196,10 @@ Workflows using that action need the following permissions:
     # Default: docker-compose.yml
     compose-file-name: "docker-compose.yml"
 
+    # Skip checking exited containers (useful for init containers)
+    # Default: false
+    skip-exited: false
+
     # Skip checking containers without health checks
     # Note: This applies to both persistent and existing containers.
     # Default: false
@@ -204,7 +209,7 @@ Workflows using that action need the following permissions:
 **Note**: It is suggested to use images that provide a predefined health check.
 Alternatively a [custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) should be defined.
 In some cases (e.g. when a barebone Unix image (like `alpine`) is used) health check might not be possible due to missing binaries
-such as `wget` or `curl`.
+such as `wget` or `curl`. In this case `skip-no-healthcheck: true` can be used.
 
 ### action-filter
 
