@@ -11,6 +11,7 @@ while ((retry_count < MAX_RETRIES)); do
     failed_services=()
     pending_services=()
 
+    service_count=0
     retry_count=$((retry_count+1))
 
     # Query all services once.
@@ -20,6 +21,8 @@ while ((retry_count < MAX_RETRIES)); do
 
     while IFS=$';' read -r service status health exit_code; do
         [[ -z "$service" ]] && continue
+
+        service_count=$((service_count+1))
 
         if [[ "$status" == "running" ]]; then
             if [[ "$health" == "unhealthy" ]]; then
@@ -37,6 +40,11 @@ while ((retry_count < MAX_RETRIES)); do
             pending_services+=("$service ($status)")
         fi
     done <<< "$ps_output"
+
+    if ((service_count == 0)); then
+        echo "No services were started. Make sure to start them using 'docker compose up -d' before running the script." >&2
+        exit 1
+    fi
 
     if ((${#failed_services[@]} > 0)); then
         echo "Services failed (attempt ${retry_count}/${MAX_RETRIES}):" >&2
