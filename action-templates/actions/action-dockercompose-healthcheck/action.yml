@@ -41,5 +41,5 @@ runs:
         MAX_RETRIES: ${{ inputs.max-retries }}
         RETRY_INTERVAL: ${{ inputs.retry-interval }}
         COMPOSE_FILE_NAME: ${{ inputs.compose-file-name }}
-        SKIP_NO_HEALTHCHECK: $${{ inputs.skip-no-healthcheck }}
+        SKIP_NO_HEALTHCHECK: ${{ inputs.skip-no-healthcheck }}
       run: ${{ github.action_path }}/run.sh
