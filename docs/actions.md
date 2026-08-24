@@ -499,7 +499,7 @@ Workflows using that action need the following permissions:
     # Deprecated: Next snapshot version. Default ""
     developmentVersion:
 
-    # Release-Methode Default = patch, minor or major
+    # Release-Methode Default = patch, minor or major. The release version is the current snapshot version and the next snapshot version is calculated from this value
     release-method:
 
     # Deprecated: Use mavenDArgsInput instead.
