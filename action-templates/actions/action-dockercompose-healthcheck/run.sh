@@ -35,8 +35,8 @@ while ((retry_count < MAX_RETRIES)); do
 				pending_services+=("$service (no health check)")
 			fi
 
-		elif [[ "$status" == "exited" && "$SKIP_EXITED" != "true" ]]; then
-			if [[ "$exit_code" != "0" ]]; then
+		elif [[ "$status" == "exited" ]]; then
+			if [[ "$exit_code" != "0" && "$SKIP_EXITED" != "true" ]]; then
 				failed_services+=("$service (exited with status $exit_code)")
 			fi
 
