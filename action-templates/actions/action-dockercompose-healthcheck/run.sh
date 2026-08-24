@@ -18,7 +18,7 @@ while ((retry_count < MAX_RETRIES)); do
 
 	# Query all services once.
 	ps_output="$(
-		docker compose -f "$COMPOSE_FILE_NAME" ps -a --format '{{.Service}};{{.State}};{{.Health}};{{.ExitCode}}'
+		docker compose -f "$COMPOSE_FILE_NAME" ps -a --orphans=false --format '{{.Service}};{{.State}};{{.Health}};{{.ExitCode}}'
 	)"
 
 	while IFS=$';' read -r service status health exit_code; do
