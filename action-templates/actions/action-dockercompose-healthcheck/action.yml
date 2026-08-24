@@ -19,7 +19,7 @@ inputs:
     required: false
     default: "docker-compose.yml"
   skip-exited:
-    description: "Skip checking exited containers (useful for init containers)"
+    description: "Skip checking exited containers"
     required: false
     default: "false"
   skip-no-healthcheck:
@@ -34,18 +34,19 @@ runs:
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
         persist-credentials: false
-    - name: Start Docker Compose services
-      env:
-        COMPOSE_FILE_PATH: ${{ inputs.compose-file-path }}
-      run: |
-        cd $COMPOSE_FILE_PATH
-        docker compose up -d
+    - name: Run Docker Compose stack
+      working-directory: ${{ inputs.compose-file-path }}
       shell: bash
-    - name: Run health check
-      uses: jaracogmbh/docker-compose-health-check-action@973fbdccf7c8e396b652d3501984c8e530a9fa80 # v1.0.0
-      with:
-        max-retries: ${{ inputs.max-retries }}
-        retry-interval: ${{ inputs.retry-interval }}
-        compose-file: ${{ inputs.compose-file-path }}${{ inputs.compose-file-name }}
-        skip-exited: ${{ inputs.skip-exited }}
-        skip-no-healthcheck: ${{ inputs.skip-no-healthcheck }}
+      env:
+        COMPOSE_FILE_NAME: ${{ inputs.compose-file-name }}
+      run: docker compose -f "$COMPOSE_FILE_NAME" up -d
+    - name: Run Docker Compose healthcheck
+      working-directory: ${{ inputs.compose-file-path }}
+      shell: bash
+      env:
+        MAX_RETRIES: ${{ inputs.max-retries }}
+        RETRY_INTERVAL: ${{ inputs.retry-interval }}
+        COMPOSE_FILE_NAME: ${{ inputs.compose-file-name }}
+        SKIP_EXITED: ${{ inputs.skip-exited }}
+        SKIP_NO_HEALTHCHECK: ${{ inputs.skip-no-healthcheck }}
+      run: ${{ github.action_path }}/run.sh
