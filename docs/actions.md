@@ -496,7 +496,7 @@ Workflows using that action need the following permissions:
     # Version which will be released
     releaseVersion:
 
-    # Deprecated: Next snapshot version
+    # Deprecated: Next snapshot version. Default ""
     developmentVersion:
 
     # Release-Methode = patch, minor or major
