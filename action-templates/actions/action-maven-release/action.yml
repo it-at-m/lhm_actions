@@ -13,7 +13,7 @@ inputs:
     required: false
     default: "patch"
   releaseVersion:
-    description: "Version to be released"
+    description: "Version to be released. The value is calculated if release-method is set"
     required: false
     default: ""
   developmentVersion:
