@@ -1,7 +1,7 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: ["github>it-at-m/.github//renovate-configs/renovate-config.json5"],
-
+  ignorePaths: ["**/node_modules/**", "**/__tests__/**"],
   packageRules: [
     {
       description: "Automerge non-major updates",
