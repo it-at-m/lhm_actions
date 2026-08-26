@@ -495,7 +495,7 @@ Workflows using that action need the following permissions:
     app-path: "."
 
     # Version which will be released
-    releaseVersion:
+    release-version:
 
     # Deprecated: Next snapshot version. 
     # Default ""
