@@ -123,6 +123,9 @@ runs:
 
         if [ -z $RELEASE_VERSION ]; then RELEASE="${MVN_VERSION/-SNAPSHOT/""}"; else RELEASE=$RELEASE_VERSION; fi
         echo $RELEASE
+        if [[ "$RELEASE_METHOD" != "major" && "$RELEASE_METHOD" != "minor"  && "$RELEASE_METHOD" != "patch" ]]; then
+          echo "wrong release method"
+        fi
         if [ "$RELEASE_METHOD" == "major" ]; then MAJOR=$( $(echo $RELEASE | awk -F. '{print $1}') + 1 ); else MAJOR=$(echo $RELEASE | awk -F. '{print $1}'); fi
         if [ "$RELEASE_METHOD" == "major" ]; then MINOR=0; elif [ "$RELEASE_METHOD" == "minor" ]; then MINOR=$(( $(echo $RELEASE | awk -F. '{print $2}' ) + 1 )); else MINOR=$(echo $RELEASE | awk -F. '{print $2}' ); fi
         if [ "$RELEASE_METHOD" != "major" ] && [ "$RELEASE_METHOD" != "minor" ]; then PATCH=$(( $(echo $RELEASE | awk -F. '{print $3}') + 1 )); else PATCH=0; fi
