@@ -28,8 +28,8 @@ outputs:
   cyclone-artifact-id:
     description: "ID of the sbom artifact"
     value: ${{steps.upload-sbom-artifact.outputs.artifact-id}}
-  cyclone-path:
-    value: ${{steps.artifact-name.outputs.cyclone-path}}
+  sbom-path:
+    value: ${{steps.artifact-name.outputs.sbom-path}}
     description: "path of the sbom"
 runs:
   using: "composite"
