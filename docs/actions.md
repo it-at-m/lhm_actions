@@ -476,6 +476,7 @@ Output parameters:
 
 1. `MVN_ARTIFACT_ID`: Artifact name of pom.xml
 2. `artifact-name`: Name of the uploaded artifact
+3. `release-version`: calculated release version
 
 Workflows using that action need the following permissions:
 
@@ -495,7 +496,7 @@ Workflows using that action need the following permissions:
     app-path: "."
 
     # Version which will be released
-    release-version:
+    releaseVersion:
 
     # Deprecated: Next snapshot version. 
     # Default ""
