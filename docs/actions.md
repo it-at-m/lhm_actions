@@ -441,7 +441,7 @@ Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
 2. `cyclone-artifact-id`: ID of the sbom artifact
-3. `cyclone-path`: path of the sbom
+3. `sbom-path`: path of the sbom
 
 Workflows using that action need the following permissions:
 
@@ -553,7 +553,7 @@ Output parameters:
 
 1. `artifact-name`: Name of the uploaded artifact
 2. `cyclone-artifact-id`: ID of the sbom artifact
-3. `cyclone-path`: path of the sbom
+3. `sbom-path`: path of the sbom
 
 Workflows using that action need the following permissions:
 
