@@ -476,6 +476,7 @@ Output parameters:
 
 1. `MVN_ARTIFACT_ID`: Artifact name of pom.xml
 2. `artifact-name`: Name of the uploaded artifact
+3. `release-version`: calculated release version
 
 Workflows using that action need the following permissions:
 
@@ -497,9 +498,15 @@ Workflows using that action need the following permissions:
     # Version which will be released
     releaseVersion:
 
-    # Next snapshot version
+    # Deprecated: Next snapshot version. 
+    # Default ""
     developmentVersion:
 
+    # If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT.
+    # release-method calculates the next snapshot version: patch, minor, or major.
+    # Deprecated: If developmentVersion is set, it overrides the calculated snapshot version.
+    # Default: patch
+    release-method:
     # Deprecated: Use mavenDArgsInput instead.
     # Skip deployment to maven central 
     # Default: true
