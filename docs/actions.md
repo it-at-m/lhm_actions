@@ -502,10 +502,11 @@ Workflows using that action need the following permissions:
     # Default ""
     developmentVersion:
 
-    # The current release version and next snapshot versions are calculated depending on the given value. Possible values are: patch, minor or major.
+    # If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT.
+    # release-method calculates the next snapshot version: patch, minor, or major.
+    # Deprecated: If developmentVersion is set, it overrides the calculated snapshot version.
     # Default: patch
     release-method:
-
     # Deprecated: Use mavenDArgsInput instead.
     # Skip deployment to maven central 
     # Default: true
