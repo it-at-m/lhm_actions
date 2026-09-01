@@ -8,6 +8,9 @@ on:
        - action-templates/action-filter/action.yml
   pull_request:
 
+permissions:
+  contents: read # for checkout
+
 jobs:
   # JOB to run change detection
   test-action-filter:
@@ -41,3 +44,6 @@ jobs:
               - 'action-templates/**/*.yaml'
       - run: |
           echo ${{ toJSON(steps.filter.outputs.changes) }}
+          # TBD: prüfen, ob steps.filter.outputs.changes den Änderungen entspricht
+          CHANGES=`git diff HEAD --no-renames --name-status -z`
+          echo ${{ $CHANGES }}
