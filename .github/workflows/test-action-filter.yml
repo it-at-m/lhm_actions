@@ -46,4 +46,4 @@ jobs:
         env:
           CHANGES: ${{ steps.filter.outputs.changes }}
         run: |
-          echo ${{ toJSON($CHANGES) }}
+          echo $CHANGES
