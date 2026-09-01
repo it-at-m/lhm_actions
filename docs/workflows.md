@@ -30,7 +30,6 @@ The templates can be activated under the "Actions" tab with the "New workflow" b
 - **dependency-review**: Runs license check for used dependencies.
 - **dockercompose-healthcheck**: Check health of dockercompose based development stacks.
 - **trivy**: Running security scan using Trivy.
-- **pr-checklist**: Checks if all list items are checked. (still there?)
 
 ## Maven Central
 
