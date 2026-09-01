@@ -1,0 +1,43 @@
+# Workflow to Test action action-filter
+name: Test action action-filter
+
+on:
+  push:
+     paths:
+       - .github/workflows/test-action-filter.yml
+       - action-templates/action-filter/action.yml
+  pull_request:
+
+jobs:
+  # JOB to run change detection
+  test-action-filter:
+    name: test-action-filter
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout-local-actions
+        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@6db6885319cb1f85f75cd2947caa96596047711b
+      - name: test-action-filter
+        uses: ./action-templates/actions/action-filter
+        id: filter
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            java:
+              - '**/*.java'
+            javascript-typescript-vue:
+              - '**/*.js'
+              - '**/*.cjs'
+              - '**/*.mjs'
+              - '**/*.ts'
+              - '**/*.cts'
+              - '**/*.mts'
+              - '**/*.vue'
+            python:
+              - '**/*.py'
+            actions:
+              - '.github/**/*.yml'
+              - '.github/**/*.yaml'
+              - 'action-templates/**/*.yml'
+              - 'action-templates/**/*.yaml'
+      - run: |
+          echo ${{ toJSON(steps.filter.outputs.changes) }}
