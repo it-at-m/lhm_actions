@@ -42,5 +42,8 @@ jobs:
               - '.github/**/*.yaml'
               - 'action-templates/**/*.yml'
               - 'action-templates/**/*.yaml'
-      - run: |
-          echo ${{ toJSON(steps.filter.outputs.changes) }}
+      - name: echo-output
+        env:
+          CHANGES: ${{ steps.filter.outputs.changes }}
+        run: |
+          echo toJSON($CHANGES)
