@@ -44,6 +44,3 @@ jobs:
               - 'action-templates/**/*.yaml'
       - run: |
           echo ${{ toJSON(steps.filter.outputs.changes) }}
-          # TBD: prüfen, ob steps.filter.outputs.changes den Änderungen entspricht
-          CHANGES=`git diff HEAD --no-renames --name-status -z`
-          echo ${{ $CHANGES }}
