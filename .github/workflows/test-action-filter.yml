@@ -17,9 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout-local-actions
+        if: github.event.type == 'push'
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 2
+          persist-credentials: false
+      - name: checkout-local-actions
+        if: github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize'
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 0
           persist-credentials: false
       - name: test-action-filter
         uses: ./action-templates/actions/action-filter
@@ -76,7 +83,7 @@ jobs:
             if [ -z "$BASE_BRANCH" ]; then
               echo "2"
               # BASE_BRANCH is empty on push. We check Head
-              BASE_BRANCH=Head
+              BASE_BRANCH=HEAD
             fi
           
             echo "3"
