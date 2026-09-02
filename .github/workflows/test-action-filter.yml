@@ -39,9 +39,17 @@ jobs:
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
         run: |
-          echo "$CATEGORIES" > categories.txt
-          cat categories.txt
-          echo "0"
+          echo "$CATEGORIES"
+          
+          # remove [ and ]
+          $CATEGORIES=${$CATEGORIES#[}  # Entfernt die erste Klammer
+          $CATEGORIES=${$CATEGORIES%]}  # Entfernt die letzte Klammer
+          
+          # remove quota
+          $CATEGORIES=${$CATEGORIES//\"/}
+  
+          # convert CATEGORIES into an Array (based on comma)
+          IFS=',' read -ra category_list <<< "$$CATEGORIES"
           
           # Activate globstar for pattern match
           shopt -s globstar
@@ -73,7 +81,7 @@ jobs:
             echo "filename: $filename"
           
             # Check, whether filename follows a category
-            for category in "${CATEGORIES[@]}"; do
+            for category in "${category_list[@]}"; do
               echo "$category"
               case "$category" in
                 "[\"actions\"]")
