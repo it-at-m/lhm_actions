@@ -5,7 +5,7 @@ on:
   push:
      paths:
        - .github/workflows/test-action-filter.yml
-       - action-templates/action-filter/action.yml
+       - action-templates/actions/action-filter/action.yml
   pull_request:
 
 permissions:
