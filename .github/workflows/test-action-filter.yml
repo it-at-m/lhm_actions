@@ -10,7 +10,7 @@ on:
 
 permissions:
   contents: read # for checkout
-
+  pull-requests: read # for dorny/paths-filter
 jobs:
   test-action-filter:
     name: test-action-filter
