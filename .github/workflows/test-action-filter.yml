@@ -72,16 +72,17 @@ jobs:
   
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
+            echo "1"
             if [ -z "$BASE_BRANCH" ]; then
+              echo "2"
               # BASE_BRANCH is empty on push. We check Head
               BASE_BRANCH=Head
             fi
-            
+          
+            echo "3"
             echo "git diff-tree $BASE_BRANCH"
             git diff-tree --no-commit-id --name-only -r $BASE_BRANCH > diff_output.txt
-          
-            echo "cat diff_output.txt
-            cat diff_output.txt
+            echo "4"
           else
             # no previous commit, e.g. initial commit
             echo "git diff-tree --root"
@@ -108,8 +109,8 @@ jobs:
                        num_categories=$((--num_categories))
                        action_found=1
                        break
-                       fi
-                       ;;
+                  fi
+                  ;;
                 "java")
                   if [[ $java_found == 0 ]] && [[ "$filename" == **/*.java ]]; then
                     echo "Category $category found"
