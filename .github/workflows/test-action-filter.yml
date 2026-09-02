@@ -52,7 +52,16 @@ jobs:
           javascript_found=0
   
           # get all changed files
-          git diff HEAD^..HEAD --no-renames --name-status -z > diff_output.txt
+          if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
+            echo "git diff HEAD~1"
+            git diff HEAD~1..HEAD --no-renames --name-status -z > diff_output.txt
+          else
+            # no previous commit, e.g. initial commit
+            echo "git diff --root"
+            git diff --root --name-status -z > diff_output.txt
+          fi
+  
+          # git diff HEAD~1..HEAD --no-renames --name-status -z > diff_output.txt
           
           while IFS= read -r -d '' status; do
             # Status is e.g. "M" for modified, "A" for added, "D" for deleted
