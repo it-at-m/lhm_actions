@@ -274,7 +274,7 @@ Workflows using that action need the following permissions:
         - 'src/**'
     # Branch, tag, or commit SHA against which the changes will be detected.
     # default ''
-    base: ''
+    base: '${{ github.ref }}'
 
   # run only if some file in 'src' folder was changed
 - if: steps.changes.outputs.src == 'true'
