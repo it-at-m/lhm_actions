@@ -28,15 +28,7 @@ jobs:
             java:
               - '**/*.java'
             javascript-typescript-vue:
-              - '**/*.js'
-              - '**/*.cjs'
-              - '**/*.mjs'
-              - '**/*.ts'
-              - '**/*.cts'
-              - '**/*.mts'
               - '**/*.vue'
-            python:
-              - '**/*.py'
             actions:
               - '.github/**/*.yml'
               - '.github/**/*.yaml'
@@ -44,6 +36,69 @@ jobs:
               - 'action-templates/**/*.yaml'
       - name: echo-output
         env:
-          CHANGES: ${{ steps.filter.outputs.changes }}
+          CATEGORIES: ${{ steps.filter.outputs.changes }}
         run: |
-          echo "$CHANGES"
+          echo "$CATEGORIES"
+          # Activate globstar for pattern match
+          shopt -s globstar
+          
+          # list of categories
+          # categories=("action" "java" "javascript")
+          num_categories=${#CATEGORIES[@]}
+          echo "num_categories: $num_categories"
+          
+          action_found=0
+          java_found=0
+          javascript_found=0
+  
+          # get all changed files
+          git diff HEAD^..HEAD --no-renames --name-status -z > diff_output.txt
+          
+          while IFS= read -r -d '' status; do
+            # Status is e.g. "M" for modified, "A" for added, "D" for deleted
+            # Filename follows status
+            read -r filename
+            # echo "$filename"
+          
+            # Check, whether filename follows a category
+            for category in "${CATEGORIES[@]}"; do
+              echo "$category"
+              case "$category" in
+                "action")
+                  if [[ $action_found == 0 ]] &&
+                     ( [[ "$filename" == .github/**/*.yml ]] || \
+                     [[ "$filename" == .github/**/*.yaml ]] || \
+                     [[ "$filename" == action-templates/**/*.yml ]] || \
+                     [[ "$filename" == action-templates/**/*.yaml ]] ); then
+                       num_categories=$((--num_categories))
+                       action_found=1
+                       break
+                       fi
+                       ;;
+                "java")
+                  if [[ $java_found == 0 ]] && [[ "$filename" == **/*.java ]]; then
+                     echo "category java"
+                     num_categories=$((num_categories - 1))
+                     java_found=1
+                     break
+                     fi
+                     ;;
+                "javascript")
+                  if  [[ $javascript_found == 0 ]] && [[ "$filename" == **/*.vue ]] ); then
+                    echo "category javascript"
+                    num_categories=$((num_categories - 1))
+                    javascript_found=1
+                    break
+                  fi
+                  ;;
+                *)
+                  # File has not category
+                  ;;
+              esac
+            done
+          done < <(cat diff_output.txt)
+          
+          if [[ $num_categories > 0 ]]; then
+            echo "num_categories: $num_categories"
+            exit 1
+          fi
