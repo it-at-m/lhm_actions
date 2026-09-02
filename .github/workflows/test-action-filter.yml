@@ -37,17 +37,15 @@ jobs:
               - 'action-templates/**/*.yml'
               - 'action-templates/**/*.yaml'
       - name: get-base-ref-commit-id
-        id: commit-id
+        id: base-branch
         if: github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize'
         run: |
-          echo "git rev-parse $GITHUB_BASE_REF"
-          commit-id=$(git rev-parse $GITHUB_BASE_REF)
-          echo $commit-id
-          echo commit-id=$commit-id >> "$GITHUB_OUTPUT"
+          echo "base-branch=origin/$GITHUB_BASE_REF"
+          echo base-branch=origin/$GITHUB_BASE_REF >> "$GITHUB_OUTPUT"
       - name: check-filter-output
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
-          COMMIT_ID: ${{ steps.commit-id.outputs.COMMIT_ID }}
+          BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
         run: |
           echo "action-filter output: $CATEGORIES"
           
@@ -74,19 +72,19 @@ jobs:
   
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            if [ -z "$COMMIT_ID" ]; then
-              # COMMIT_ID is empty on push. We check Head
-              COMMIT_ID=Head
+            if [ -z "$BASE_BRANCH" ]; then
+              # BASE_BRANCH is empty on push. We check Head
+              BASE_BRANCH=Head
             fi
             
-            echo "git diff $COMMIT_ID"
-            git diff-tree --no-commit-id --name-only -r $COMMIT_ID > diff_output.txt
+            echo "git diff-tree $BASE_BRANCH"
+            git diff-tree --no-commit-id --name-only -r $BASE_BRANCH > diff_output.txt
           
             echo "cat diff_output.txt
             cat diff_output.txt
           else
             # no previous commit, e.g. initial commit
-            echo "git diff --root"
+            echo "git diff-tree --root"
             git diff-tree --no-commit-id --name-only -r --root > diff_output.txt
           fi
   
