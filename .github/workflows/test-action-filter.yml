@@ -48,7 +48,7 @@ jobs:
           
           # remove quota
           CATEGORIES=${CATEGORIES//\"/}
-  
+          
           # convert CATEGORIES into an Array (based on comma) named category_list
           IFS=',' read -ra category_list <<< "$CATEGORIES"
           
@@ -73,6 +73,9 @@ jobs:
             git diff-tree --no-commit-id --name-only -r --root > diff_output.txt
           fi
   
+          echo "git diff-tree output"
+          cat diff_output.txt
+          
           # Loop through all files
           while IFS= read -r filename; do
             echo "Changed file: $filename"
