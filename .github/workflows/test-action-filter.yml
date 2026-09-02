@@ -74,7 +74,7 @@ jobs:
   
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            if [ if [ -z "$COMMIT_ID" ]; then
+            if [ -z "$COMMIT_ID" ]; then
               # COMMIT_ID is empty on push. We check Head
               COMMIT_ID=Head
             fi
