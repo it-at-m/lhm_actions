@@ -68,13 +68,13 @@ jobs:
 
           loop=0
           
-          while IFS= read -r -d '' line; do
-            echo $line
+          while IFS= read -r -d '' filename; do
+            echo $filename
             echo $loop
-            status="${line:0:1}"
-            filename="${line:1}"
-            echo "$status"
-            echo "$filename"
+            #status="${line:0:1}"
+            #filename="${line:1}"
+            #echo "$status"
+            #echo "$filename"
           
             # Check, whether filename follows a category
             for category in "${CATEGORIES[@]}"; do
