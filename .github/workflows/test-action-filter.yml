@@ -67,6 +67,7 @@ jobs:
           fi
   
           echo "4"
+          cat diff_output.txt
           
           while IFS= read -r -d '' status; do
             # Status is e.g. "M" for modified, "A" for added, "D" for deleted
@@ -110,7 +111,7 @@ jobs:
                   ;;
               esac
             done
-          done < <(cat diff_output.txt)
+          done <<(cat diff_output.txt)
           
           echo "5"
           if [[ $num_categories > 0 ]]; then
