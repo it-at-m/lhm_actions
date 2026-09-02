@@ -36,9 +36,18 @@ jobs:
               - '.github/**/*.yaml'
               - 'action-templates/**/*.yml'
               - 'action-templates/**/*.yaml'
-      - name: echo-output
+      - name: get-base-ref-commit-id
+        id: commit-id
+        if: github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize'
+        run: |
+          echo "git rev-parse $GITHUB_BASE_REF"
+          commit-id=$(git rev-parse $GITHUB_BASE_REF)
+          echo $commit-id
+          echo commit-id=$commit-id >> "$GITHUB_OUTPUT"
+      - name: check-filter-output
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
+          COMMIT_ID: ${{ steps.commit-id.outputs.COMMIT_ID }}
         run: |
           echo "action-filter output: $CATEGORIES"
           
@@ -65,8 +74,16 @@ jobs:
   
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            echo "git diff HEAD~1"
-            git diff-tree --no-commit-id --name-only -r HEAD > diff_output.txt
+            if [ if [ -z "$COMMIT_ID" ]; then
+              # COMMIT_ID is empty on push. We check Head
+              COMMIT_ID=Head
+            fi
+            
+            echo "git diff $COMMIT_ID"
+            git diff-tree --no-commit-id --name-only -r $COMMIT_ID > diff_output.txt
+          
+            echo "cat diff_output.txt
+            cat diff_output.txt
           else
             # no previous commit, e.g. initial commit
             echo "git diff --root"
