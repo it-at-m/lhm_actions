@@ -42,14 +42,14 @@ jobs:
           echo "$CATEGORIES"
           
           # remove [ and ]
-          $CATEGORIES=${$CATEGORIES#[}  # Entfernt die erste Klammer
-          $CATEGORIES=${$CATEGORIES%]}  # Entfernt die letzte Klammer
+          CATEGORIES=${CATEGORIES#[}
+          CATEGORIES=${CATEGORIES%]}
           
           # remove quota
-          $CATEGORIES=${$CATEGORIES//\"/}
+          CATEGORIES=${CATEGORIES//\"/}
   
           # convert CATEGORIES into an Array (based on comma)
-          IFS=',' read -ra category_list <<< "$$CATEGORIES"
+          IFS=',' read -ra category_list <<< "$CATEGORIES"
           
           # Activate globstar for pattern match
           shopt -s globstar
@@ -84,7 +84,7 @@ jobs:
             for category in "${category_list[@]}"; do
               echo "$category"
               case "$category" in
-                "[\"actions\"]")
+                "actions")
                   if [[ $action_found == 0 ]] &&
                      ( [[ "$filename" == .github/**/*.yml ]] || \
                      [[ "$filename" == .github/**/*.yaml ]] || \

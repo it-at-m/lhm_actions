@@ -1,7 +1,7 @@
 package de.muenchen.helloworld;
 
 /**
- * Sample application to execute tests.
+ * Sample application to execute tests for actions.
  */
 public final class HelloWorld {
     /**
