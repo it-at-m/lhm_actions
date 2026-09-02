@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 2
+          persist-credentials: false
       - name: test-action-filter
         uses: ./action-templates/actions/action-filter
         id: filter
@@ -39,7 +40,7 @@ jobs:
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
         run: |
-          echo "$CATEGORIES"
+          echo "action-filter output: $CATEGORIES"
           
           # remove "[" and "]"
           CATEGORIES=${CATEGORIES#[}
@@ -81,10 +82,10 @@ jobs:
               case "$category" in
                 "actions")
                   if [[ $action_found == 0 ]] &&
-                     ( [[ "$filename" == .github/**/*.yml ]] || \
+                     { [[ "$filename" == .github/**/*.yml ]] || \
                      [[ "$filename" == .github/**/*.yaml ]] || \
                      [[ "$filename" == action-templates/**/*.yml ]] || \
-                     [[ "$filename" == action-templates/**/*.yaml ]] ); then
+                     [[ "$filename" == action-templates/**/*.yaml ]] ; } then
                        echo "Category $category found."
                        num_categories=$((--num_categories))
                        action_found=1
@@ -116,7 +117,7 @@ jobs:
           done < diff_output.txt
           
           # Check if all categories (but only expected ones) were found 
-          if [[ $num_categories != 0 ]]; then
+          if [[ "$num_categories" -ne "0" ]]; then
             echo "Expected num_categories == 0 but was $num_categories"
             exit 1
           fi
