@@ -39,7 +39,10 @@ jobs:
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
         run: |
-          echo "$CATEGORIES"
+          echo "$CATEGORIES" > categories.txt
+          cat categories.txt
+          echo "0"
+          
           # Activate globstar for pattern match
           shopt -s globstar
           
