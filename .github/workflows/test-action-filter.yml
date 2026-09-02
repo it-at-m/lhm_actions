@@ -55,22 +55,22 @@ jobs:
           # get all changed files
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
             echo "git diff HEAD~1"
-            git diff HEAD~1..HEAD --no-renames --name-status -z > diff_output.txt
+            git diff-tree --no-commit-id --name-only -r HEAD > diff_output.txt
             echo "2"
           else
             # no previous commit, e.g. initial commit
             echo "git diff --root"
-            git diff --root --name-status -z > diff_output.txt
+            git diff-tree --no-commit-id --name-only -r --root > diff_output.txt
             echo "3"
           fi
   
           echo "4"
 
-          while IFS= read -r line; do
-            echo $line
-            status="${line:0:1}"
-            filename="${line:1}"
-            echo "status: $status"
+          while IFS= read -r filename; do
+            #echo $line
+            #status="${line:0:1}"
+            #filename="${line:1}"
+            #echo "status: $status"
             echo "filename: $filename"
           
             # Check, whether filename follows a category
