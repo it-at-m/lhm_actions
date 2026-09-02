@@ -66,38 +66,35 @@ jobs:
   
           echo "4"
 
-          while IFS= read -r -d '' status; do
-            #status="${line:0:1}"
-            read -r filename
-            #filename="${line:1}"
-            echo "status: $status"
-            echo "filename: $filename"
+          while IFS= read -r line; do
+            status="${line:0:1}"
+            filename="${line:1}"
+            echo "$status"
+            echo "$filename"
           
             # Check, whether filename follows a category
             for category in "${CATEGORIES[@]}"; do
-              echo "category: $category"
-          
+              echo "$category"
               case "$category" in
                 "[\"actions\"]")
-                  echo "category: actions"
                   if [[ $action_found == 0 ]] &&
-                   ( [[ "$filename" == .github/**/*.yml ]] || \
-                   [[ "$filename" == .github/**/*.yaml ]] || \
-                   [[ "$filename" == action-templates/**/*.yml ]] || \
-                   [[ "$filename" == action-templates/**/*.yaml ]] ); then
-                     num_categories=$((--num_categories))
-                     action_found=1
-                     break
-                   fi
-                   ;;
+                     ( [[ "$filename" == .github/**/*.yml ]] || \
+                     [[ "$filename" == .github/**/*.yaml ]] || \
+                     [[ "$filename" == action-templates/**/*.yml ]] || \
+                     [[ "$filename" == action-templates/**/*.yaml ]] ); then
+                       num_categories=$((--num_categories))
+                       action_found=1
+                       break
+                       fi
+                       ;;
                 "java")
-                  echo "category java"
                   if [[ $java_found == 0 ]] && [[ "$filename" == **/*.java ]]; then
+                     echo "category java"
                      num_categories=$((num_categories - 1))
                      java_found=1
                      break
-                   fi
-                   ;;
+                     fi
+                     ;;
                 "javascript")
                   if  [[ $javascript_found == 0 ]] && [[ "$filename" == **/*.vue ]]; then
                     echo "category javascript"
@@ -108,7 +105,6 @@ jobs:
                   ;;
                 *)
                   # File has not category
-                  echo "no category for this file"
                   ;;
               esac
             done
