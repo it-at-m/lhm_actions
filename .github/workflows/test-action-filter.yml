@@ -67,19 +67,16 @@ jobs:
           echo "4"
 
           while IFS= read -r -d '' line; do
-            echo $line
             status="${line:0:1}"
             filename="${line:1}"
-            # Status is e.g. "M" for modified, "A" for added, "D" for deleted
-            # Filename follows status
-            # read -r filename
-            #echo "$filename"
+            echo "$status"
+            echo "$filename"
           
             # Check, whether filename follows a category
             for category in "${CATEGORIES[@]}"; do
               echo "$category"
               case "$category" in
-                "action")
+                "[\"actions\"]")
                   if [[ $action_found == 0 ]] &&
                      ( [[ "$filename" == .github/**/*.yml ]] || \
                      [[ "$filename" == .github/**/*.yaml ]] || \
