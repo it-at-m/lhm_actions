@@ -66,7 +66,11 @@ jobs:
   
           echo "4"
 
-          while IFS= read -r line; do
+          loop=0
+          
+          while IFS= read -r -d '' line; do
+            echo $line
+            echo $loop
             status="${line:0:1}"
             filename="${line:1}"
             echo "$status"
