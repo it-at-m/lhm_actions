@@ -55,14 +55,18 @@ jobs:
           # get all changed files
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
             echo "git diff HEAD~1"
+            git diff HEAD~1..HEAD --no-renames --name-status -z
+            echo "1"
             git diff HEAD~1..HEAD --no-renames --name-status -z > diff_output.txt
+            echo "2"
           else
             # no previous commit, e.g. initial commit
             echo "git diff --root"
             git diff --root --name-status -z > diff_output.txt
+            echo "3"
           fi
   
-          # git diff HEAD~1..HEAD --no-renames --name-status -z > diff_output.txt
+          echo "4"
           
           while IFS= read -r -d '' status; do
             # Status is e.g. "M" for modified, "A" for added, "D" for deleted
@@ -108,7 +112,10 @@ jobs:
             done
           done < <(cat diff_output.txt)
           
+          echo "5"
           if [[ $num_categories > 0 ]]; then
             echo "num_categories: $num_categories"
             exit 1
           fi
+          
+          echo "Filter action ok"
