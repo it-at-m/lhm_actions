@@ -12,13 +12,14 @@ permissions:
   contents: read # for checkout
 
 jobs:
-  # JOB to run change detection
   test-action-filter:
     name: test-action-filter
     runs-on: ubuntu-latest
     steps:
       - name: checkout-local-actions
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@6db6885319cb1f85f75cd2947caa96596047711b
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 2
       - name: test-action-filter
         uses: ./action-templates/actions/action-filter
         id: filter
