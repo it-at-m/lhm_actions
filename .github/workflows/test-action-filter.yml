@@ -94,7 +94,7 @@ jobs:
                      fi
                      ;;
                 "javascript")
-                  if  [[ $javascript_found == 0 ]] && [[ "$filename" == **/*.vue ]] ); then
+                  if  [[ $javascript_found == 0 ]] && [[ "$filename" == **/*.vue ]]; then
                     echo "category javascript"
                     num_categories=$((num_categories - 1))
                     javascript_found=1
