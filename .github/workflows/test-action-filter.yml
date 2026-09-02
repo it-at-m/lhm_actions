@@ -65,12 +65,15 @@ jobs:
           fi
   
           echo "4"
-          
-          while IFS= read -r -d '' status; do
+
+          while IFS= read -r -d '' line; do
+            echo $line
+            status="${line:0:1}"
+            filename="${line:1}"
             # Status is e.g. "M" for modified, "A" for added, "D" for deleted
             # Filename follows status
-            read -r filename
-            # echo "$filename"
+            # read -r filename
+            #echo "$filename"
           
             # Check, whether filename follows a category
             for category in "${CATEGORIES[@]}"; do
@@ -108,7 +111,7 @@ jobs:
                   ;;
               esac
             done
-          done < <(cat diff_output.txt)
+          done < diff_output.txt
           
           echo "5"
           if [[ $num_categories > 0 ]]; then
