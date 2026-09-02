@@ -48,7 +48,7 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize'
         run: |
           echo "base-branch=origin/$GITHUB_BASE_REF"
-          echo base-branch=origin/$GITHUB_BASE_REF >> "$GITHUB_OUTPUT"
+          echo "base-branch=origin/$GITHUB_BASE_REF" >> "$GITHUB_OUTPUT"
       - name: check-filter-output
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
@@ -79,24 +79,20 @@ jobs:
   
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            echo "1"
             if [ -z "$BASE_BRANCH" ]; then
-              echo "2"
               # BASE_BRANCH is empty on push. We check Head
               BASE_BRANCH=HEAD
             fi
           
-            echo "3"
             echo "git diff-tree $BASE_BRANCH"
-            git diff-tree --no-commit-id --name-only -r $BASE_BRANCH > diff_output.txt
-            echo "4"
+            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH" > diff_output.txt
           else
             # no previous commit, e.g. initial commit
             echo "git diff-tree --root"
             git diff-tree --no-commit-id --name-only -r --root > diff_output.txt
           fi
   
-          echo "git diff-tree output"
+          echo "Changed files:"
           cat diff_output.txt
           
           # Loop through all files
