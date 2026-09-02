@@ -55,8 +55,6 @@ jobs:
           # get all changed files
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
             echo "git diff HEAD~1"
-            git diff HEAD~1..HEAD --no-renames --name-status -z
-            echo "1"
             git diff HEAD~1..HEAD --no-renames --name-status -z > diff_output.txt
             echo "2"
           else
@@ -67,7 +65,6 @@ jobs:
           fi
   
           echo "4"
-          cat diff_output.txt
           
           while IFS= read -r -d '' status; do
             # Status is e.g. "M" for modified, "A" for added, "D" for deleted
@@ -111,7 +108,7 @@ jobs:
                   ;;
               esac
             done
-          done <<(cat diff_output.txt)
+          done < <(cat diff_output.txt)
           
           echo "5"
           if [[ $num_categories > 0 ]]; then
