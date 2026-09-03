@@ -75,8 +75,33 @@ jobs:
           # check each category only once
           action_found=0
           java_found=0
-          javascript_found=0
-  
+          markdown_found=0
+          
+          for category in "${category_list[@]}"; do
+            case "$category" in
+              "actions")
+                 if [[ $action_found -eq 0 ]]; then
+                   action_found=$((++action_found))
+                 fi
+                ;;
+              "java")
+                 if [[ $java_found -eq 0 ]]; then
+                   java_found=$((++java_found))
+                 fi
+                ;;
+              "markdown_found")
+                 if [[ $markdown_found -eq 0 ]]; then
+                   markdown_found=$((++markdown_found))
+                 fi
+                ;;
+              *)
+                # There shouldn't be any other categories
+                echo "Category $category not allowed"
+                exit 1
+                ;;
+            esac
+          done 
+
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
             if [ -z "$BASE_BRANCH" ]; then
@@ -95,6 +120,9 @@ jobs:
           echo "Changed files:"
           cat diff_output.txt
           
+          # List to add all categories found
+          categories_found=()
+
           # Loop through all files
           while IFS= read -r filename; do
             echo "Changed file: $filename"
@@ -103,44 +131,70 @@ jobs:
             for category in "${category_list[@]}"; do
               case "$category" in
                 "actions")
-                  if [[ $action_found == 0 ]] &&
-                     { [[ "$filename" == .github/**/*.yml ]] || \
-                     [[ "$filename" == .github/**/*.yaml ]] || \
-                     [[ "$filename" == action-templates/**/*.yml ]] || \
-                     [[ "$filename" == action-templates/**/*.yaml ]] ; } then
-                       echo "Category $category found."
-                       num_categories=$((--num_categories))
-                       action_found=1
-                       break
-                  fi
-                  ;;
+                   if [[ "$filename" == .github/**/*.yml ]] || \
+                      [[ "$filename" == .github/**/*.yaml ]] || \
+                      [[ "$filename" == action-templates/**/*.yml ]] || \
+                      [[ "$filename" == action-templates/**/*.yaml ]]; then
+                     echo "Category $category found."
+                     if [[ $action_found -eq 0 ]]; then
+                       echo "File with pattern $category found but $category not set in action-filter!"
+                       exit 1
+                     fi
+                      
+                     # Everything is ok
+                     if [[ ! " ${categories_found[@]} " =~ " ${element} " ]]; then
+                       echo "File for category $category found."
+                       categories_found+=("$element")
+                     fi
+                     break
+                   fi
+                   ;;
                 "java")
-                  if [[ $java_found == 0 ]] && [[ "$filename" == **/*.java ]]; then
-                    echo "Category $category found"
-                    num_categories=$((--num_categories))
-                    java_found=1
-                    break
-                  fi
-                  ;;
+                   if [[ "$filename" == **/*.java ]]; then
+                     echo "Category $category found."
+                     if [[ $java_found -eq 0 ]]; then
+                       echo "File with pattern $category found but $category not set in action-filter!"
+                       exit 1
+                     fi
+          
+                     # Everything is ok
+                     if [[ ! " ${categories_found[@]} " =~ " ${element} " ]]; then
+                       echo "File for category $category found."
+                       categories_found+=("$element")
+                     fi
+                     break
+                   fi
+                   ;;
                 "markdown")
-                  if  [[ $javascript_found == 0 ]] && [[ "$filename" == **/*.md ]]; then
-                    echo "Category $category found"
-                    num_categories=$((--num_categories))
-                    javascript_found=1
-                    break
-                  fi
-                  ;;
+                   if [[ "$filename" == **/*.md ]]; then
+                     echo "Category $category found."
+          
+                     if [[ $action_found -eq 0 ]]; then
+                       echo "File with pattern $category found but $category not set in action-filter!"
+                       exit 1
+                     fi
+          
+                     # Everything is ok
+                     if [[ ! " ${categories_found[@]} " =~ " ${element} " ]]; then
+                       echo "File for category $category found."
+                       categories_found+=("$element")
+                     fi
+                     break
+                   fi
+                   ;;
                 *)
-                  # File has not category
-                  echo "$filename follows no category"
+                  # File follows no category pattern
+                  echo "$filename follows no pattern"
                   ;;
               esac
             done
           done < diff_output.txt
           
-          # Check if all categories (but only expected ones) were found 
-          if [[ "$num_categories" -ne "0" ]]; then
-            echo "Expected num_categories == 0 but was $num_categories"
+          num_categories_found=${#categories_found[@]}
+
+          # Check if all categories were found 
+          if [[ "$num_categories" -ne "$num_categories_found" ]]; then
+            echo "Expected num_categories found equals to $num_categories but was $num_categories_found"
             exit 1
           fi
           
