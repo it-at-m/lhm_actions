@@ -142,7 +142,7 @@ jobs:
                      fi
 
                      # Everything is ok
-                     if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
+                     if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
                        categories_found+=("$category")
                        echo "$category added to found categories."
                      fi
@@ -158,7 +158,7 @@ jobs:
                      fi
 
                      # Everything is ok
-                     if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
+                     if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
                        categories_found+=("$category")
                        echo "$category added to found categories."
                      fi
@@ -175,7 +175,7 @@ jobs:
                      fi
 
                      # Everything is ok
-                     if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
+                     if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
                        categories_found+=("$category")
                        echo "$category added to found categories."
                      fi
