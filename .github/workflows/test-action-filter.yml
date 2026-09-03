@@ -142,9 +142,9 @@ jobs:
                      fi
                       
                      # Everything is ok
-                     if [[ ! " ${categories_found[@]} " =~ " ${element} " ]]; then
+                     if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
                        echo "File for category $category found."
-                       categories_found+=("$element")
+                       categories_found+=("$category")
                      fi
                      break
                    fi
@@ -158,9 +158,9 @@ jobs:
                      fi
           
                      # Everything is ok
-                     if [[ ! " ${categories_found[@]} " =~ " ${element} " ]]; then
+                     if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
                        echo "File for category $category found."
-                       categories_found+=("$element")
+                       categories_found+=("$category")
                      fi
                      break
                    fi
@@ -175,9 +175,9 @@ jobs:
                      fi
           
                      # Everything is ok
-                     if [[ ! " ${categories_found[@]} " =~ " ${element} " ]]; then
+                     if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
                        echo "File for category $category found."
-                       categories_found+=("$element")
+                       categories_found+=("$category")
                      fi
                      break
                    fi
