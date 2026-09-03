@@ -104,8 +104,8 @@ jobs:
 
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            echo "git diff-tree $BASE_BRANCH HEAD"
-            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH" HEAD > diff_output.txt
+            echo "git diff-tree --no-commit-id --name-only -r $BASE_BRANCH HEAD"
+            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH HEAD" > diff_output.txt
           else
             # no previous commit, e.g. initial commit
             echo "git diff-tree --root"
