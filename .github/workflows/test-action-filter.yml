@@ -3,9 +3,9 @@ name: Test action action-filter
 
 on:
   push:
-     paths:
-       - .github/workflows/test-action-filter.yml
-       - action-templates/actions/action-filter/action.yml
+    paths:
+      - .github/workflows/test-action-filter.yml
+      - action-templates/actions/action-filter/action.yml
   pull_request:
 
 permissions:
@@ -169,7 +169,7 @@ jobs:
                    if [[ "$filename" == **/*.md ]]; then
                      echo "File for $category pattern found."
 
-                     if [[ $action_found -eq 0 ]]; then
+                     if [[ $markdown_found -eq 0 ]]; then
                        echo "File with pattern $category found but $category not set in action-filter!"
                        exit 1
                      fi
