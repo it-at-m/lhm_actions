@@ -132,7 +132,7 @@ jobs:
                [[ "$filename" == action-templates/**/*.yml ]] || \
                [[ "$filename" == action-templates/**/*.yaml ]]; then
 
-              category = "actions"
+              category="actions"
 
               echo "File for $category pattern found."
               if [[ $action_found -eq 0 ]]; then
@@ -148,7 +148,7 @@ jobs:
             
             elif [[ "$filename" == **/*.java ]]; then
               
-              category = "java"
+              category="java"
               
               echo "File for $category pattern found."
               if [[ $java_found -eq 0 ]]; then
@@ -164,7 +164,7 @@ jobs:
 
             elif [[ "$filename" == **/*.md ]]; then
 
-              category = "markdown"
+              category="markdown"
 
               echo "File for $category pattern found."
               if [[ $markdown_found -eq 0 ]]; then
