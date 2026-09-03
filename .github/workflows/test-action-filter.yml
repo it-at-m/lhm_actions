@@ -188,8 +188,10 @@ jobs:
                   ;;
               esac
             done
+            echo $categories_found
           done < diff_output.txt
           
+          echo $categories_found
           num_categories_found=${#categories_found[@]}
 
           # Check if all categories were found 
