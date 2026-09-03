@@ -127,67 +127,62 @@ jobs:
           while IFS= read -r filename; do
             echo "Changed file: $filename"
 
-            # Check, whether filename follows a category
-            for category in "${category_list[@]}"; do
-              case "$category" in
-                "actions")
-                   if [[ "$filename" == .github/**/*.yml ]] || \
-                      [[ "$filename" == .github/**/*.yaml ]] || \
-                      [[ "$filename" == action-templates/**/*.yml ]] || \
-                      [[ "$filename" == action-templates/**/*.yaml ]]; then
-                     echo "File for $category pattern found."
-                     if [[ $action_found -eq 0 ]]; then
-                       echo "File with pattern $category found but $category not set in action-filter!"
-                       exit 1
-                     fi
+            if [[ "$filename" == .github/**/*.yml ]] || \
+               [[ "$filename" == .github/**/*.yaml ]] || \
+               [[ "$filename" == action-templates/**/*.yml ]] || \
+               [[ "$filename" == action-templates/**/*.yaml ]]; then
 
-                     # Everything is ok
-                     if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
-                       categories_found+=("$category")
-                       echo "$category added to found categories."
-                     fi
-                     break
-                   fi
-                   ;;
-                "java")
-                   if [[ "$filename" == **/*.java ]]; then
-                     echo "File for $category pattern found."
-                     if [[ $java_found -eq 0 ]]; then
-                       echo "File with pattern $category found but $category not set in action-filter!"
-                       exit 1
-                     fi
+              category = "actions"
 
-                     # Everything is ok
-                     if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
-                       categories_found+=("$category")
-                       echo "$category added to found categories."
-                     fi
-                     break
-                   fi
-                   ;;
-                "markdown")
-                   if [[ "$filename" == **/*.md ]]; then
-                     echo "File for $category pattern found."
+              echo "File for $category pattern found."
+              if [[ $action_found -eq 0 ]]; then
+                echo "File with pattern $category found but $category not set in action-filter!"
+                exit 1
+              fi
 
-                     if [[ $markdown_found -eq 0 ]]; then
-                       echo "File with pattern $category found but $category not set in action-filter!"
-                       exit 1
-                     fi
+              # Add category "actions" to categories_found
+              if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
+                categories_found+=("$category")
+                echo "$category added to found categories."
+              fi
+            
+            elif [[ "$filename" == **/*.java ]]; then
+              
+              category = "java"
+              
+              echo "File for $category pattern found."
+              if [[ $java_found -eq 0 ]]; then
+                echo "File with pattern $category found but $category not set in action-filter!"
+                exit 1
+              fi
 
-                     # Everything is ok
-                     if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
-                       categories_found+=("$category")
-                       echo "$category added to found categories."
-                     fi
-                     break
-                   fi
-                   ;;
-                *)
-                  # File follows no category pattern
-                  echo "$filename follows no pattern"
-                  ;;
-              esac
-            done
+              # Add category "java" to categories_found
+              if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
+                categories_found+=("$category")
+                echo "$category added to found categories."
+              fi
+
+            elif [[ "$filename" == **/*.md ]]; then
+
+              category = "markdown"
+
+              echo "File for $category pattern found."
+              if [[ $markdown_found -eq 0 ]]; then
+                echo "File with pattern $category found but $category not set in action-filter!"
+                exit 1
+              fi
+
+              # Add category "markdown" to categories_found
+              if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
+                categories_found+=("$category")
+                echo "$category added to found categories."
+              fi
+
+            else
+              # Filename doesn't follow any category
+              echo "Filename $filename doesn't follow any pattern"
+            fi
+
           done < diff_output.txt
 
           num_categories_found=${#categories_found[@]}
