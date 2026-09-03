@@ -89,7 +89,7 @@ jobs:
                    java_found=$((++java_found))
                  fi
                 ;;
-              "markdown_found")
+              "markdown")
                  if [[ $markdown_found -eq 0 ]]; then
                    markdown_found=$((++markdown_found))
                  fi
@@ -105,8 +105,8 @@ jobs:
           # get all changed files (diff_ouptut.txt contains only filenames)
           if [[ -n "$BASE_BRANCH" ]]; then
             # Pull requests check against base branch
-            echo "git diff-tree --no-commit-id --name-only -r $BASE_BRANCH HEAD"
-            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH" HEAD > diff_output.txt
+            echo "git diff-tree --no-commit-id --name-only -r $BASE_BRANCH $GITHUB_REF"
+            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH" "$GITHUB_REF" > diff_output.txt
           elif git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
             # Push requests check against previous push in same branch
             echo "git diff-tree --no-commit-id --name-only -r HEAD"
