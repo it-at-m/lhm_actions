@@ -67,7 +67,7 @@ jobs:
           IFS=',' read -ra category_list <<< "$CATEGORIES"
           
           num_categories=${#category_list[@]}
-          echo "num_categories: $num_categories"
+          echo "Number of categories found with action-filter: $num_categories"
           
           # Activate globstar for pattern match
           shopt -s globstar
@@ -104,13 +104,8 @@ jobs:
 
           # get all changed files (diff_ouptut.txt contains only filenames)
           if git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            if [ -z "$BASE_BRANCH" ]; then
-              # BASE_BRANCH is empty on push. We check Head
-              BASE_BRANCH=HEAD
-            fi
-          
-            echo "git diff-tree $BASE_BRANCH"
-            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH" > diff_output.txt
+            echo "git diff-tree $BASE_BRANCH HEAD"
+            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH" HEAD > diff_output.txt
           else
             # no previous commit, e.g. initial commit
             echo "git diff-tree --root"
@@ -135,7 +130,7 @@ jobs:
                       [[ "$filename" == .github/**/*.yaml ]] || \
                       [[ "$filename" == action-templates/**/*.yml ]] || \
                       [[ "$filename" == action-templates/**/*.yaml ]]; then
-                     echo "Category $category found."
+                     echo "File for $category pattern found."
                      if [[ $action_found -eq 0 ]]; then
                        echo "File with pattern $category found but $category not set in action-filter!"
                        exit 1
@@ -143,15 +138,15 @@ jobs:
                       
                      # Everything is ok
                      if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
-                       echo "File for category $category found."
                        categories_found+=("$category")
+                       echo "$category added to found categories."
                      fi
                      break
                    fi
                    ;;
                 "java")
                    if [[ "$filename" == **/*.java ]]; then
-                     echo "Category $category found."
+                     echo "File for $category pattern found."
                      if [[ $java_found -eq 0 ]]; then
                        echo "File with pattern $category found but $category not set in action-filter!"
                        exit 1
@@ -159,15 +154,15 @@ jobs:
           
                      # Everything is ok
                      if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
-                       echo "File for category $category found."
                        categories_found+=("$category")
+                       echo "$category added to found categories."
                      fi
                      break
                    fi
                    ;;
                 "markdown")
                    if [[ "$filename" == **/*.md ]]; then
-                     echo "Category $category found."
+                     echo "File for $category pattern found."
           
                      if [[ $action_found -eq 0 ]]; then
                        echo "File with pattern $category found but $category not set in action-filter!"
@@ -176,8 +171,8 @@ jobs:
           
                      # Everything is ok
                      if [[ ! " ${categories_found[@]} " =~ " ${category} " ]]; then
-                       echo "File for category $category found."
                        categories_found+=("$category")
+                       echo "$category added to found categories."
                      fi
                      break
                    fi
@@ -188,10 +183,8 @@ jobs:
                   ;;
               esac
             done
-            echo $categories_found
           done < diff_output.txt
           
-          echo $categories_found
           num_categories_found=${#categories_found[@]}
 
           # Check if all categories were found 
