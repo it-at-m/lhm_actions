@@ -6,6 +6,12 @@ on:
       - .github/workflows/test-action-actionlint.yml
       - .github/action-templates/actions/action-actionlint/action.yml
   pull_request:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,6 +23,7 @@ permissions:
 # minimal test that action-actionlint is running as the implementation should change (see https://github.com/it-at-m/lhm_actions/issues/275)
 jobs:
   test-actionlint-with-default-settings:
+    if: github.event.review.state == 'approved' # run only if pull-request is approved
     name: test-actionlint-with-default-settings
     runs-on: ubuntu-latest
     steps:
