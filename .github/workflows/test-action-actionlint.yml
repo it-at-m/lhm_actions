@@ -1,8 +1,11 @@
-# Workflow to checkout repository
+# Workflow to test action action-actionlint.yml
 name: Test action action-actionlint
 on:
   push:
-  workflow_dispatch:
+    paths:
+      - .github/workflows/test-action-actionlint.yml
+      - .github/action-templates/actions/action-actionlint/action.yml
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
