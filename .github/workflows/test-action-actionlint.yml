@@ -23,7 +23,7 @@ permissions:
 # minimal test that action-actionlint is running as the implementation should change (see https://github.com/it-at-m/lhm_actions/issues/275)
 jobs:
   test-actionlint-with-default-settings:
-    if: github.event.review.state == 'approved' # run only if pull-request is approved
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-actionlint-with-default-settings
     runs-on: ubuntu-latest
     steps:
