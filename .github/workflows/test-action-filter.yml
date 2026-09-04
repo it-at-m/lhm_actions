@@ -1,6 +1,10 @@
 # Workflow to Test action action-filter
 name: Test action action-filter
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     paths:
