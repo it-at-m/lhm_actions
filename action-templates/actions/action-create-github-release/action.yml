@@ -19,9 +19,9 @@ inputs:
     description: "Generate release notes"
     default: "false"
   is-folder:
-     description: "is folder?"
-     default: false
-     type: boolean
+    description: "is folder?"
+    default: false
+    type: boolean
 
 runs:
   using: "composite"
