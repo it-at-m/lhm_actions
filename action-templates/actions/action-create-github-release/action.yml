@@ -19,7 +19,7 @@ inputs:
     description: "Generate release notes"
     default: "false"
   is-folder:
-    description: "is folder?"
+    description: "is folder? skip-decompress from artifact"
     default: false
     type: boolean
 
