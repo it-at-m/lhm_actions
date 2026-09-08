@@ -19,7 +19,7 @@ inputs:
     description: "Generate release notes"
     default: "false"
   skip-artifact-decompress:
-    description: "skip-decompress from artifact (artifact as zip)"
+    description: "skip-decompress of artifact (artifact as zip)"
     default: false
     type: boolean
 
