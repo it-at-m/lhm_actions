@@ -360,7 +360,7 @@ Workflows using that action need the following permissions:
     # If release notes should be generated
     generate-release-notes: true
 
-    # skip-decompress from artifact (artifact as zip)
+    # skip-decompress of artifact (artifact as zip)
     # Default: false
    skip-artifact-decompress: false
 ```
