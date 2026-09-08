@@ -58,4 +58,4 @@ runs:
         prerelease: ${{inputs.prerelease == 'true'}}
         generate_release_notes: ${{inputs.generate-release-notes == 'true'}}
         files: |
-         ${{ steps.check-filepath.outputs.filename }}
+          ${{inputs.artifact-path}}
