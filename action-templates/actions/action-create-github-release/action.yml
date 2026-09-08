@@ -31,7 +31,9 @@ runs:
       run: |
         echo hallo
         path=${{inputs.artifact-path}}
-        if [ -f "$path" ]; then
+        if [ -z "$path" ]; then
+           echo "empty variable" 
+        elif [ -f "$path" ]; then
             echo "It's a regular file."
         elif [ -d "$path" ]; then
             echo "It's a folder (directory)."
