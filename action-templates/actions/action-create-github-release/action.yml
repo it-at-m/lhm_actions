@@ -27,16 +27,19 @@ runs:
       with:
         name: ${{inputs.artifact-name}}
     - name: check-filepath
+      id: check-filepath
       shell: bash
       run: |
-        echo hallo
         path=${{inputs.artifact-path}}
         if [ -z "$path" ]; then
            echo "empty variable" 
         elif [ -f "$path" ]; then
             echo "It's a regular file."
+            echo "filename=$path" >> $GITHUB_OUTPUT
         elif [ -d "$path" ]; then
             echo "It's a folder (directory)."
+            zip -r output.zip $path
+            echo "filename=output.zip" >> $GITHUB_OUTPUT
         elif [ -e "$path" ]; then
             echo "The path exists, but it is something else (like a symlink or device)."
         else
@@ -51,4 +54,4 @@ runs:
         prerelease: ${{inputs.prerelease == 'true'}}
         generate_release_notes: ${{inputs.generate-release-notes == 'true'}}
         files: |
-          ${{inputs.artifact-path}}
+         ${{ steps.check-filepath.outputs.filename }}
