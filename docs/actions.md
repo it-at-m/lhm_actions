@@ -360,9 +360,9 @@ Workflows using that action need the following permissions:
     # If release notes should be generated
     generate-release-notes: true
 
-    # is folder? skip-decompress from artifact
+    # skip-decompress from artifact (artifact as zip)
     # Default: false
-    is-folder: false
+   skip-artifact-decompress: false
 ```
 
 ### action-dependency-review
