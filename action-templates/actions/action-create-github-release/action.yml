@@ -20,8 +20,7 @@ inputs:
     default: "false"
   skip-artifact-decompress:
     description: "skip-decompress of artifact (artifact as zip)"
-    default: false
-    type: boolean
+    default: "false"
 
 runs:
   using: "composite"
