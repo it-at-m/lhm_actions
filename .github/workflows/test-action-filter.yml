@@ -51,6 +51,7 @@ jobs:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
           BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
           SHA: ${{ github.sha }}
+          BEFORE_SHA: ${{ github.event.before..github.sha }}
         run: |
           echo "action-filter output: $CATEGORIES"
           
@@ -107,8 +108,8 @@ jobs:
             git diff --name-only "$BASE_BRANCH" HEAD > diff_output.txt
           elif git rev-parse --verify "$SHA"^ > /dev/null 2>&1; then
             # Push requests check against previous commit of current SHA
-            echo "diff --name-only $SHA^ $SHA"
-            git diff --name-only "$SHA"^ "$SHA" > diff_output.txt
+            echo "diff --name-only $BEFORE_SHA $SHA"
+            git diff --name-only "$BEFORE_SHA" "$SHA" > diff_output.txt
           else
             # no previous commit, e.g. initial commit
             echo "diff --name-only $SHA"
