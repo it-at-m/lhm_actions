@@ -1,22 +1,30 @@
 # Workflow to Test action action-filter
 name: Test action action-filter
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
-
 on:
   push:
     paths:
       - .github/workflows/test-action-filter.yml
       - action-templates/actions/action-filter/action.yml
   pull_request:
+#    types:
+#      - opened
+#      - reopened
+  pull_request_review:
+    types:
+      - submitted
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
 
 permissions:
   contents: read # for checkout
   pull-requests: read # for dorny/paths-filter
+
 jobs:
   test-action-filter:
+#    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-action-filter
     runs-on: ubuntu-latest
     steps:
@@ -42,11 +50,14 @@ jobs:
               - 'action-templates/**/*.yaml'
       - name: get-base-ref-commit-id
         id: base-branch
-        if: github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize'
+#        if: github.event_name == 'pull_request' || github.event.review.state == 'approved'
+        env:
+          BASE_BRANCH: ${{ github.base_ref || github.event.pull_request.base.ref }}
         run: |
-          echo "base-branch=origin/$GITHUB_BASE_REF"
-          echo "base-branch=origin/$GITHUB_BASE_REF" >> "$GITHUB_OUTPUT"
+          echo "base-branch=origin/${{ $BASE_BRANCH }}"
+          echo "base-branch=origin/${{ $BASE_BRANCH }}" >> "$GITHUB_OUTPUT"
       - name: check-filter-output
+        if: github.event_name == 'workflow_dispatch' # to nut run it at at the moment
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
           BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
