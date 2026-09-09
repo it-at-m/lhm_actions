@@ -123,7 +123,7 @@ jobs:
           else
             # no previous commit, e.g. initial commit
             echo "diff --name-only $SHA"
-            git diff --name-only "$SHA" > diff_output.txt
+            git diff-tree --root --name-only -r "$SHA"
           fi
 
           echo "Changed files:"
