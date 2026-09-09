@@ -59,7 +59,7 @@ We are using [semantic-release](https://github.com/semantic-release/semantic-rel
 
 ## License
 
-Distributed under the MIT License. See [LICENSE](LICENSE) file for more information.
+Distributed under the MIT License. See [LICENSE](LICENSE) file for more information. ds
 
 ## Contact
 
