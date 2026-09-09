@@ -51,7 +51,7 @@ jobs:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
           BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
           SHA: ${{ github.sha }}
-          BEFORE_SHA: ${{ github.event.before..github.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
         run: |
           echo "action-filter output: $CATEGORIES"
           
