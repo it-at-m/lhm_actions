@@ -104,8 +104,8 @@ jobs:
           # get all changed files (diff_ouptut.txt contains only filenames)
           if [[ -n "$BASE_BRANCH" ]]; then
             # Pull requests check against base branch
-            echo "diff --name-only $BASE_BRANCH $CURRENT_BRANCH"
-            git diff --name-only "$BASE_BRANCH" "$CURRENT_BRANCH" > diff_output.txt
+            echo "diff --name-only $BASE_BRANCH..$CURRENT_BRANCH"
+            git diff --name-only "$BASE_BRANCH".."$CURRENT_BRANCH" > diff_output.txt
           elif git rev-parse --verify "$SHA"^ > /dev/null 2>&1; then
             # Push requests check against previous commit of current SHA
             echo "diff --name-only $SHA^ $SHA"
