@@ -24,6 +24,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0
+          fetch-tags: false
           persist-credentials: false
       - name: test-action-filter
         uses: ./action-templates/actions/action-filter
@@ -50,7 +51,6 @@ jobs:
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
           BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
-          CURRENT_BRANCH: ${{ github.head_ref }}
           SHA: ${{ github.sha }}
         run: |
           echo "action-filter output: $CATEGORIES"
