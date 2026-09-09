@@ -54,8 +54,8 @@ jobs:
         env:
           BASE_BRANCH: ${{ github.base_ref || github.event.pull_request.base.ref }}
         run: |
-          echo "base-branch=origin/${{ $BASE_BRANCH }}"
-          echo "base-branch=origin/${{ $BASE_BRANCH }}" >> "$GITHUB_OUTPUT"
+          echo "base-branch=origin/$BASE_BRANCH"
+          echo "base-branch=origin/$BASE_BRANCH" >> "$GITHUB_OUTPUT"
       - name: check-filter-output
         if: github.event_name == 'workflow_dispatch' # to nut run it at at the moment
         env:
