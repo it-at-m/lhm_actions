@@ -1,91 +1,26 @@
-# Workflow to Test action action-filter
-name: Test action action-filter
-
-on:
-  push:
-    paths:
-      - .github/workflows/test-action-filter.yml
-      - action-templates/actions/action-filter/action.yml
-  pull_request:
-    types:
-      - opened
-      - reopened
-  pull_request_review:
-    types:
-      - submitted
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
-
-permissions:
-  contents: read # for checkout
-  pull-requests: read # for dorny/paths-filter
-
-jobs:
-  test-action-filter:
-    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
-    name: test-action-filter
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout-local-actions
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: test-action-filter
-        uses: ./action-templates/actions/action-filter
-        id: filter
-        with:
-          base: ${{ github.ref }}
-          filters: |
-            java:
-              - '**/*.java'
-            markdown:
-              - '**/*.md'
-            actions:
-              - '.github/**/*.yml'
-              - '.github/**/*.yaml'
-              - 'action-templates/**/*.yml'
-              - 'action-templates/**/*.yaml'
-      - name: get-base-ref-commit-id
-        id: base-branch
-        if: github.event_name == 'pull_request' || github.event.review.state == 'approved'
-        env:
-          BASE_BRANCH: ${{ github.base_ref || github.event.pull_request.base.ref }}
-        run: |
-          echo "base-branch=origin/$BASE_BRANCH"
-          echo "base-branch=origin/$BASE_BRANCH" >> "$GITHUB_OUTPUT"
-      - name: check-filter-output
-        env:
-          CATEGORIES: ${{ steps.filter.outputs.changes }}
-          BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
-          SHA: ${{ github.sha }}
-          BEFORE_SHA: ${{ github.event.before }}
-        run: |
           echo "action-filter output: $CATEGORIES"
-          
+
           # remove "[" and "]"
           CATEGORIES=${CATEGORIES#[}
           CATEGORIES=${CATEGORIES%]}
-          
+
           # remove quota
           CATEGORIES=${CATEGORIES//\"/}
-          
+
           # convert CATEGORIES into an Array (based on comma) named category_list
           IFS=',' read -ra category_list <<< "$CATEGORIES"
-          
+
           num_categories=${#category_list[@]}
           echo "Number of categories found with action-filter: $num_categories"
-          
+
           # Activate globstar for pattern match
           shopt -s globstar
-          
+
           # check each category only once
           action_found=0
           java_found=0
           markdown_found=0
-          
+
           for category in "${category_list[@]}"; do
             case "$category" in
               "actions")
@@ -110,96 +45,96 @@ jobs:
                 ;;
             esac
           done
-          
+
           # get all changed files (diff_ouptut.txt contains only filenames)
           if [[ -n "$BASE_BRANCH" ]]; then
             # Pull requests check against base branch
-            echo "git diff --name-only $BASE_BRANCH HEAD"
-            git diff --name-only "$BASE_BRANCH" HEAD > diff_output.txt
+            echo "diff --name-only $BASE_BRANCH $CURRENT_BRANCH"
+            git diff --name-only "$BASE_BRANCH" "$CURRENT_BRANCH" > diff_output.txt
           elif git rev-parse --verify "$SHA"^ > /dev/null 2>&1; then
             # Push requests check against previous commit of current SHA
-            echo "diff --name-only $BEFORE_SHA $SHA"
-            git diff --name-only "$BEFORE_SHA" "$SHA" > diff_output.txt
+            echo "diff --name-only $SHA^ $SHA"
+            git diff --name-only "$SHA"^ "$SHA" > diff_output.txt
           else
             # no previous commit, e.g. initial commit
             echo "diff --name-only $SHA"
             git diff --name-only "$SHA" > diff_output.txt
           fi
-          
+
           echo "Changed files:"
           cat diff_output.txt
-          
+
           # List to add all categories found
           categories_found=()
-          
+
           # Loop through all files
           while IFS= read -r filename; do
             echo "Changed file: $filename"
-          
+
             if [[ "$filename" == .github/**/*.yml ]] || \
                [[ "$filename" == .github/**/*.yaml ]] || \
                [[ "$filename" == action-templates/**/*.yml ]] || \
                [[ "$filename" == action-templates/**/*.yaml ]]; then
-          
+
               category="actions"
-          
+
               echo "File for $category pattern found."
               if [[ $action_found -eq 0 ]]; then
                 echo "File with pattern $category found but $category not set in action-filter!"
                 exit 1
               fi
-          
+
               # Add category "actions" to categories_found
               if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
                 categories_found+=("$category")
                 echo "$category added to found categories."
               fi
-          
+
             elif [[ "$filename" == **/*.java ]]; then
-          
+
               category="java"
-          
+
               echo "File for $category pattern found."
               if [[ $java_found -eq 0 ]]; then
                 echo "File with pattern $category found but $category not set in action-filter!"
                 exit 1
               fi
-          
+
               # Add category "java" to categories_found
               if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
                 categories_found+=("$category")
                 echo "$category added to found categories."
               fi
-          
+
             elif [[ "$filename" == **/*.md ]]; then
-          
+
               category="markdown"
-          
+
               echo "File for $category pattern found."
               if [[ $markdown_found -eq 0 ]]; then
                 echo "File with pattern $category found but $category not set in action-filter!"
                 exit 1
               fi
-          
+
               # Add category "markdown" to categories_found
               if [[ ! "${categories_found[*]}" =~ ${category} ]]; then
                 categories_found+=("$category")
                 echo "$category added to found categories."
               fi
-          
+
             else
               # Filename doesn't follow any category
               echo "Filename $filename doesn't follow any pattern"
             fi
-          
+
           done < diff_output.txt
-          
+
           num_categories_found=${#categories_found[@]}
-          
+
           # Check if all categories were found
           if [[ "$num_categories" -ne "$num_categories_found" ]]; then
             echo "Expected num_categories found equals to $num_categories but was $num_categories_found"
             exit 1
           fi
-          
+
           echo "Test of action-filter ok"
