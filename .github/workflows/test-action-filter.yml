@@ -50,7 +50,7 @@ jobs:
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
           BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
-          CURRENT_BRANCH: ${{ github.ref }}
+          CURRENT_BRANCH: ${{ github.ref_name }}
           SHA: ${{ github.sha }}
         run: |
           echo "action-filter output: $CATEGORIES"
