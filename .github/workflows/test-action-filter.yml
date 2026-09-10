@@ -122,7 +122,7 @@ jobs:
             git diff --name-only "$BEFORE_SHA" "$SHA" > diff_output.txt
           else
             # no previous commit, e.g. initial commit
-            echo "diff --name-only $SHA"
+            echo "git diff --name-only $SHA"
             git diff-tree --root --name-only -r "$SHA"
           fi
 
