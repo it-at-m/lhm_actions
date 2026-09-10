@@ -1,33 +1,34 @@
 # Workflow to Test action action-filter
 name: Test action action-filter
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
-  cancel-in-progress: true
-
 on:
   push:
     paths:
       - .github/workflows/test-action-filter.yml
       - action-templates/actions/action-filter/action.yml
   pull_request:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true
 
 permissions:
   contents: read # for checkout
   pull-requests: read # for dorny/paths-filter
+
 jobs:
   test-action-filter:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-action-filter
     runs-on: ubuntu-latest
     steps:
       - name: checkout-local-actions
-        if: github.event_name == 'push'
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
-        with:
-          fetch-depth: 3
-          persist-credentials: false
-      - name: checkout-local-actions
-        if: github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize'
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0
@@ -49,14 +50,18 @@ jobs:
               - 'action-templates/**/*.yaml'
       - name: get-base-ref-commit-id
         id: base-branch
-        if: github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize'
+        if: github.event_name == 'pull_request' || github.event.review.state == 'approved'
+        env:
+          BASE_BRANCH: ${{ github.base_ref || github.event.pull_request.base.ref }}
         run: |
-          echo "base-branch=origin/$GITHUB_BASE_REF"
-          echo "base-branch=origin/$GITHUB_BASE_REF" >> "$GITHUB_OUTPUT"
+          echo "base-branch=origin/$BASE_BRANCH"
+          echo "base-branch=origin/$BASE_BRANCH" >> "$GITHUB_OUTPUT"
       - name: check-filter-output
         env:
           CATEGORIES: ${{ steps.filter.outputs.changes }}
           BASE_BRANCH: ${{ steps.base-branch.outputs.base-branch }}
+          SHA: ${{ github.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
         run: |
           echo "action-filter output: $CATEGORIES"
 
@@ -109,16 +114,16 @@ jobs:
           # get all changed files (diff_ouptut.txt contains only filenames)
           if [[ -n "$BASE_BRANCH" ]]; then
             # Pull requests check against base branch
-            echo "git diff-tree --no-commit-id --name-only -r $BASE_BRANCH HEAD"
-            git diff-tree --no-commit-id --name-only -r "$BASE_BRANCH" HEAD > diff_output.txt
-          elif git rev-parse --verify HEAD~1 > /dev/null 2>&1; then
-            # Push requests check against previous push in same branch
-            echo "git diff-tree --no-commit-id --name-only -r HEAD"
-            git diff-tree --no-commit-id --name-only -r HEAD > diff_output.txt
+            echo "git diff --name-only $BASE_BRANCH HEAD"
+            git diff --name-only "$BASE_BRANCH" HEAD > diff_output.txt
+          elif git rev-parse --verify "$SHA"^ > /dev/null 2>&1; then
+            # Push requests check against previous commit of current SHA
+            echo "diff --name-only $BEFORE_SHA $SHA"
+            git diff --name-only "$BEFORE_SHA" "$SHA" > diff_output.txt
           else
             # no previous commit, e.g. initial commit
-            echo "git diff-tree --root"
-            git diff-tree --no-commit-id --name-only -r --root > diff_output.txt
+            echo "git diff --name-only $SHA"
+            git diff-tree --root --name-only -r "$SHA"
           fi
 
           echo "Changed files:"
@@ -149,11 +154,11 @@ jobs:
                 categories_found+=("$category")
                 echo "$category added to found categories."
               fi
-            
+
             elif [[ "$filename" == **/*.java ]]; then
-              
+
               category="java"
-              
+
               echo "File for $category pattern found."
               if [[ $java_found -eq 0 ]]; then
                 echo "File with pattern $category found but $category not set in action-filter!"
