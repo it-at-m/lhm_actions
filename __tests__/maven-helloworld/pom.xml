@@ -5,7 +5,7 @@
 
     <groupId>de.muenchen.helloworld</groupId>
     <artifactId>helloworld</artifactId>
-    <version>1.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>HelloWorld</name>
 
@@ -27,7 +27,7 @@
     <scm>
         <connection>scm:git:https://github.com/it-at-m/lhm_actions.git</connection>
         <developerConnection>scm:git:https://github.com/it-at-m/lhm_actions.git</developerConnection>
-        <tag>helloworld-1.0</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/it-at-m/lhm_actions.git</url>
     </scm>
 
