@@ -1,7 +1,17 @@
 name: Test action-maven-release
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/test-action-maven-release.yml
+      - action-templates/actions/action-maven-release/action.yml
+  pull_request:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
 
 env:
   app-path: "__tests__/maven-helloworld"
@@ -13,6 +23,7 @@ permissions:
 
 jobs:
   test-maven-release:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-maven-release
     runs-on: ubuntu-latest
     permissions:
