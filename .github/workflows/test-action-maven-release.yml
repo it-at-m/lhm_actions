@@ -17,6 +17,7 @@ env:
   app-path: "__tests__/maven-helloworld"
   use-pr: true
   release-method: "patch"
+  java-version: 25
 
 permissions:
   contents: read # for checkout
@@ -41,3 +42,4 @@ jobs:
           app-path: ${{ env.app-path }}
           release-method: ${{ env.release-method}}
           use-pr: ${{ env.use-pr }}
+          java-version: ${{env.java-version }}
