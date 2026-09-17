@@ -6,13 +6,6 @@ on:
       - .github/workflows/test-action-maven-release.yml
       - action-templates/actions/action-maven-release/action.yml
       - __tests__/maven-helloworld/**
-  pull_request:
-    types:
-      - opened
-      - reopened
-  pull_request_review:
-    types:
-      - submitted
 
 env:
   app-path: "__tests__/maven-helloworld"
