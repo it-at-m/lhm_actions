@@ -6,13 +6,6 @@ on:
       - .github/workflows/test-action-maven-build.yml
       - action-templates/actions/action-maven-build/action.yml
       - __tests__/maven-helloworld/**
-  pull_request:
-    types:
-      - opened
-      - reopened
-  pull_request_review:
-    types:
-      - submitted
 
 permissions:
   contents: read # for checkout

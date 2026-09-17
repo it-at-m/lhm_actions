@@ -5,13 +5,6 @@ on:
     paths:
       - .github/workflows/test-action-npm-release.yml
       - action-templates/actions/action-npm-release/action.yml
-  pull_request:
-    types:
-      - opened
-      - reopened
-  pull_request_review:
-    types:
-      - submitted
 
 env:
   app-path: "docs"
