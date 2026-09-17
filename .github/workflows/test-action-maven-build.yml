@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/test-action-maven-build.yml
       - action-templates/actions/action-maven-build/action.yml
+      - __tests__/maven-helloworld/**
   pull_request:
     types:
       - opened
