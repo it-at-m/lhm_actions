@@ -2,12 +2,18 @@
 name: Test action action-trivy
 
 on:
+  push:
+    paths:
+      - .github/workflows/test-trivy.yml
+      - action-templates/actions/action-trivy/action.yml
   pull_request:
     types:
       - opened
-      - synchronize
       - reopened
       - ready_for_review
+  pull_request_review:
+    types:
+      - submitted
   workflow_dispatch:
 
 permissions:
@@ -15,6 +21,7 @@ permissions:
 
 jobs:
   test-trivy:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-trivy
     runs-on: ubuntu-latest
     permissions:
