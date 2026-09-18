@@ -1,13 +1,24 @@
 name: Test action action-dockercompose-healthcheck
 on:
   push:
-  workflow_dispatch:
+    paths:
+      - .github/workflows/test-action-dockercompose-healthcheck.yml
+      - action-templates/actions/action-dockercompose-healthcheck/action.yml
+      - __tests__/docker-compose.yml
+  pull_request:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
 
 permissions:
   contents: read # for checkout
 
 jobs:
   test-dockercompose-healthcheck:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-dockercompose-healthcheck
     runs-on: ubuntu-latest
     steps:

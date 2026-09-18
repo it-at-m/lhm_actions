@@ -2,10 +2,17 @@
 name: Test action action-maven-build
 on:
   push:
-    branches:
-      - main
+    paths:
+      - .github/workflows/test-action-maven-build.yml
+      - action-templates/actions/action-maven-build/action.yml
+      - __tests__/maven-helloworld/**
   pull_request:
-  workflow_dispatch:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
 
 permissions:
   contents: read # for checkout
@@ -16,6 +23,7 @@ concurrency:
 
 jobs:
   test-action-maven-build:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-action-maven-build
     runs-on: ubuntu-latest
     steps:

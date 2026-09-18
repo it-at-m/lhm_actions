@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/test-action-actionlint.yml
-      - .github/action-templates/actions/action-actionlint/action.yml
+      - action-templates/actions/action-actionlint/action.yml
   pull_request:
     types:
       - opened

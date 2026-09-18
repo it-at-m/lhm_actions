@@ -2,10 +2,16 @@
 name: Test action action-checkout
 on:
   push:
-    branches:
-      - main
+    paths:
+      - .github/workflows/test-action-checkout.yml
+      - action-templates/actions/action-checkout/action.yml
   pull_request:
-  workflow_dispatch:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,6 +22,7 @@ permissions:
 
 jobs:
   test-checkout-persist-credentials-default:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-persist-credentials-default
     runs-on: ubuntu-latest
     steps:
@@ -36,6 +43,7 @@ jobs:
           done
 
   test-checkout-persist-credentials-false:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-persist-credentials-false
     runs-on: ubuntu-latest
     steps:
@@ -58,6 +66,7 @@ jobs:
           done
 
   test-checkout-persist-credentials-true:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-persist-credentials-true
     runs-on: ubuntu-latest
     steps:
