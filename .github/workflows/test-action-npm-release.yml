@@ -3,7 +3,7 @@ name: Test action-npm-release
 on:
   push:
     tags-ignore:
-      - '**'
+      - "**"
     paths:
       - .github/workflows/test-action-npm-release.yml
       - action-templates/actions/action-npm-release/action.yml

@@ -3,7 +3,7 @@ name: Test action-maven-release
 on:
   push:
     tags-ignore:
-      - '**'
+      - "**"
     paths:
       - .github/workflows/test-action-maven-release.yml
       - action-templates/actions/action-maven-release/action.yml
