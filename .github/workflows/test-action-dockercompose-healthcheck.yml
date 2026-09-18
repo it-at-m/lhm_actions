@@ -4,6 +4,7 @@ on:
     paths:
       - .github/workflows/test-action-dockercompose-healthcheck.yml
       - action-templates/actions/action-dockercompose-healthcheck/action.yml
+      - __tests__/docker-compose.yml
   pull_request:
     types:
       - opened
