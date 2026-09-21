@@ -47,7 +47,7 @@ jobs:
           gh release download test-test
           unzip artifact.zip
           output=$(ls action-create-github-release)
-          echo $output
+          echo "$output"
           if [ "$output" != "action.yml" ]; then
             echo "Stimmt nicht überein!"
             exit 1
