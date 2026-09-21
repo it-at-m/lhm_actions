@@ -22,7 +22,7 @@ env:
 
 permissions:
   contents: write
-  pull-requests: write # must be removed if use-pr is 'false'
+  pull-requests: write
 jobs:
   test-create-release:
     if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
