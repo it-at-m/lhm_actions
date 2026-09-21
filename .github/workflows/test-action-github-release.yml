@@ -14,14 +14,11 @@ on:
       - submitted
 
 env:
-  node-version: "22"
-  app-path: "docs"
-  run-lint: "true"
-  run-test: "false"
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
-  contents: read # for checkout
-
+  contents: write
+  pull-requests: write # must be removed if use-pr is 'false'
 jobs:
   test-create-release:
     if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
@@ -35,7 +32,7 @@ jobs:
           persist-credentials: false
       - uses: actions/upload-artifact@v7
         with:
-         path: action-templates/actions
+          path: action-templates/actions
       - name: create-release
         uses: ./action-templates/actions/action-create-github-release
         with:
@@ -43,4 +40,16 @@ jobs:
           artifact-path: artifact.zip
           skip-artifact-decompress: true
           tag-name: test-test
-
+      - name: script
+        run: |
+          mkdir testfolder
+          cd testfolder
+          gh release download test-test
+          unzip artifact.zip
+          output=$(ls action-create-github-release)
+          echo $output
+          if [ "$output" != "action.yml" ]; then
+            echo "Stimmt nicht überein!"
+            exit 1
+          fi
+          gh release delete test-test --cleanup-tag
