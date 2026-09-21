@@ -1,0 +1,46 @@
+name: Test action-create-github-release
+
+on:
+  push:
+    paths:
+      - .github/workflows/test-action-github-release.yml
+      - action-templates/actions/action-create-github-release/action.yml
+  pull_request:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
+
+env:
+  node-version: "22"
+  app-path: "docs"
+  run-lint: "true"
+  run-test: "false"
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+  test-create-release:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
+    name: test-npm-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout-local-actions
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/upload-artifact@v7
+        with:
+         path: action-templates/actions
+
+      #- name: npm-build
+      #  uses: ./action-templates/actions/action-create-github-release
+      #  with:
+       #   node-version: ${{ env.node-version }}
+       #   app-path: ${{ env.app-path }}
+       #   run-lint: ${{ env.run-lint }}
+      #    run-test: ${{ env.run-test }}
