@@ -360,7 +360,9 @@ Workflows using that action need the following permissions:
     # If release notes should be generated
     generate-release-notes: true
 
-    # skip-decompress of artifact (artifact as zip)
+    # Whether to skip decompressing a zip file (if detected). 
+    # If true, the downloaded artifact will not be automatically extracted/decompressed. 
+    # This is useful when you want to handle the artifact as-is without 
     # Default: false
    skip-artifact-decompress: false
 ```
