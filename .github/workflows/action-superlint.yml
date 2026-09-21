@@ -11,12 +11,13 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
 
-    permissions: write-all
+    permissions:
       # to be able to commit
-      # contents: write
-      # packages: read
+      contents: write
+      packages: read
       # To report GitHub Actions status checks
-      # statuses: write
+      statuses: write
+      actions: write
 
     steps:
       - name: Checkout code
