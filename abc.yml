@@ -12,11 +12,11 @@ on:
   pull_request_review:
     types:
       - submitted
-      
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
-  
+
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
