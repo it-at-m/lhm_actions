@@ -1,18 +1,26 @@
 name: Test action-maven-release
 
 on:
-  workflow_dispatch:
+  push:
+    tags-ignore:
+      - "**"
+    paths:
+      - .github/workflows/test-action-maven-release.yml
+      - action-templates/actions/action-maven-release/action.yml
+      - __tests__/maven-helloworld/**
 
 env:
   app-path: "__tests__/maven-helloworld"
   use-pr: true
   release-method: "patch"
+  java-version: 25
 
 permissions:
   contents: read # for checkout
 
 jobs:
   test-maven-release:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-maven-release
     runs-on: ubuntu-latest
     permissions:
@@ -30,3 +38,4 @@ jobs:
           app-path: ${{ env.app-path }}
           release-method: ${{ env.release-method}}
           use-pr: ${{ env.use-pr }}
+          java-version: ${{env.java-version }}

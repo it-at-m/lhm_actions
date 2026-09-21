@@ -2,6 +2,16 @@ name: Test action-npm-build
 
 on:
   push:
+    paths:
+      - .github/workflows/test-action-npm-build.yml
+      - action-templates/actions/action-npm-build/action.yml
+  pull_request:
+    types:
+      - opened
+      - reopened
+  pull_request_review:
+    types:
+      - submitted
 
 env:
   node-version: "22"
@@ -14,6 +24,7 @@ permissions:
 
 jobs:
   test-npm-build:
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
     name: test-npm-build
     runs-on: ubuntu-latest
     steps:
