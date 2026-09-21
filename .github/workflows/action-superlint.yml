@@ -3,7 +3,6 @@ name: Execute Super-Linter
 
 on: # yamllint disable-line rule:truthy
   - push
-  - pull_request
 
 permissions: {}
 
