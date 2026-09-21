@@ -36,10 +36,11 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
          path: action-templates/actions
-      #- name: npm-build
-      #  uses: ./action-templates/actions/action-create-github-release
-      #  with:
-       #   node-version: ${{ env.node-version }}
-       #   app-path: ${{ env.app-path }}
-       #   run-lint: ${{ env.run-lint }}
-      #    run-test: ${{ env.run-test }}
+      - name: create-release
+        uses: ./action-templates/actions/action-create-github-release
+        with:
+          artifact-name: artifact
+          artifact-path: artifact.zip
+          skip-artifact-decompress: true
+          tag-name: test-test
+
