@@ -49,7 +49,7 @@ jobs:
           output=$(ls action-create-github-release)
           echo "$output"
           if [ "$output" != "action.yml" ]; then
-            echo "Stimmt nicht überein!"
+            echo "Assert false!"
             exit 1
           fi
           gh release delete test-test --cleanup-tag
