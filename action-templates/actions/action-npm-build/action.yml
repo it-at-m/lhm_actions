@@ -77,8 +77,8 @@ runs:
       with:
         name: ${{steps.artifact-name.outputs.artifact-name}}
         path: |
-           **/dist
-           !**/node_modules/**
+          **/dist
+          !**/node_modules/**
         retention-days: 5
     - id: upload-sbom-artifact
       name: upload-sbom-artifact
