@@ -16,7 +16,9 @@ This repository contains and provides actions to
 <!-- start-action-actionlint -->
 
 beipiel01
-<!-- end-actioExecutes the following steps:
+<!-- end-action-actionlint -->
+
+Executes the following steps:
 
 1. Checkout code
 2. Run actionlint on your workflow files
