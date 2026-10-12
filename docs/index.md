@@ -10,9 +10,6 @@ hero:
       text: Actions
       link: /actions
     - theme: brand
-      text: Deployment
-      link: /deployment
-    - theme: brand
       text: Workflows
       link: /workflows
 ---
