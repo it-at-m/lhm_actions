@@ -305,8 +305,3 @@ Workflows using that action need the following permissions:
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
 
-       | Required |
-
-| ------------------------ | --------------------------------------------------------- | :------: |
-| `contents: read` | Checkout repository contents | Yes |
-| `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab | Yes |
