@@ -18,8 +18,6 @@ This repository contains and provides actions to
 beipiel01
 <!-- end-action-actionlint -->
 
-
-
 Executes the following steps:
 
 1. Checkout code
@@ -32,16 +30,13 @@ Workflows using that action need the following permissions:
 | `contents: read`       | Checkout repository contents                                 |   Yes    |
 | `pull-requests: write` | needed to annotate the files in a pull request with comments |   Yes    |
 
-
 **Note**: The usage of `display-findings: true` requires additional setup.
 See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
-
 
 <!-- start-action-build-docs -->
 
 beipiel02
 <!-- end-action-build-docs -->
-
 
 Executes the following steps:
 
@@ -60,7 +55,6 @@ Workflows using that action need the following permissions:
 
 beipiel03
 <!-- end-action-build-image -->
-
 
 Executes the following steps:
 
@@ -83,7 +77,6 @@ Workflows using that action need the following permissions:
 beipiel04
 <!-- end-action-checkout -->
 
-
 Executes the following steps:
 
 1. Checkout current branch
@@ -94,12 +87,10 @@ Workflows using that action need the following permissions:
 | ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
 
-
 <!-- start-action-dockercompose-healthcheck -->
 
 beipiel05
 <!-- end-action-dockercompose-healthcheck -->
-
 
 Executes the following steps:
 
@@ -111,7 +102,6 @@ Workflows using that action need the following permissions:
 | Permission       | Purpose                      | Required |
 | ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
-
 
 **Note**: It is suggested to use images that provide a predefined health check.
 Alternatively a [custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) should be defined.
@@ -159,7 +149,6 @@ Workflows using that action need the following permissions:
 beipiel08
 <!-- end-action-create-github-release -->
 
-
 Executes the following steps:
 
 1. Download a single artifact
@@ -175,7 +164,6 @@ Workflows using that action need the following permissions:
 
 beipiel09
 <!-- end-action-dependency-review -->
-
 
 Executes the following steps:
 
@@ -194,7 +182,6 @@ Workflows using that action need the following permissions:
 beipiel10
 <!-- end-action-deploy-docs -->
 
-
 Executes the following steps:
 
 1. Deploy docs to a web page
@@ -211,8 +198,6 @@ Workflows using that action need the following permissions:
 beipiel11
 <!-- end-action-maven-build -->
 
-
-
 Executes the following steps:
 
 1. Checkout repository
@@ -225,7 +210,6 @@ Workflows using that action need the following permissions:
 | Permission       | Purpose                      | Required |
 | ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
-
 
 <!-- start-action-maven-release -->
 
@@ -251,7 +235,6 @@ Workflows using that action need the following permissions:
 
 beipiel13
 <!-- end-action-npm-build -->
-
 
 Executes the following steps:
 
@@ -295,14 +278,12 @@ Workflows using that action need the following permissions:
 beipiel15
 <!-- end-action-pr-checklist -->
 
-
 Workflows using that action do not require any explicit additional permissions.
 
 <!-- start-action-pr-labeler -->
 
 beipiel16
 <!-- end-action-pr-labeler -->
-
 
 Workflows using that action need the following permissions:
 
@@ -323,4 +304,3 @@ Workflows using that action need the following permissions:
 | ------------------------ | --------------------------------------------------------- | :------: |
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
-
