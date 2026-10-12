@@ -13,9 +13,12 @@ This repository contains and provides actions to
 
 ## Usage
 
-### action-actionlint
+<!-- start-action-actionlint -->
 
-Action to lint your workflows using [actionlint](https://github.com/rhysd/actionlint).
+beipiel01
+<!-- end-action-actionlint -->
+
+
 
 Executes the following steps:
 
@@ -29,18 +32,16 @@ Workflows using that action need the following permissions:
 | `contents: read`       | Checkout repository contents                                 |   Yes    |
 | `pull-requests: write` | needed to annotate the files in a pull request with comments |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint
-
-```
 
 **Note**: The usage of `display-findings: true` requires additional setup.
 See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
 
-### action-build-docs
 
-Action to build a VitePress docs project.
+<!-- start-action-build-docs -->
+
+beipiel02
+<!-- end-action-build-docs -->
+
 
 Executes the following steps:
 
@@ -55,32 +56,11 @@ Workflows using that action need the following permissions:
 | ---------------- | ----------------------------- | :------: |
 | `contents: read` | Checkout respository contents |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs
-  with:
-    # Path to VitePress docs project
-    # Default: ./docs
-    docs-path: "./docs"
+<!-- start-action-build-image -->
 
-    # Node version to use. If node-version and node-version-file are both provided the action will use version from node-version.
-    node-version: "22"
+beipiel03
+<!-- end-action-build-image -->
 
-    # Build command to run (e.g. "vuepress build" for VuePress projects)
-    # Default: build
-    build-cmd: "build"
-
-    # VitePress output path that will be uploaded as artifact
-    # Default: .vitepress/dist
-    dist-path: ".vitepress/dist"
-    # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
-    # Default: "--ignore-scripts"
-    npm-ci-parameter: "--ignore-scripts"
-```
-
-### action-build-image
-
-Action to build a multi-architecture Docker image with multi-architecture support and push it to a registry.
 
 Executes the following steps:
 
@@ -98,49 +78,11 @@ Workflows using that action need the following permissions:
 | `contents: read`  | Checkout repository contents        |   Yes    |
 | `packages: write` | Pushes the image to GitHub Packages |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-build-image
-  with:
-    # Image registry to push image to
-    # Default: ghcr.io
-    registry: "ghcr.io"
+<!-- start-action-checkout -->
 
-    # Username to authenticate against image registry
-    registry-username: ${{ github.actor }}
+beipiel04
+<!-- end-action-checkout -->
 
-    # Password to authenticate against image registry
-    registry-password: ${{ secrets.GITHUB_TOKEN }}
-
-    # Tags to tag image with
-    # Default: type=raw,value=latest
-    image-tags: type=raw,value=latest
-
-    # Labels or OCI manifest annotations to add to image
-    # Default: org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}
-    # Optional
-    image-labels: |
-      org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}
-
-    # Path to the Dockerfile to build image from
-    path: ${{ github.event.inputs.app-path }}
-
-    # Name to give the image
-    image-name: ${{ github.event.inputs.app-path }}
-
-    # Name of the artifact to download
-    artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
-
-    # List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64
-    # Note: This also requires a compatible base image in the Dockerfile of the application
-    # Default: linux/amd64
-    platforms: linux/amd64,linux/arm64
-```
-
-### action-checkout
-
-Action to wrap [GitHub Action Checkout](https://github.com/actions/checkout)
-using current branch with default values.
 
 Executes the following steps:
 
@@ -152,18 +94,12 @@ Workflows using that action need the following permissions:
 | ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-checkout
-  with:
-    # Persist credentials or not
-    # Default: false
-    persist-credentials: false
-```
 
-### action-dockercompose-healthcheck
+<!-- start-action-dockercompose-healthcheck -->
 
-Action to validate the functionality of Docker Compose containers by using defined health checks.
+beipiel05
+<!-- end-action-dockercompose-healthcheck -->
+
 
 Executes the following steps:
 
@@ -176,56 +112,20 @@ Workflows using that action need the following permissions:
 | ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck
-  with:
-    # Maximum number of retry attempts
-    # Default: 10
-    max-retries: 10
-
-    # Interval between retries in seconds
-    # Default: 10
-    retry-interval: 10
-    
-    # Path to the docker compose file
-    # Default: "./" (root directory)
-    compose-file-path: "./"
-    
-    # Name of the docker compose file
-    # Default: docker-compose.yml
-    compose-file-name: "docker-compose.yml"
-
-    # Skip checking exited containers (useful for init containers)
-    # Default: false
-    skip-exited: false
-
-    # Skip checking containers without health checks
-    # Note: This applies to both persistent and existing containers.
-    # Default: false
-    skip-no-healthcheck: false
-```
 
 **Note**: It is suggested to use images that provide a predefined health check.
 Alternatively a [custom healthcheck](https://github.com/peter-evans/docker-compose-healthcheck) should be defined.
 In some cases (e.g. when a barebone Unix image (like `alpine`) is used) health check might not be possible due to missing binaries
 such as `wget` or `curl`. In this case `skip-no-healthcheck: true` can be used.
 
-### action-filter
+<!-- start-action-filter -->
 
-GitHub Action [dorny/paths-filter](https://github.com/dorny/paths-filter) enables conditional execution of workflow steps
-and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+beipiel06
+<!-- end-action-filter -->
 
 Executes the following steps:
 
 1. Check changed files and directories
-
-Output parameters:
-
-- For each filter (Java, javascript-typescript-vue, python, actions), it sets output variable named by the filter to the text:
-  - 'true' - if any of changed files matches any of filter rules
-  - 'false' - if none of changed files matches any of filter rules
-- 'changes' - JSON array with names of all filters matching any of the changed files.
 
 Workflows using that action need the following permissions:
 
@@ -234,56 +134,10 @@ Workflows using that action need the following permissions:
 | `contents: read`      | Checkout repository contents         | Optional. Necessary to detect changes against long-lived branches (main, releases etc.) |
 | `pull-requests: read` | Ability to read pull request content |       Optional. Necessary to detect changes against the pull request base branch        |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
-  id: changes
-  with:
-    # Defines filters applied to detected changed files.
-    # Each filter has a name and a list of rules.
-    # Rule is a glob expression - paths of all changed
-    # files are matched against it.
-    # Rule can optionally specify if the file
-    # should be added, modified, or deleted.
-    # For each filter, there will be a corresponding output variable to
-    # indicate if there's a changed file matching any of the rules.
-    # Optionally, there can be a second output variable
-    # set to list of all files matching the filter.
-    # Filters can be provided inline as a string (containing valid YAML document),
-    # or as a relative path to a file (e.g.: .github/filters.yaml).
-    # Filters syntax is documented by example - see examples section.
-    # default value for filters
-    # filters: |
-    #  java:
-    #  - '**/*.java'
-    #  javascript-typescript-vue:
-    #  - '**/*.js'
-    #  - '**/*.cjs'
-    #  - '**/*.mjs'
-    #  - '**/*.ts'
-    #  - '**/*.cts'
-    #  - '**/*.mts'
-    #  - '**/*.vue'
-    #  python:
-    #  - '**/*.py'
-    #  actions:
-    #  - '.github/**/*.yml'
-    #  - '.github/**/*.yaml'
-    filters: |
-      src:
-        - 'src/**'
-    # Branch, tag, or commit SHA against which the changes will be detected.
-    # default ''
-    base: ''
+<!-- start-action-codeql -->
 
-  # run only if some file in 'src' folder was changed
-- if: steps.changes.outputs.src == 'true'
-  run: ...
-```
-
-### action-codeql
-
-Action to scan a repository using provided CodeQL language, buildmode and query scan set
+beipiel07
+<!-- end-action-codeql -->
 
 Executes the following steps:
 
@@ -300,32 +154,11 @@ Workflows using that action need the following permissions:
 | `contents: read`         | Checkout repository contents                               |   Yes    |
 | `security-events: write` | Report security problems (e.g. "Security and quality" tab) |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-codeql
-  with:
-    # CodeQL language name to scan with (e.g java-kotlin, javascript-typescript, python, ...)
-    codeql-language: "java-kotlin"
-    
-    # Build mode to use when scanning the source code (e.g. none, autobuild, manual)
-    # Default: none
-    codeql-buildmode: "autobuild"
+<!-- start-action-create-github-release -->
 
-    # Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality)
-    # Default: security-and-quality
-    codeql-query: "security-and-quality"
+beipiel08
+<!-- end-action-create-github-release -->
 
-    # Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild). If not set extract the version from the `pom.xml` on the attribute `java.version`.
-    java-version: "21"
-
-    # Path to scan files in
-    # Default: .
-    path: "."
-```
-
-### action-create-github-release
-
-Action to create a GitHub release.
 
 Executes the following steps:
 
@@ -338,41 +171,11 @@ Workflows using that action need the following permissions:
 | ----------------- | ------------------------- | :------: |
 | `contents: write` | Create the GitHub Release |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release
-  with:
-    # Name of the artifact to download
-    artifact-name: my-artifact
+<!-- start-action-dependency-review -->
 
-    # Name of a tag (e.g. sps-1.0.0 or myproject-1.0.0)
-    tag-name: myrepo-1.0.0
+beipiel09
+<!-- end-action-dependency-review -->
 
-    # Path to the artifacts (e.g. ./target/*.jar)
-    artifact-path: ./target/*.jar
-
-    # Whether it is a draft release or not
-    draft: false
-    
-    # Whether it is a prerelease or not
-    prerelease: false
-    
-    # If release notes should be generated
-    generate-release-notes: true
-
-    # Whether to skip decompressing a zip file (if detected). 
-    # If true, the downloaded artifact will not be automatically extracted/decompressed. 
-    # This is useful when you want to handle the artifact as-is without 
-    # Default: false
-   skip-artifact-decompress: false
-```
-
-### action-dependency-review
-
-The dependency review action scans your pull requests for dependency changes, and will raise an error if any
-invalid licenses are being used. It will always use the baseline configuration in
-<https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>.
-Vulnerability scanning can be optionally enabled as well, however in most cases [action-trivy](#action-trivy) should be used instead. If you use the action with a matrix, you should watch that the path is different for each call.
 
 Executes the following steps:
 
@@ -386,27 +189,11 @@ Workflows using that action need the following permissions:
 | `contents: read`       | Checkout repository contents  |                                               Yes                                                |
 | `pull-requests: write` | Write comment to pull request | Optional. Necessary, if configuration `comment-summary-in-pr` is set to `always` or `on-failure` |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review
-  with:
-    # Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information)
-    # Default: ""
-    allow-dependencies-licenses: "pkg:maven/com.github.spotbugs/spotbugs-annotations, pkg:maven/com.h3xstream.findsecbugs:findsecbugs-plugin"
-    
-    # Enable / Disable vulnerability scanning of dependencies
-    # Default: "false"
-    vulnerability-check: "true"
+<!-- start-action-deploy-docs -->
 
-    # Additional comma separated string of GHSAs (see https://github.com/advisories) to be suppressed by the vulnerability check.
-    # For CVEs, the corresponding GHSA ID has to be used instead of directly using the CVE identifier.
-    # Default: ""
-    allow-ghsas: "GHSA-abcd-efgh-ijkl"
-```
+beipiel10
+<!-- end-action-deploy-docs -->
 
-### action-deploy-docs
-
-Action to deploy a docs artifact to a web page.
 
 Executes the following steps:
 
@@ -419,22 +206,12 @@ Workflows using that action need the following permissions:
 | `pages: write`    | Deploy to GitHub Pages                                      |   Yes    |
 | `id-token: write` | Verify the deployment originates from an appropriate source |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs
-  with:
-    # Name of the artifact to deploy
-    # Default: github-pages
-    artifact_name: "github-pages"
+<!-- start-action-maven-build -->
 
-    # Branch to deploy docs from
-    # Default: main
-    deploy-branch: "docs"
-```
+beipiel11
+<!-- end-action-maven-build -->
 
-### action-maven-build
 
-Action to build a Maven project.
 
 Executes the following steps:
 
@@ -443,32 +220,17 @@ Executes the following steps:
 3. Execute Maven build
 4. Upload build artifact
 
-Output parameters:
-
-1. `artifact-name`: Name of the uploaded artifact
-2. `cyclone-artifact-id`: ID of the sbom artifact
-3. `sbom-path`: path of the sbom
-
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
 | ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build
-  with:
-    # Java Version to use. If not set extract the version from the `pom.xml` on the attribute `java.version`.
-    java-version: "21"
 
-    # Path to pom.xml
-    app-path: "."
-```
+<!-- start-action-maven-release -->
 
-### action-maven-release
-
-Action to create a Maven release and deploy it to Maven Central.
+beipiel12
+<!-- end-action-maven-release -->
 
 Executes the following steps:
 
@@ -478,12 +240,6 @@ Executes the following steps:
 4. Upload release artifact
 5. Create PR for version bump (if enabled) using [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)
 
-Output parameters:
-
-1. `MVN_ARTIFACT_ID`: Artifact name of pom.xml
-2. `artifact-name`: Name of the uploaded artifact
-3. `release-version`: calculated release version
-
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                          |                             Required                             |
@@ -491,59 +247,11 @@ Workflows using that action need the following permissions:
 | `contents: write`      | Change artifact's version number |                               Yes                                |
 | `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release
-  with:
-    # Java Version to use. If not set extract the version from the `pom.xml` on the attribute `java.version`.
-    java-version: "21"
+<!-- start-action-npm-build -->
 
-    # Path to pom.xml
-    app-path: "."
+beipiel13
+<!-- end-action-npm-build -->
 
-    # Version which will be released
-    releaseVersion:
-
-    # Deprecated: Next snapshot version. 
-    # Default ""
-    developmentVersion:
-
-    # If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT.
-    # release-method calculates the next snapshot version: patch, minor, or major.
-    # Deprecated: If developmentVersion is set, it overrides the calculated snapshot version.
-    # Default: patch
-    release-method:
-    # Deprecated: Use mavenDArgsInput instead.
-    # Skip deployment to maven central 
-    # Default: true
-    skipDeployment: "false"
-
-    # Additional parameters forwarded via -Darguments
-    # Default: ""
-    # Example (skip unit tests, skip deployment):
-    # mavenDArgsInput: "-Dmaven.test.skip=true -Dmaven.deploy.skip=true"
-
-
-    # Use a PR for the version bump instead of directly pushing it
-    # default: false
-    use-pr: "true"
-
-    # Optional: Environment variable for GPG private key passphrase
-    SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
-
-    # Optional: Environment variable for Maven central username
-    CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
-
-    # Optional:  Env variable for Maven central token
-    CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
-
-    # Optional:  Value of the GPG private key to import
-    GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
-```
-
-### action-npm-build
-
-Action to build an npm project.
 
 Executes the following steps:
 
@@ -555,43 +263,16 @@ Executes the following steps:
 6. Run build
 7. Upload artifact
 
-Output parameters:
-
-1. `artifact-name`: Name of the uploaded artifact
-2. `cyclone-artifact-id`: ID of the sbom artifact
-3. `sbom-path`: path of the sbom
-
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
 | ---------------- | ---------------------------- | :------: |
 | `contents: read` | Checkout repository contents |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build
-  with:
-    # Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version.
-    node-version: "22"
+<!-- start-action-npm-release -->
 
-    # Path to package.json
-    app-path: "."
-
-    # Controls the execution of the 'npm run lint' script
-    # Default: true
-    run-lint: "true"
-
-    # Controls the execution of the 'npm run test' script
-    # Default: true
-    run-test: "true"
-    # disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation
-    # Default: "--ignore-scripts=true"
-    npm-ci-parameter: "--ignore-scripts=true"
-```
-
-### action-npm-release
-
-Action to create an npm release and deploy it to Node.js.
+beipiel14
+<!-- end-action-npm-release -->
 
 Executes the following steps:
 
@@ -602,11 +283,6 @@ Executes the following steps:
 5. Run npm build
 6. Deploy npm artifact to Node.js
 
-Output parameters:
-
-1. `ARTIFACT_NAME`: Name of artifact
-2. `ARTIFACT_VERSION`: Version of the uploaded artifact
-
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                          |                             Required                             |
@@ -614,47 +290,19 @@ Workflows using that action need the following permissions:
 | `contents: write`      | Change artifact's version number |                               Yes                                |
 | `pull-requests: write` | Create a pull request            | Optional. Necessary if input parameter `use-pr` is set to `true` |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release
-  with:
-    # Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version.
-    node-version: "22"
+<!-- start-action-pr-checklist -->
 
-    # Path to package.json
-    # "" would be equal to "./package.json" and "test-frontend" to "./test-frontend/package.json"
-    # Required
-    app-path: ""
+beipiel15
+<!-- end-action-pr-checklist -->
 
-    # Level of release
-    # Specifies how the version is increased
-    # Required, options: patch, minor, major
-    releaseVersion: "patch"
-
-    # Use a PR for the version bump instead of directly pushing it
-    # default: false
-    use-pr: "true"
-```
-
-### action-pr-checklist
-
-Action to enforce ticking of all checklist items inside a PR (useful for PR templates)
 
 Workflows using that action do not require any explicit additional permissions.
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-pr-checklist
-  with:
-    # Whether the action should fail if the PR contains no checklist
-    # Default: false
-    fail-missing: "false"
-```
+<!-- start-action-pr-labeler -->
 
-### action-pr-labeler
+beipiel16
+<!-- end-action-pr-labeler -->
 
-Action to automatically label pull requests using the configuration file in `.github/labeler.yml` of the repositories.
-More information about the configuration of the `labeler.yml` file can be found in [official documentation](https://github.com/actions/labeler)
 
 Workflows using that action need the following permissions:
 
@@ -664,22 +312,10 @@ Workflows using that action need the following permissions:
 | `pull-requests: write` | Add labels to pull requests  |   Yes    |
 | `issues: write`        | Create labels if not exist   |   Yes    |
 
-<!-- prettier-ignore -->
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-pr-labeler
-  with:
-    # Path to the configuration file inside the repository
-    # Default: .github/labeler.yml
-    configuration-path: ".github/labeler.yml"
-    
-    # Optional repository to checkout to reference external configuration file
-    # Default: ""
-    repository: ""
-```
+<!-- start-action-trivy -->
 
-### action-trivy
-
-Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Code.
+beipiel17
+<!-- end-action-trivy -->
 
 Workflows using that action need the following permissions:
 
@@ -688,19 +324,3 @@ Workflows using that action need the following permissions:
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
 
-```yaml
-- uses: it-at-m/lhm_actions/action-templates/actions/action-trivy
-  with:
-    # Relative Path to the trivyignore files
-    # Default: ".trivyignore"
-    trivyignore-files: ".trivyignore"
-    # Timeout for Trivy scan
-    # Default: 15m0s
-    timeout: "15m0s"
-    # scan type, e.g. fs or sbom
-    # default: fs
-    scan-type: fs
-    # Path to scan with Trivy
-    # Default: .
-    path: "."
-```

@@ -1,0 +1,75 @@
+import os
+import yaml
+import io
+import re
+
+def generateMarkdown(action,pfad):
+ with open(pfad, "r", encoding="utf-8") as file:
+    daten = yaml.safe_load(file)
+    builder = io.StringIO()
+    #builder.write(f"# {daten['name']}\n")
+    builder.write(f"### {daten['name']} ({action})\n")
+    builder.write(f"{daten['description']}\n")
+    if "inputs" not in daten:
+       builder.write("No Inputs\n")
+    else:
+     builder.write("| Input | Description | Default  | Required |\n")
+     builder.write("| ----- | ------- | ----- | :------: |\n")
+     for item in daten["inputs"]:
+      
+       inputs = daten["inputs"][item]
+       
+       
+       description=inputs["description"]
+       required=inputs.get("required","False")
+       default=inputs.get("default","n/a")
+       default= default.removesuffix("\n")
+       if default == 'n/a':
+          default= 'n/a'
+       elif default =="":
+           default ="\"\""
+       else:
+           default= f"`{default}`".replace("\n","`<br>`")
+       builder.write(f"| `{item}` | {description} | {default} | {required} |\n")
+    
+    builder.write("\n")
+    if "outputs" not in daten:
+       builder.write("No Outputs\n")
+    else:
+     builder.write("| Ouputs | Description |\n")
+     builder.write("| ----- | ------- |\n")
+     for item in daten["outputs"]:
+      
+       outputs = daten["outputs"][item]
+       
+       
+       description=outputs["description"]
+
+       builder.write(f"| `{item}` | {description} |\n")
+    final_string = builder.getvalue()
+    builder.close()
+    return final_string
+
+def replace_table(pattern, content, new_table):
+    # Search table with corresponding pattern and replace table.
+    match = re.search(pattern, content, re.DOTALL)
+    
+    if match:
+        content_to_replace = match.group(1)
+        content = content.replace(content_to_replace, new_table)
+        return content
+    else:
+        raise RuntimeError(f"Wiki-table to update was not found with pattern: {pattern}")
+
+
+# Pfad zum Verzeichnis angeben
+pfad = 'action-templates/actions' 
+
+with open("docs/actions.md", "r", encoding="utf-8") as file:
+    inhalt = file.read()
+
+for element in os.listdir(pfad):
+    replace =generateMarkdown(element,f'{pfad}/{element}/action.yml')
+    inhalt = replace_table(fr'<!-- start-{element} -->\s*(.*?)<!-- end-{element} -->', inhalt, replace)
+    
+print(inhalt)
