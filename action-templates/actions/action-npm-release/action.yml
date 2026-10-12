@@ -3,16 +3,16 @@ description: "Creates a new npm release pull request"
 
 inputs:
   node-version:
-    description: "Node version"
+    description: "Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version."
     required: false
   app-path:
-    description: "Path to package.json file"
+    description: "Path to package.json file. would be equal to './package.json' and 'test-frontend' to './test-frontend/package.json'"
     required: true
   releaseVersion:
-    description: "Select version increment type (follows Semantic Versioning)"
+    description: "Level of release. Select version increment type (follows Semantic Versioning). Specifies how the version is increased. Options: patch, minor, major"
     required: true
   use-pr:
-    description: "Use PR for version bump instead of direct push"
+    description: "Use a PR for the version bump instead of directly pushing it"
     default: "false"
 
 outputs:

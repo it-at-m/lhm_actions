@@ -3,11 +3,11 @@ description: "Labels a PR"
 
 inputs:
   configuration-path:
-    description: "Path to the configuration file"
+    description: "Path to the configuration file inside the repository"
     required: false
     default: ".github/labeler.yml"
   repository:
-    description: "Path to a repository to reference external configuration file"
+    description: "Optional repository to checkout to reference external configuration file"
     required: false
     default: ""
 

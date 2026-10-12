@@ -32,7 +32,7 @@ inputs:
     description: "Name of artifact to download "
     required: true
   platforms:
-    description: "List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64"
+    description: "List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64. Note: This also requires a compatible base image in the Dockerfile of the application"
     required: false
     default: linux/amd64
 

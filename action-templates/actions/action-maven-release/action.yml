@@ -6,10 +6,10 @@ inputs:
     description: "Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`."
     required: false
   app-path:
-    description: "Path to the project’s pom.xml file"
+    description: "Path to the projects pom.xml file"
     required: true
   release-method:
-    description: "Release-Methode = patch, minor oder major"
+    description: "If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT. release-method calculates the next snapshot version: patch, minor, or major. Deprecated: If developmentVersion is set, it overrides the calculated snapshot version."
     required: false
     default: "patch"
   releaseVersion:
@@ -21,17 +21,17 @@ inputs:
     required: false
     default: ""
   skipDeployment:
-    description: "Skip deployment to Maven Central"
+    description: "Deprecated: Use mavenDArgsInput instead. Skip deployment to Maven Central"
     default: "true"
   use-pr:
     description: "Use PR for version bump instead of direct push"
     default: "false"
   mavenDArgsInput:
-    description: "Additional maven arguments"
+    description: "Additional maven arguments. Example (skip unit tests, skip deployment)"
     default: ""
     required: false
   GPG_PRIVATE_KEY:
-    description: "GPG private key to import"
+    description: "Example (skip unit tests, skip deployment)"
     required: false
   SIGN_KEY_PASS:
     description: "Environment variable name for the GPG private key passphrase"

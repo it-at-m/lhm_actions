@@ -8,14 +8,14 @@ inputs:
     required: false
     default: "./docs"
   node-version:
-    description: "Node version"
+    description: "Node version. If node-version and node-version-file are both provided the action will use version from node-version."
     required: false
   build-cmd:
     description: "Build command to run (e.g. for VuePress use: vuepress build)"
     required: false
     default: "build"
   dist-path:
-    description: "Output directory that will be uploaded to GitHub Pages"
+    description: "VitePress output path that will be uploaded as artifact. Output directory that will be uploaded to GitHub Pages"
     required: false
     default: ".vitepress/dist"
   npm-ci-parameter:
