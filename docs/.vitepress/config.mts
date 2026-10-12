@@ -13,7 +13,6 @@ export default defineConfig({
       {
         items: [
           { text: "Actions", link: "/actions" },
-          { text: "Deployment", link: "/deployment" },
           { text: "Workflows", link: "/workflows" },
         ],
       },
