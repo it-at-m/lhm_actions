@@ -1,5 +1,5 @@
 name: "Execute paths-filter"
-description: "Execute paths-filter with input of filters"
+description: "Github Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits."
 
 inputs:
   base:

@@ -23,6 +23,14 @@ jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: "pip" # caching pip dependencies
+      - run: |
+          pip install -r requirements.txt
+          python generate-docs
       - id: build_docs
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@e967c9de8fb0197faf7a294d153efa76de5cec27 # v1.6.0
       - id: deploy_docs

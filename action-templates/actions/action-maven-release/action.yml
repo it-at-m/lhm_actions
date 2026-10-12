@@ -1,5 +1,5 @@
 name: "Maven release"
-description: "Creates a Maven release pull request"
+description: "Action to create a Maven release and deploy it to Maven Central."
 
 inputs:
   java-version:

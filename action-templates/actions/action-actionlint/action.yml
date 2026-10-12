@@ -1,5 +1,5 @@
 name: "Lint actions"
-description: "Lints GitHub workflow files using actionlint"
+description: "Action to lint your workflows using [actionlint](https://github.com/rhysd/actionlint)"
 
 runs:
   using: "composite"

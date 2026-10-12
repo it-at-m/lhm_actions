@@ -1,5 +1,5 @@
 name: "Npm release"
-description: "Creates a new npm release pull request"
+description: "Action to create an npm release and deploy it to Node.js."
 
 inputs:
   node-version:

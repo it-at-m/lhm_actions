@@ -1,5 +1,5 @@
 name: "Build Docker image"
-description: "Builds and pushes a Docker image"
+description: "Action to build a multi-architecture Docker image with multi-architecture support and push it to a registry."
 
 inputs:
   registry:
