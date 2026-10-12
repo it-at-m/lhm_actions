@@ -3,9 +3,8 @@ import yaml
 import io
 import re
 
-
-def generateMarkdown(action, pfad):
-    with open(pfad, "r", encoding="utf-8") as file:
+def generateMarkdown(action, path):
+    with open(path, "r", encoding="utf-8") as file:
         daten = yaml.safe_load(file)
         builder = io.StringIO()
         # builder.write(f"# {daten['name']}\n")
@@ -66,18 +65,16 @@ def replace_table(pattern, content, new_table):
         )
 
 
-# Pfad zum Verzeichnis angeben
-pfad = "action-templates/actions"
+path = "action-templates/actions"
 
 with open("docs/actions.md", "r", encoding="utf-8") as file:
-    inhalt = file.read()
+    content = file.read()
 
-for element in os.listdir(pfad):
-    replace = generateMarkdown(element, f"{pfad}/{element}/action.yml")
-    inhalt = replace_table(
+for element in os.listdir(path):
+    replace = generateMarkdown(element, f"{path}/{element}/action.yml")
+    content = replace_table(
         rf"<!-- start-{element} -->\s*(.*?)<!-- end-{element} -->",
-        inhalt,
+        content,
         replace,
     )
-
-print(inhalt)
+print(content)

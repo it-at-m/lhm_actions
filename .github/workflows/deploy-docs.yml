@@ -24,7 +24,21 @@ jobs:
           cache: "pip" # caching pip dependencies
       - run: |
           pip install -r requirements.txt
-          python generate-docs.py
+          python generate-docs.py > ./docs/actions.md
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: "npm"
+      - run: |
+          npx markdownlint -f ./docs/actions.md
+      - name: changes commit
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@://github.com"
+
+          git add docs/actions.md
+
+          git diff --quiet && git diff --staged --quiet || (git commit -m "automatically update action.yml" && git push)
       - id: build_docs
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@e967c9de8fb0197faf7a294d153efa76de5cec27 # v1.6.0
       - id: deploy_docs
