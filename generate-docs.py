@@ -7,8 +7,9 @@ def generateMarkdown(action, path):
     with open(path, "r", encoding="utf-8") as file:
         daten = yaml.safe_load(file)
         builder = io.StringIO()
+        builder.write("<!-- markdownlint-disable -->\n")
         # builder.write(f"# {daten['name']}\n")
-        builder.write(f"### {daten['name']} ({action})\n")
+        builder.write(f"### {action}\n\n")
         builder.write(f"{daten['description']}\n")
         if "inputs" not in daten:
             builder.write("No Inputs\n")
@@ -46,6 +47,7 @@ def generateMarkdown(action, path):
                 description = outputs["description"]
 
                 builder.write(f"| `{item}` | {description} |\n")
+        builder.write("<!-- markdownlint-enable -->\n")
         final_string = builder.getvalue()
         builder.close()
         return final_string
