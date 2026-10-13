@@ -76,9 +76,7 @@ def replace_table(pattern, content, new_table):
         content = content.replace(content_to_replace, new_table)
         return content
 
-    raise RuntimeError(
-        f"Wiki-table to update was not found with pattern: {pattern}"
-    )
+    raise RuntimeError(f"Wiki-table to update was not found with pattern: {pattern}")
 
 
 def main():
