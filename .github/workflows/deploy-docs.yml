@@ -26,15 +26,6 @@ jobs:
           pip install -r requirements.txt
           python generate-docs.py > ./docs/actions_copy.md
           mv ./docs/actions_copy.md ./docs/actions.md
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          node-version-file: docs/package.json
-          cache: npm
-          cache-dependency-path: docs/package-lock.json
-      - run: |
-          npm --prefix docs ci
-          npm --prefix docs run fix
       - name: changes commit
         run: |
           git config --global user.name "github-actions[bot]"
