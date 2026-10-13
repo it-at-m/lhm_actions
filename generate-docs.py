@@ -47,6 +47,15 @@ def generateMarkdown(action, path):
                 description = outputs["description"]
 
                 builder.write(f"| `{item}` | {description} |\n")
+        builder.write("\n")
+
+        builder.write("Executes the following steps:\n")
+        counter = 1
+        for item in daten["runs"]["steps"]:
+            builder.write(f"{counter}. {item["name"]}\n")
+            counter+=1
+
+
         builder.write("<!-- markdownlint-enable -->\n")
         final_string = builder.getvalue()
         builder.close()

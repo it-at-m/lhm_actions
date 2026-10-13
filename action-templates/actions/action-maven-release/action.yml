@@ -95,7 +95,7 @@ runs:
         server-password: CENTRAL_PASSWORD
         gpg-private-key: ${{ inputs.GPG_PRIVATE_KEY }}
         gpg-passphrase: SIGN_KEY_PASS
-    - name: Maven release step
+    - name: Execute Maven release and deploy it to Maven Central
       id: maven-release-step
       shell: bash
       env:

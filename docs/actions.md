@@ -25,11 +25,6 @@ No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-actionlint -->
 
-Executes the following steps:
-
-1. Checkout code
-2. Run actionlint on your workflow files
-
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                                                      | Required |
@@ -57,13 +52,6 @@ Build docs with VitePress or VuePress
 No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-build-docs -->
-
-Executes the following steps:
-
-1. Enables GitHub Pages
-2. Build VitePress docs project
-3. Uploads the build output as an artifact.<br/>
-   The uploaded artifact can be used to deploy the docs to a web page (see [action-deploy-docs](#action-deploy-docs))
 
 Workflows using that action need the following permissions:
 
@@ -93,15 +81,6 @@ No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-build-image -->
 
-Executes the following steps:
-
-1. Checkout code
-2. Setup QEMU emulation to support multi-architecture builds
-3. Setup buildx build tool
-4. Login to Registry
-5. Extract metadata (tags, labels, annotations) for Docker
-6. Build and push image to a registry
-
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                             | Required |
@@ -122,10 +101,6 @@ A wrapper for actions/checkout setting persist-credentials per default to false.
 No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-checkout -->
-
-Executes the following steps:
-
-1. Checkout current branch
 
 Workflows using that action need the following permissions:
 
@@ -151,11 +126,6 @@ Validates a docker compose stack using its defined health checks
 No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-dockercompose-healthcheck -->
-
-Executes the following steps:
-
-1. Start the Docker Compose stack
-2. Run health check against the started services
 
 Workflows using that action need the following permissions:
 
@@ -189,10 +159,6 @@ Github Action paths-filter with input of filters. It enables conditional executi
 <!-- markdownlint-enable -->
 <!-- end-action-filter -->
 
-Executes the following steps:
-
-1. Check changed files and directories
-
 Workflows using that action need the following permissions:
 
 | Permission            | Purpose                              |                                        Required                                         |
@@ -217,14 +183,6 @@ Scans a repository using provided CodeQL language, buildmode and query scan set
 No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-codeql -->
-
-Executes the following steps:
-
-1. Checkout repository
-2. Setup JDK Version
-3. Initialize CodeQL for language type
-4. Build using Autobuild
-5. Perform CodeQL analysis for language type
 
 Workflows using that action need the following permissions:
 
@@ -253,11 +211,6 @@ No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-create-github-release -->
 
-Executes the following steps:
-
-1. Download a single artifact
-2. Create a GitHub release
-
 Workflows using that action need the following permissions:
 
 | Permission        | Purpose                   | Required |
@@ -280,11 +233,6 @@ No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-dependency-review -->
 
-Executes the following steps:
-
-1. Checkout repository
-2. Execute dependency review check
-
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                       |                                             Required                                             |
@@ -306,10 +254,6 @@ Action to deploy a docs artifact to a web page.
 No Outputs
 <!-- markdownlint-enable -->
 <!-- end-action-deploy-docs -->
-
-Executes the following steps:
-
-1. Deploy docs to a web page
 
 Workflows using that action need the following permissions:
 
@@ -336,13 +280,6 @@ Executes a Maven build and uploads the generated artifact to Maven Central
 | `sbom-path` | path of the sbom |
 <!-- markdownlint-enable -->
 <!-- end-action-maven-build -->
-
-Executes the following steps:
-
-1. Checkout repository
-2. Setup Java version
-3. Execute Maven build
-4. Upload build artifact
 
 Workflows using that action need the following permissions:
 
@@ -379,14 +316,6 @@ Action to create a Maven release and deploy it to Maven Central.
 <!-- markdownlint-enable -->
 <!-- end-action-maven-release -->
 
-Executes the following steps:
-
-1. Checkout repository
-2. Setup Java version
-3. Execute Maven release and deploy it to Maven Central
-4. Upload release artifact
-5. Create PR for version bump (if enabled) using [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)
-
 Workflows using that action need the following permissions:
 
 | Permission             | Purpose                          |                             Required                             |
@@ -416,16 +345,6 @@ Executes an npm build and uploads the generated artifact to npm
 <!-- markdownlint-enable -->
 <!-- end-action-npm-build -->
 
-Executes the following steps:
-
-1. Checkout repository
-2. Setup Node.js
-3. Install dependencies
-4. Run lint
-5. Run test
-6. Run build
-7. Upload artifact
-
 Workflows using that action need the following permissions:
 
 | Permission       | Purpose                      | Required |
@@ -450,15 +369,6 @@ Action to create an npm release and deploy it to Node.js.
 | `ARTIFACT_VERSION` | Version number of the artifact upload |
 <!-- markdownlint-enable -->
 <!-- end-action-npm-release -->
-
-Executes the following steps:
-
-1. Checkout repository
-2. Setup Node.js version
-3. Bump version and create Git tag
-4. Create PR for version bump (if enabled) using [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request)
-5. Run npm build
-6. Deploy npm artifact to Node.js
 
 Workflows using that action need the following permissions:
 
@@ -529,6 +439,3 @@ Workflows using that action need the following permissions:
 | ------------------------ | --------------------------------------------------------- | :------: |
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
-
-
-

@@ -34,13 +34,13 @@ runs:
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
         persist-credentials: false
-    - name: Run Docker Compose stack
+    - name: Start the Docker Compose stack
       working-directory: ${{ inputs.compose-file-path }}
       shell: bash
       env:
         COMPOSE_FILE_NAME: ${{ inputs.compose-file-name }}
       run: docker compose -f "$COMPOSE_FILE_NAME" up -d
-    - name: Run Docker Compose healthcheck
+    - name: Run health check against the started services
       working-directory: ${{ inputs.compose-file-path }}
       shell: bash
       env:
