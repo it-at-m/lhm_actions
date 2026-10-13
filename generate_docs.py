@@ -75,13 +75,14 @@ def replace_table(pattern, content, new_table):
         content_to_replace = match.group(1)
         content = content.replace(content_to_replace, new_table)
         return content
-    else:
-        raise RuntimeError(
-            f"Wiki-table to update was not found with pattern: {pattern}"
-        )
+
+    raise RuntimeError(
+        f"Wiki-table to update was not found with pattern: {pattern}"
+    )
 
 
 def main():
+    """main method"""
     path = "action-templates/actions"
 
     with open("docs/actions.md", "r", encoding="utf-8") as file:
@@ -90,10 +91,10 @@ def main():
     for element in os.listdir(path):
         replace = generate_markdown(element, f"{path}/{element}/action.yml")
         content = replace_table(
-        rf"<!-- start-{element} -->\s*(.*?)<!-- end-{element} -->",
-        content,
-        replace,
-    )
+            rf"<!-- start-{element} -->\s*(.*?)<!-- end-{element} -->",
+            content,
+            replace,
+        )
     print(content)
 
 

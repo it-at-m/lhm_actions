@@ -36,7 +36,7 @@ runs:
         cache: "npm"
         cache-dependency-path: "./${{inputs.app-path}}/package-lock.json"
     - id: node-release
-      name: Bump version and create git tag
+      name: Bump version and create Git tag
       env:
         APP_PATH: ${{ inputs.app-path }}
         RELEASE_VERSION: ${{inputs.releaseVersion}}
