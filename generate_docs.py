@@ -1,9 +1,10 @@
-import os
-import yaml
 import io
+import os
 import re
 
-def generateMarkdown(action, path):
+import yaml
+
+def generate_markdown(action, path):
     with open(path, "r", encoding="utf-8") as file:
         daten = yaml.safe_load(file)
         builder = io.StringIO()
@@ -82,7 +83,7 @@ with open("docs/actions.md", "r", encoding="utf-8") as file:
     content = file.read()
 
 for element in os.listdir(path):
-    replace = generateMarkdown(element, f"{path}/{element}/action.yml")
+    replace = generate_markdown(element, f"{path}/{element}/action.yml")
     content = replace_table(
         rf"<!-- start-{element} -->\s*(.*?)<!-- end-{element} -->",
         content,

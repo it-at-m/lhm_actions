@@ -1,5 +1,5 @@
 name: "Validate docker stack"
-description: "Validates a docker compose stack using its defined health checks"
+description: "Validates a Docker compose stack using its defined health checks"
 
 inputs:
   max-retries:
@@ -17,7 +17,7 @@ inputs:
   compose-file-name:
     description: "Name of the Docker compose file"
     required: false
-    default: "Docker-compose.yml"
+    default: "docker-compose.yml"
   skip-exited:
     description: "Skip checking exited containers  (useful for init containers)"
     required: false
