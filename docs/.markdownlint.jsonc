@@ -7,4 +7,5 @@
   },
   "line-length": false,
   "no-inline-html": false,
+  "MD013": false,
 }
