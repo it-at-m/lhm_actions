@@ -14,7 +14,7 @@ def generate_markdown(action, path):
     with open(path, "r", encoding="utf-8") as file:
         daten = yaml.safe_load(file)
         builder = io.StringIO()
-        builder.write("<!-- markdownlint-disable -->\n")
+        builder.write("<!-- markdownlint-disable -->\n\n")
         # builder.write(f"# {daten['name']}\n")
         builder.write(f"### {action}\n\n")
         builder.write(f"{daten['description']}\n")
@@ -54,11 +54,12 @@ def generate_markdown(action, path):
                 builder.write(f"| `{item}` | {description} |\n")
         builder.write("\n")
 
-        builder.write("Executes the following steps:\n")
+        builder.write("Executes the following steps:\n\n")
         counter = 1
         for item in daten["runs"]["steps"]:
             builder.write(f"{counter}. {item['name']}\n")
             counter += 1
+        builder.write("\n")
 
         builder.write("<!-- markdownlint-enable -->\n")
         final_string = builder.getvalue()
@@ -88,7 +89,7 @@ def main():
 
     for element in os.listdir(path):
         replace = generate_markdown(element, f"{path}/{element}/action.yml")
-    content = replace_table(
+        content = replace_table(
         rf"<!-- start-{element} -->\s*(.*?)<!-- end-{element} -->",
         content,
         replace,
