@@ -93,7 +93,7 @@ def main():
             content,
             replace,
         )
-    print(content)
+    print(content.removesuffix("\n"))
 
 
 if __name__ == "__main__":
