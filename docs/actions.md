@@ -118,8 +118,8 @@ Validates a docker compose stack using its defined health checks
 | :----- | :------- | :----- | :------ |
 | `max-retries` | Maximum number of retry attempts | `10` | False |
 | `retry-interval` | Interval between retries in seconds | `10` | False |
-| `compose-file-path` | Path to the docker compose file | `./` | False |
-| `compose-file-name` | Name of the docker compose file | `docker-compose.yml` | False |
+| `compose-file-path` | Path to the Docker compose file | `./` | False |
+| `compose-file-name` | Name of the Docker compose file | `Docker-compose.yml` | False |
 | `skip-exited` | Skip checking exited containers  (useful for init containers) | `false` | False |
 | `skip-no-healthcheck` | Skip checking containers without health checks. Note: This applies to both persistent and existing containers. | `false` | False |
 
@@ -143,7 +143,7 @@ such as `wget` or `curl`. In this case `skip-no-healthcheck: true` can be used.
 <!-- markdownlint-disable -->
 ### action-filter
 
-Github Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+GitHub Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `base` | Branch, tag, or commit SHA against which the changes will be detected. | "" | False |
@@ -151,7 +151,7 @@ Github Action paths-filter with input of filters. It enables conditional executi
 
 | Ouputs | Description |
 | :----- | :------- |
-| `java` | Name of the java artifact upload |
+| `java` | Name of the Java artifact upload |
 | `javascript-typescript-vue` | Name of the vue artifact upload |
 | `python` | Name of the python artifact upload |
 | `actions` | Whether an Actions or workflow file changed |
@@ -205,7 +205,7 @@ Creates a GitHub release from a downloaded artifact
 | `draft` | Whether it is a draft release or not | `false` | False |
 | `prerelease` | Whether it is a prerelease or not | `false` | False |
 | `generate-release-notes` | Generate release notes | `false` | False |
-| `skip-artifact-decompress` | Whether to skip decompressing a zip file (if detected). If true, the downloaded artifact will not be automatically extracted/decompressed. This is useful when you want to handle the artifact as-is without extraction. | `false` | False |
+| `skip-artifact-decompress` | Whether to skip decompressing a ZIP file (if detected). If true, the downloaded artifact will not be automatically extracted/decompressed. This is useful when you want to handle the artifact as-is without extraction. | `false` | False |
 
 No Outputs
 <!-- markdownlint-enable -->
@@ -439,3 +439,4 @@ Workflows using that action need the following permissions:
 | ------------------------ | --------------------------------------------------------- | :------: |
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
+
