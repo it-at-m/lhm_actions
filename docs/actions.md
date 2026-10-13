@@ -17,6 +17,8 @@ This repository contains and provides actions to
 
 <!-- markdownlint-disable -->
 
+<!-- prettier-ignore-start -->
+
 ### action-actionlint
 
 Action to lint your workflows using [actionlint](https://github.com/rhysd/actionlint)
@@ -29,6 +31,7 @@ Executes the following steps:
 1. Checkout code
 2. Run actionlint on your workflow files
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-actionlint -->
 
@@ -45,6 +48,8 @@ See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/doc
 <!-- start-action-build-docs -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-build-docs
 
@@ -67,6 +72,7 @@ Executes the following steps:
 4. Build VitePress docs project
 5. Uploads the build output as an artifact. The uploaded artifact can be used to deploy the docs to a web page.
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-build-docs -->
 
@@ -79,6 +85,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-build-image -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-build-image
 
@@ -107,6 +115,7 @@ Executes the following steps:
 6. Extract metadata (tags, labels, annotations) for Docker
 7. Build and push image to a registry
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-build-image -->
 
@@ -120,6 +129,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-checkout -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-checkout
 
@@ -135,6 +146,7 @@ Executes the following steps:
 1. Checkout repository without persisting credentials
 2. Checkout repository with persisting credentials
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-checkout -->
 
@@ -147,6 +159,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-dockercompose-healthcheck -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-dockercompose-healthcheck
 
@@ -168,6 +182,7 @@ Executes the following steps:
 2. Start the Docker Compose stack
 3. Run health check against the started services
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-dockercompose-healthcheck -->
 
@@ -185,6 +200,8 @@ such as `wget` or `curl`. In this case `skip-no-healthcheck: true` can be used.
 <!-- start-action-filter -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-filter
 
@@ -206,6 +223,7 @@ Executes the following steps:
 
 1. Check changed files and directories
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-filter -->
 
@@ -219,6 +237,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-codeql -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-codeql
 
@@ -242,6 +262,7 @@ Executes the following steps:
 5. Build using autobuild
 6. Perform CodeQL analysis for ${{ inputs.codeql-language }}
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-codeql -->
 
@@ -255,6 +276,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-create-github-release -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-create-github-release
 
@@ -276,6 +299,7 @@ Executes the following steps:
 1. Download a single artifact
 2. Create GitHub release
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-create-github-release -->
 
@@ -288,6 +312,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-dependency-review -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-dependency-review
 
@@ -305,6 +331,7 @@ Executes the following steps:
 1. Checkout repository
 2. Execute dependency review check
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-dependency-review -->
 
@@ -318,6 +345,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-deploy-docs -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-deploy-docs
 
@@ -333,6 +362,7 @@ Executes the following steps:
 
 1. Deploy to GitHub Pages
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-deploy-docs -->
 
@@ -346,6 +376,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-maven-build -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-maven-build
 
@@ -371,6 +403,7 @@ Executes the following steps:
 6. Upload artifact
 7. upload-sbom-artifact
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-maven-build -->
 
@@ -383,6 +416,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-maven-release -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-maven-release
 
@@ -418,6 +453,7 @@ Executes the following steps:
 6. Upload artifact
 7. Push changes to release branch and create pull request
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-maven-release -->
 
@@ -431,6 +467,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-npm-build -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-npm-build
 
@@ -460,6 +498,7 @@ Executes the following steps:
 7. Upload artifact
 8. upload-sbom-artifact
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-npm-build -->
 
@@ -472,6 +511,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-npm-release -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-npm-release
 
@@ -495,6 +536,7 @@ Executes the following steps:
 4. Push changes
 5. Push changes to release branch and create pull request
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-npm-release -->
 
@@ -509,6 +551,8 @@ Workflows using that action need the following permissions:
 
 <!-- markdownlint-disable -->
 
+<!-- prettier-ignore-start -->
+
 ### action-pr-checklist
 
 Action to enforce ticking of all checklist items inside a PR (useful for PR templates)
@@ -522,6 +566,7 @@ Executes the following steps:
 
 1. Configure checklist requirement
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-pr-checklist -->
 
@@ -530,6 +575,8 @@ Workflows using that action do not require any explicit additional permissions.
 <!-- start-action-pr-labeler -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-pr-labeler
 
@@ -546,6 +593,7 @@ Executes the following steps:
 1. Checkout external repository
 2. Label PR
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-pr-labeler -->
 
@@ -560,6 +608,8 @@ Workflows using that action need the following permissions:
 <!-- start-action-trivy -->
 
 <!-- markdownlint-disable -->
+
+<!-- prettier-ignore-start -->
 
 ### action-trivy
 
@@ -581,6 +631,7 @@ Executes the following steps:
 4. Upload Vulnerability Scan Results
 5. Upload Trivy scan results to GitHub Security tab
 
+<!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
 <!-- end-action-trivy -->
 
@@ -590,6 +641,7 @@ Workflows using that action need the following permissions:
 | ------------------------ | --------------------------------------------------------- | :------: |
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
+
 
 
 
