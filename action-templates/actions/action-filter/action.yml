@@ -1,5 +1,5 @@
 name: "Execute paths-filter"
-description: "Github Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits."
+description: "GitHub Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits."
 
 inputs:
   base:
@@ -28,7 +28,7 @@ inputs:
 
 outputs:
   java:
-    description: "Name of the java artifact upload"
+    description: "Name of the Java artifact upload"
     value: ${{ steps.filter.outputs.java }}
   javascript-typescript-vue:
     description: "Name of the vue artifact upload"

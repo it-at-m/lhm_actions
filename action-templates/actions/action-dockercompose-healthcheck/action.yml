@@ -11,13 +11,13 @@ inputs:
     required: false
     default: "10"
   compose-file-path:
-    description: "Path to the docker compose file"
+    description: "Path to the Docker compose file"
     required: false
     default: "./"
   compose-file-name:
-    description: "Name of the docker compose file"
+    description: "Name of the Docker compose file"
     required: false
-    default: "docker-compose.yml"
+    default: "Docker-compose.yml"
   skip-exited:
     description: "Skip checking exited containers  (useful for init containers)"
     required: false
