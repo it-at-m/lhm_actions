@@ -34,7 +34,7 @@ jobs:
           cache-dependency-path: docs/package-lock.json
       - run: |
           npm --prefix docs ci
-          npm --prefix docs lint
+          npm --prefix docs run fix
       - name: changes commit
         run: |
           git config --global user.name "github-actions[bot]"
