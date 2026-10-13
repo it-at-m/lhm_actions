@@ -33,7 +33,7 @@ jobs:
           cache: npm
           cache-dependency-path: docs/package-lock.json
       - run: |
-          npx markdownlint -f ./docs/actions.md
+          npx markdownlint-cli -f ./docs/actions.md
       - name: changes commit
         run: |
           git config --global user.name "github-actions[bot]"
