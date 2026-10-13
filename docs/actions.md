@@ -99,6 +99,10 @@ A wrapper for actions/checkout setting persist-credentials per default to false.
 | `persist-credentials` | Whether to persist your credentials or not | `false` | False |
 
 No Outputs
+
+Executes the following steps:
+1. Checkout repository without persisting credentials
+2. Checkout repository with persisting credentials
 <!-- markdownlint-enable -->
 <!-- end-action-checkout -->
 
@@ -439,4 +443,5 @@ Workflows using that action need the following permissions:
 | ------------------------ | --------------------------------------------------------- | :------: |
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
+
 
