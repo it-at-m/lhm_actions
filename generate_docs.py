@@ -1,3 +1,7 @@
+"""
+this modul generates the actions.md.
+"""
+
 import io
 import os
 import re
@@ -6,6 +10,7 @@ import yaml
 
 
 def generate_markdown(action, path):
+    """generates the project-docs"""
     with open(path, "r", encoding="utf-8") as file:
         daten = yaml.safe_load(file)
         builder = io.StringIO()
@@ -62,7 +67,7 @@ def generate_markdown(action, path):
 
 
 def replace_table(pattern, content, new_table):
-    # Search table with corresponding pattern and replace table.
+    """Search table with corresponding pattern and replace table."""
     match = re.search(pattern, content, re.DOTALL)
 
     if match:
@@ -75,16 +80,21 @@ def replace_table(pattern, content, new_table):
         )
 
 
-path = "action-templates/actions"
+def main():
+    path = "action-templates/actions"
 
-with open("docs/actions.md", "r", encoding="utf-8") as file:
-    content = file.read()
+    with open("docs/actions.md", "r", encoding="utf-8") as file:
+        content = file.read()
 
-for element in os.listdir(path):
-    replace = generate_markdown(element, f"{path}/{element}/action.yml")
+    for element in os.listdir(path):
+        replace = generate_markdown(element, f"{path}/{element}/action.yml")
     content = replace_table(
         rf"<!-- start-{element} -->\s*(.*?)<!-- end-{element} -->",
         content,
         replace,
     )
-print(content)
+    print(content)
+
+
+if __name__ == "__main__":
+    main()
