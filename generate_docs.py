@@ -14,7 +14,7 @@ def generate_markdown(action, path):
     with open(path, "r", encoding="utf-8") as file:
         daten = yaml.safe_load(file)
         builder = io.StringIO()
-        builder.write("<!-- markdownlint-disable -->\n\n")
+        builder.write("<!-- markdownlint-disable -->\n\n<!-- prettier-ignore-start -->\n\n")
         # builder.write(f"# {daten['name']}\n")
         builder.write(f"### {action}\n\n")
         builder.write(f"{daten['description']}\n")
@@ -61,7 +61,7 @@ def generate_markdown(action, path):
             counter += 1
         builder.write("\n")
 
-        builder.write("<!-- markdownlint-enable -->\n")
+        builder.write("<!-- prettier-ignore-end -->\n<!-- markdownlint-enable -->\n")
         final_string = builder.getvalue()
         builder.close()
         return final_string
