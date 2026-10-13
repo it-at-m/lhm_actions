@@ -14,7 +14,7 @@ def generateMarkdown(action, path):
             builder.write("No Inputs\n")
         else:
             builder.write("| Input | Description | Default  | Required |\n")
-            builder.write("| ----- | ------- | ----- | :------: |\n")
+            builder.write("| ----- | ------- | ----- | ------ |\n")
             for item in daten["inputs"]:
 
                 inputs = daten["inputs"][item]
