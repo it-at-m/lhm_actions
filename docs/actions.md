@@ -20,9 +20,9 @@ This repository contains and provides actions to
 ### action-actionlint
 
 Action to lint your workflows using [actionlint](https://github.com/rhysd/actionlint)
-apfelNo Inputs
+No Inputs
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -49,7 +49,7 @@ See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/doc
 ### action-build-docs
 
 Build docs with VitePress or VuePress
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `docs-path` | Path to VitePress docs project | `./docs` | False |
 | `node-version` | Node version. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
@@ -57,7 +57,7 @@ apfel| Input | Description | Default | Required |
 | `dist-path` | VitePress output path that will be uploaded as artifact. Output directory that will be uploaded to GitHub Pages | `.vitepress/dist` | False |
 | `npm-ci-parameter` | disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -83,7 +83,7 @@ Workflows using that action need the following permissions:
 ### action-build-image
 
 Action to build a multi-architecture Docker image with multi-architecture support and push it to a registry.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `registry` | Image registry to push image to | `ghcr.io` | True |
 | `registry-username` | Username to authenticate against image registry | n/a | True |
@@ -92,10 +92,10 @@ apfel| Input | Description | Default | Required |
 | `image-labels` | Labels or OCI manifest annotations to add to image | `org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}` | False |
 | `path` | Path to the build context directory (containing the Dockerfile) | n/a | True |
 | `image-name` | Name to give the image | n/a | True |
-| `artifact-name` | Name of artifact to download | n/a | True |
+| `artifact-name` | Name of artifact to download  | n/a | True |
 | `platforms` | List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64. Note: This also requires a compatible base image in the Dockerfile of the application | `linux/amd64` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -124,11 +124,11 @@ Workflows using that action need the following permissions:
 ### action-checkout
 
 A wrapper for actions/checkout setting persist-credentials per default to false. using current branch with default values.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `persist-credentials` | Whether to persist your credentials or not | `false` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -151,16 +151,16 @@ Workflows using that action need the following permissions:
 ### action-dockercompose-healthcheck
 
 Validates a Docker compose stack using its defined health checks
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `max-retries` | Maximum number of retry attempts | `10` | False |
 | `retry-interval` | Interval between retries in seconds | `10` | False |
 | `compose-file-path` | Path to the Docker compose file | `./` | False |
 | `compose-file-name` | Name of the Docker compose file | `docker-compose.yml` | False |
-| `skip-exited` | Skip checking exited containers (useful for init containers) | `false` | False |
+| `skip-exited` | Skip checking exited containers  (useful for init containers) | `false` | False |
 | `skip-no-healthcheck` | Skip checking containers without health checks. Note: This applies to both persistent and existing containers. | `false` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -189,12 +189,12 @@ such as `wget` or `curl`. In this case `skip-no-healthcheck: true` can be used.
 ### action-filter
 
 GitHub Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `base` | Branch, tag, or commit SHA against which the changes will be detected. | "" | False |
 | `filters` | Defines filters applied to detected changed files. Each filter has a name and a list of rules. Rule is a glob expression - paths of all changed files are matched against it. Rule can optionally specify if the file should be added, modified, or deleted. For each filter, there will be a corresponding output variable to indicate if there's a changed file matching any of the rules. Optionally, there can be a second output variable set to list of all files matching the filter. Filters can be provided inline as a string (containing valid YAML document), or as a relative path to a file (e.g.: .github/filters.yaml). Filters syntax is documented by example - see examples section. | `java:`<br>`  - '**/*.java'`<br>`javascript-typescript-vue:`<br>`  - '**/*.js'`<br>`  - '**/*.cjs'`<br>`  - '**/*.mjs'`<br>`  - '**/*.ts'`<br>`  - '**/*.cts'`<br>`  - '**/*.mts'`<br>`  - '**/*.vue'`<br>`python:`<br>`  - '**/*.py'`<br>`actions:`<br>`  - '.github/**/*.yml'`<br>`  - '.github/**/*.yaml'` | False |
 
-haus| Ouputs | Description |
+| Ouputs | Description |
 | :----- | :------- |
 | `java` | Name of the Java artifact upload |
 | `javascript-typescript-vue` | Name of the vue artifact upload |
@@ -223,7 +223,7 @@ Workflows using that action need the following permissions:
 ### action-codeql
 
 Scans a repository using provided CodeQL language, buildmode and query scan set
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `codeql-language` | CodeQL language name to scan with (e.g java-kotlin, javascript-typescript, python, ...) | n/a | True |
 | `codeql-buildmode` | Build mode to use when scanning the source code (e.g. none, autobuild, manual) | `none` | False |
@@ -231,7 +231,7 @@ apfel| Input | Description | Default | Required |
 | `java-version` | Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild). If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
 | `path` | Path to scan files in | `.` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -259,7 +259,7 @@ Workflows using that action need the following permissions:
 ### action-create-github-release
 
 Creates a GitHub release from a downloaded artifact
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `artifact-name` | Name of the artifact to download | n/a | True |
 | `tag-name` | Name of a tag (e.g. sps-1.0.0 or myproject-1.0.0) | n/a | True |
@@ -269,7 +269,7 @@ apfel| Input | Description | Default | Required |
 | `generate-release-notes` | Generate release notes | `false` | False |
 | `skip-artifact-decompress` | Whether to skip decompressing a ZIP file (if detected). If true, the downloaded artifact will not be automatically extracted/decompressed. This is useful when you want to handle the artifact as-is without extraction. | `false` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -292,13 +292,13 @@ Workflows using that action need the following permissions:
 ### action-dependency-review
 
 The dependency review action scans your pull requests for dependency changes, and will raise an error if any invalid licenses are being used. It will always use the baseline configuration in <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>. If you use the action with a matrix, you should watch that the path is different for each call.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `allow-dependencies-licenses` | Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information) | "" | False |
 | `vulnerability-check` | Enables/Disables vulnerability scanning of dependencies | `false` | False |
 | `allow-ghsas` | Additional comma separated string of GHSAs (see https://github.com/advisories) to be suppressed by the vulnerability check. For CVEs, the corresponding GHSA ID has to be used instead of directly using the CVE identifier. | "" | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -322,12 +322,12 @@ Workflows using that action need the following permissions:
 ### action-deploy-docs
 
 Action to deploy a docs artifact to a web page.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `artifact_name` | The name of the artifact to deploy | `github-pages` | False |
 | `deploy-branch` | Branch to deploy documentation from | `main` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -350,12 +350,12 @@ Workflows using that action need the following permissions:
 ### action-maven-build
 
 Executes a Maven build and uploads the generated artifact to Maven Central
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
 | `app-path` | Path to the projects pom.xml file | n/a | True |
 
-haus| Ouputs | Description |
+| Ouputs | Description |
 | :----- | :------- |
 | `artifact-name` | Name of the artifact upload |
 | `cyclone-artifact-id` | ID of the sbom artifact |
@@ -387,7 +387,7 @@ Workflows using that action need the following permissions:
 ### action-maven-release
 
 Action to create a Maven release and deploy it to Maven Central.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
 | `app-path` | Path to the projects pom.xml file | n/a | True |
@@ -402,7 +402,7 @@ apfel| Input | Description | Default | Required |
 | `CENTRAL_USERNAME` | Environment variable name for the username for authentication to Maven Central | n/a | False |
 | `CENTRAL_PASSWORD` | Environment variable name for password or token for authentication to Maven Central | n/a | False |
 
-haus| Ouputs | Description |
+| Ouputs | Description |
 | :----- | :------- |
 | `MVN_ARTIFACT_ID` | Artifact name from pom |
 | `artifact-name` | Name of the artifact upload |
@@ -435,7 +435,7 @@ Workflows using that action need the following permissions:
 ### action-npm-build
 
 Executes an npm build and uploads the generated artifact to npm
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
 | `app-path` | Path to package.json file | n/a | True |
@@ -443,7 +443,7 @@ apfel| Input | Description | Default | Required |
 | `run-test` | Controls the execution of the 'npm run test' script | `true` | False |
 | `npm-ci-parameter` | disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts=true` | False |
 
-haus| Ouputs | Description |
+| Ouputs | Description |
 | :----- | :------- |
 | `artifact-name` | Name of the artifact upload |
 | `cyclone-artifact-id` | ID of the sbom artifact |
@@ -476,14 +476,14 @@ Workflows using that action need the following permissions:
 ### action-npm-release
 
 Action to create an npm release and deploy it to Node.js.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
 | `app-path` | Path to package.json file. would be equal to './package.json' and 'test-frontend' to './test-frontend/package.json' | n/a | True |
 | `releaseVersion` | Level of release. Select version increment type (follows Semantic Versioning). Specifies how the version is increased. Options: patch, minor, major | n/a | True |
 | `use-pr` | Use a PR for the version bump instead of directly pushing it | `false` | False |
 
-haus| Ouputs | Description |
+| Ouputs | Description |
 | :----- | :------- |
 | `ARTIFACT_VERSION` | Version number of the artifact upload |
 
@@ -512,11 +512,11 @@ Workflows using that action need the following permissions:
 ### action-pr-checklist
 
 Action to enforce ticking of all checklist items inside a PR (useful for PR templates)
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `fail-missing` | Whether the action should fail if the PR contains no checklist | `false` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -534,12 +534,12 @@ Workflows using that action do not require any explicit additional permissions.
 ### action-pr-labeler
 
 Action to automatically label pull requests using the configuration file in `.github/labeler.yml` of the repositories. More information about the configuration of the `labeler.yml` file can be found in [official documentation](https://github.com/actions/labeler)
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `configuration-path` | Path to the configuration file inside the repository | `.github/labeler.yml` | False |
 | `repository` | Optional repository to checkout to reference external configuration file | "" | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -564,14 +564,14 @@ Workflows using that action need the following permissions:
 ### action-trivy
 
 Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Code.
-apfel| Input | Description | Default | Required |
+| Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `trivyignore-files` | Path(s) to .trivyignore file(s) to ignore known CVEs (comma- or newline-separated) | `.trivyignore` | False |
 | `timeout` | Timeout for Trivy scan | `15m0s` | False |
 | `path` | Path to scan with Trivy. For scan-type=sbom, this must point to a specific SBOM file (e.g. sbom.cdx.json), not a directory. | `.` | False |
 | `scan-type` | scan type, e.g. fs or sbom | `fs` | False |
 
-hausNo Outputs
+No Outputs
 
 Executes the following steps:
 
@@ -590,3 +590,4 @@ Workflows using that action need the following permissions:
 | ------------------------ | --------------------------------------------------------- | :------: |
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
+
