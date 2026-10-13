@@ -491,7 +491,7 @@ Executes the following steps:
 
 1. Checkout repository
 2. Set up Node.js
-3. Bump version and create git tag
+3. Bump version and create Git tag
 4. Push changes
 5. Push changes to release branch and create pull request
 
@@ -590,4 +590,5 @@ Workflows using that action need the following permissions:
 | ------------------------ | --------------------------------------------------------- | :------: |
 | `contents: read`         | Checkout repository contents                              |   Yes    |
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
+
 
