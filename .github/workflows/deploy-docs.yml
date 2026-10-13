@@ -30,7 +30,7 @@ jobs:
 
           git add docs/actions.md
 
-          git diff --quiet && git diff --staged --quiet || (git commit -m "automatically update action.yml" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "[skip ci] automatically update action.yml" && git push)
       - id: build_docs
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@e967c9de8fb0197faf7a294d153efa76de5cec27 # v1.6.0
       - id: deploy_docs
