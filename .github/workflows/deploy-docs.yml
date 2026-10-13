@@ -32,7 +32,7 @@ jobs:
 
           git add docs/actions.md
 
-          git diff-index --quiet HEAD ||(git commit -m "[skip ci] automatically update action.yml"
+          git diff-index --quiet HEAD || git commit -m "[skip ci] automatically update action.yml"
            
           git push
       - id: build_docs
