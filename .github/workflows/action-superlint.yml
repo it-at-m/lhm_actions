@@ -39,6 +39,7 @@ jobs:
           FIX_MARKDOWN: true
           FIX_YAML_PRETTIER: true
           VALIDATE_BIOME_FORMAT: false
+          VALIDATE_PYTHON_RUFF_FORMAT: false
           VALIDATE_JSCPD: false # Do not check for duplicates, docs may have it.
           FILTER_REGEX_EXCLUDE: .*__tests__/.*
 
