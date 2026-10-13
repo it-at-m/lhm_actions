@@ -25,6 +25,17 @@ jobs:
           pip install -r requirements.txt
           python generate_docs.py > ./docs/actions_copy.md
           mv ./docs/actions_copy.md ./docs/actions.md
+
+      - name: Commit and push linting fixes
+        # Run only on:
+        # - Pull requests
+        # - Not on the default branch
+        if: github.ref_name != github.event.repository.default_branch
+        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+        with:
+          branch: ${{ github.ref }}
+          commit_message: "[skip ci] automatically update action.yml"
+
       - name: changes commit
         run: |
           git config --global user.name "github-actions[bot]"
