@@ -4,6 +4,7 @@ import re
 
 import yaml
 
+
 def generate_markdown(action, path):
     with open(path, "r", encoding="utf-8") as file:
         daten = yaml.safe_load(file)
@@ -54,8 +55,7 @@ def generate_markdown(action, path):
         counter = 1
         for item in daten["runs"]["steps"]:
             builder.write(f"{counter}. {item["name"]}\n")
-            counter+=1
-
+            counter += 1
 
         builder.write("<!-- markdownlint-enable -->\n")
         final_string = builder.getvalue()
