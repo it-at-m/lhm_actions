@@ -19,7 +19,6 @@ def generate_markdown(action, path):
             builder.write("| Input | Description | Default  | Required |\n")
             builder.write("| :----- | :------- | :----- | :------ |\n")
             for item in daten["inputs"]:
-
                 inputs = daten["inputs"][item]
 
                 description = inputs["description"]
@@ -43,7 +42,6 @@ def generate_markdown(action, path):
             builder.write("| Ouputs | Description |\n")
             builder.write("| :----- | :------- |\n")
             for item in daten["outputs"]:
-
                 outputs = daten["outputs"][item]
 
                 description = outputs["description"]
@@ -54,7 +52,7 @@ def generate_markdown(action, path):
         builder.write("Executes the following steps:\n")
         counter = 1
         for item in daten["runs"]["steps"]:
-            builder.write(f"{counter}. {item["name"]}\n")
+            builder.write(f"{counter}. {item['name']}\n")
             counter += 1
 
         builder.write("<!-- markdownlint-enable -->\n")
