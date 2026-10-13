@@ -592,3 +592,4 @@ Workflows using that action need the following permissions:
 | `security-events: write` | Upload SARIF results to GitHub "Security and quality" tab |   Yes    |
 
 
+
