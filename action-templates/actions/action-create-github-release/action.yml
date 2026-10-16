@@ -39,5 +39,6 @@ runs:
         draft: ${{inputs.draft == 'true'}}
         prerelease: ${{inputs.prerelease == 'true'}}
         generate_release_notes: ${{inputs.generate-release-notes == 'true'}}
+        target_commitish: ${{ github.sha }}
         files: |
           ${{inputs.artifact-path}}
