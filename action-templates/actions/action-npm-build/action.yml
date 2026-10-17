@@ -3,7 +3,7 @@ description: "Executes an npm build and uploads the generated artifact to npm"
 
 inputs:
   node-version:
-    description: "node version"
+    description: "Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version."
     required: false
   app-path:
     description: "Path to package.json file"
@@ -17,7 +17,7 @@ inputs:
     required: false
     default: "true"
   npm-ci-parameter:
-    description: "disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
+    description: "disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation>"
     required: false
     default: "--ignore-scripts=true"
 

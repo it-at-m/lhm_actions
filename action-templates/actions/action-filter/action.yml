@@ -1,5 +1,5 @@
 name: "Execute paths-filter"
-description: "Execute paths-filter with input of filters"
+description: "GitHub Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits."
 
 inputs:
   base:
@@ -7,7 +7,7 @@ inputs:
     required: false
     default: ""
   filters:
-    description: "Defines filters applied to detected changed files"
+    description: "Defines filters applied to detected changed files. Each filter has a name and a list of rules. Rule is a glob expression - paths of all changed files are matched against it. Rule can optionally specify if the file should be added, modified, or deleted. For each filter, there will be a corresponding output variable to indicate if there's a changed file matching any of the rules. Optionally, there can be a second output variable set to list of all files matching the filter. Filters can be provided inline as a string (containing valid YAML document), or as a relative path to a file (e.g.: .github/filters.yaml). Filters syntax is documented by example - see examples section."
     required: false
     default: |
       java:
@@ -28,7 +28,7 @@ inputs:
 
 outputs:
   java:
-    description: "Name of the java artifact upload"
+    description: "Name of the Java artifact upload"
     value: ${{ steps.filter.outputs.java }}
   javascript-typescript-vue:
     description: "Name of the vue artifact upload"
