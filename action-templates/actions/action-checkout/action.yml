@@ -1,5 +1,5 @@
 name: "Checkout repository"
-description: "A wrapper for actions/checkout setting persist-credentials per default to false. using current branch with default values."
+description: "A wrapper for actions/checkout setting persist-credentials per default to false. Using current branch with default values."
 inputs:
   persist-credentials:
     description: "Whether to persist your credentials or not"

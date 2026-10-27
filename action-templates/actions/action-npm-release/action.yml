@@ -1,12 +1,12 @@
 name: "Npm release"
-description: "Action to create an npm release and deploy it to Node.js."
+description: "Action to create a npm release and deploy it to Node.js."
 
 inputs:
   node-version:
     description: "Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version."
     required: false
   app-path:
-    description: "Path to package.json file. would be equal to './package.json' and 'test-frontend' to './test-frontend/package.json'"
+    description: "Path to package.json file. Would be equal to './package.json' and './test-frontend/package.json' for 'test-frontend'."
     required: true
   releaseVersion:
     description: "Level of release. Select version increment type (follows Semantic Versioning). Specifies how the version is increased. Options: patch, minor, major"
