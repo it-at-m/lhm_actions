@@ -1,5 +1,5 @@
 name: "Require PR checklist"
-description: "Fails if a PR checklist is required but doesn't exist"
+description: "Action to enforce ticking of all checklist items inside a PR (useful for PR templates)"
 
 inputs:
   fail-missing:

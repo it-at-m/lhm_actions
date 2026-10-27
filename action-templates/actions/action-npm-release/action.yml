@@ -1,18 +1,18 @@
 name: "Npm release"
-description: "Creates a new npm release pull request"
+description: "Action to create a npm release and deploy it to Node.js."
 
 inputs:
   node-version:
-    description: "Node version"
+    description: "Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version."
     required: false
   app-path:
-    description: "Path to package.json file"
+    description: "Path to package.json file. Would be equal to './package.json' and './test-frontend/package.json' for 'test-frontend'."
     required: true
   releaseVersion:
-    description: "Select version increment type (follows Semantic Versioning)"
+    description: "Level of release. Select version increment type (follows Semantic Versioning). Specifies how the version is increased. Options: patch, minor, major"
     required: true
   use-pr:
-    description: "Use PR for version bump instead of direct push"
+    description: "Use a PR for the version bump instead of directly pushing it"
     default: "false"
 
 outputs:
@@ -36,7 +36,7 @@ runs:
         cache: "npm"
         cache-dependency-path: "./${{inputs.app-path}}/package-lock.json"
     - id: node-release
-      name: Bump version and create git tag
+      name: Bump version and create Git tag
       env:
         APP_PATH: ${{ inputs.app-path }}
         RELEASE_VERSION: ${{inputs.releaseVersion}}
