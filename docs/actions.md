@@ -134,7 +134,7 @@ Workflows using that action need the following permissions:
 
 ### action-checkout
 
-A wrapper for actions/checkout setting persist-credentials per default to false. using current branch with default values.
+A wrapper for actions/checkout setting persist-credentials per default to false. Using current branch with default values.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `persist-credentials` | Whether to persist your credentials or not | `false` | False |
@@ -209,7 +209,7 @@ GitHub Action paths-filter with input of filters. It enables conditional executi
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `base` | Branch, tag, or commit SHA against which the changes will be detected. | "" | False |
-| `filters` | Defines filters applied to detected changed files. Each filter has a name and a list of rules. Rule is a glob expression - paths of all changed files are matched against it. Rule can optionally specify if the file should be added, modified, or deleted. For each filter, there will be a corresponding output variable to indicate if there's a changed file matching any of the rules. Optionally, there can be a second output variable set to list of all files matching the filter. Filters can be provided inline as a string (containing valid YAML document), or as a relative path to a file (e.g.: .github/filters.yaml). Filters syntax is documented by example - see examples section. | `java:`<br>`  - '**/*.java'`<br>`javascript-typescript-vue:`<br>`  - '**/*.js'`<br>`  - '**/*.cjs'`<br>`  - '**/*.mjs'`<br>`  - '**/*.ts'`<br>`  - '**/*.cts'`<br>`  - '**/*.mts'`<br>`  - '**/*.vue'`<br>`python:`<br>`  - '**/*.py'`<br>`actions:`<br>`  - '.github/**/*.yml'`<br>`  - '.github/**/*.yaml'` | False |
+| `filters` | Defines filters applied to detected changed files. Each filter has a name and a list of rules. Rule is a glob expression - paths of all changed files are matched against it. Rule can optionally specify if the file should be added, modified, or deleted. For each filter, there will be a corresponding output variable to indicate if there's a changed file matching any of the rules. Optionally, there can be a second output variable set to list all files matching the filter. Filters can be provided inline as a string (containing valid YAML document), or as a relative path to a file (e.g.: .github/filters.yaml). Filters syntax is documented by example - see examples section. | `java:`<br>`  - '**/*.java'`<br>`javascript-typescript-vue:`<br>`  - '**/*.js'`<br>`  - '**/*.cjs'`<br>`  - '**/*.mjs'`<br>`  - '**/*.ts'`<br>`  - '**/*.cts'`<br>`  - '**/*.mts'`<br>`  - '**/*.vue'`<br>`python:`<br>`  - '**/*.py'`<br>`actions:`<br>`  - '.github/**/*.yml'`<br>`  - '.github/**/*.yaml'` | False |
 
 | Ouputs | Description |
 | :----- | :------- |
@@ -317,7 +317,7 @@ Workflows using that action need the following permissions:
 
 ### action-dependency-review
 
-The dependency review action scans your pull requests for dependency changes, and will raise an error if any invalid licenses are being used. It will always use the baseline configuration in <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>. If you use the action with a matrix, you should watch that the path is different for each call.
+The dependency review action scans your pull requests for dependency changes, and will raise an error if any invalid licenses are being used. It will always use the baseline configuration in <https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml>. If you use the action with a matrix, you should watch out that the path is different for each call.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `allow-dependencies-licenses` | Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information) | "" | False |
@@ -516,11 +516,11 @@ Workflows using that action need the following permissions:
 
 ### action-npm-release
 
-Action to create an npm release and deploy it to Node.js.
+Action to create a npm release and deploy it to Node.js.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
-| `app-path` | Path to package.json file. would be equal to './package.json' and 'test-frontend' to './test-frontend/package.json' | n/a | True |
+| `app-path` | Path to package.json file. Would be equal to './package.json' and './test-frontend/package.json' for 'test-frontend'. | n/a | True |
 | `releaseVersion` | Level of release. Select version increment type (follows Semantic Versioning). Specifies how the version is increased. Options: patch, minor, major | n/a | True |
 | `use-pr` | Use a PR for the version bump instead of directly pushing it | `false` | False |
 
