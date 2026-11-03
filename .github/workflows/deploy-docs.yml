@@ -22,7 +22,8 @@ jobs:
           cache: "pip" # caching pip dependencies
       - run: |
           pip install -r requirements.txt
-          python generate_docs.py > ./docs/actions.md
+          python generate_docs.py > ./docs/actions_copy.md
+          mv ./docs/actions_copy.md ./docs/actions.md
 
       - name: Commit and push linting fixes
         # Run only on:
