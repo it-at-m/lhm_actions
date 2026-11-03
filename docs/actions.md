@@ -516,7 +516,7 @@ Workflows using that action need the following permissions:
 
 ### action-npm-release
 
-Action to create a npm release and deploy it to Node.js.
+Action to create an npm release and deploy it to Node.js.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
