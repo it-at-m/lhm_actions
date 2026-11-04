@@ -42,16 +42,13 @@ Workflows using that action need the following permissions:
 | `contents: read`       | Checkout repository contents                                 |   Yes    |
 | `pull-requests: write` | needed to annotate the files in a pull request with comments |   Yes    |
 
-**Note**: The usage of `display-findings: true` requires additional setup.
-See [actionlint documentation](https://github.com/rhysd/actionlint/blob/main/docs/usage.md#problem-matchers) for more information.
-
 <!-- start-action-build-docs -->
 
 <!-- markdownlint-disable -->
 
 <!-- prettier-ignore-start -->
 
-### action-build-docs
+### action-build-docss
 
 Build docs with VitePress or VuePress
 | Input | Description | Default  | Required |
