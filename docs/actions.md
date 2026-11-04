@@ -59,7 +59,7 @@ Build docs with VitePress or VuePress
 | `node-version` | Node version. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
 | `build-cmd` | Build command to run (e.g. for VuePress use: vuepress build) | `build` | False |
 | `dist-path` | VitePress output path that will be uploaded as artifact. Output directory that will be uploaded to GitHub Pages | `.vitepress/dist` | False |
-| `npm-ci-parameter` | disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts` | False |
+| `npm-ci-parameter` | Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts` | False |
 
 No Outputs
 
@@ -217,7 +217,7 @@ GitHub Action paths-filter with input of filters. It enables conditional executi
 | Ouputs | Description |
 | :----- | :------- |
 | `java` | Name of the Java artifact upload |
-| `javascript-typescript-vue` | Name of the vue artifact upload |
+| `javascript-typescript-vue` | Name of the Vue artifact upload |
 | `python` | Name of the python artifact upload |
 | `actions` | Whether an Actions or workflow file changed |
 | `changes` | JSON array of filter names that have matched changes |
@@ -506,7 +506,7 @@ Executes the following steps:
 5. Run build
 6. Sets output variable $GITHUB_OUTPUT
 7. Upload artifact
-8. upload-sbom-artifact
+8. Upload SBOM artifact
 
 <!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
