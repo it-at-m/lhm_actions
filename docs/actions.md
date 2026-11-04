@@ -429,7 +429,7 @@ Action to create a Maven release. By default deploy to Maven Central is skipped.
 | `skipDeployment` | Deprecated: Use mavenDArgsInput instead. Skip deployment to Maven Central | `true` | False |
 | `use-pr` | Use PR for version bump instead of direct push | `false` | False |
 | `mavenDArgsInput` | Additional maven arguments. Example (skip unit tests, skip deployment) | "" | False |
-| `GPG_PRIVATE_KEY` | Example (skip unit tests, skip deployment) | n/a | False |
+| `GPG_PRIVATE_KEY` | GPG private key to import | n/a | False |
 | `SIGN_KEY_PASS` | Environment variable name for the GPG private key passphrase | n/a | False |
 | `CENTRAL_USERNAME` | Environment variable name for the username for authentication to Maven Central | n/a | False |
 | `CENTRAL_PASSWORD` | Environment variable name for password or token for authentication to Maven Central | n/a | False |
