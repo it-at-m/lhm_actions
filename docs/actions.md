@@ -469,7 +469,7 @@ Workflows using that action need the following permissions:
 
 ### action-npm-build
 
-Executes an npm build. By default the upload of the generated artifact to npm is skipped.
+Executes an npm build.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
@@ -513,7 +513,7 @@ Workflows using that action need the following permissions:
 
 ### action-npm-release
 
-Action to create an npm release and deploy it to Node.js.
+Action to create an npm release. By default the upload of the generated artifact to npm is skipped.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
