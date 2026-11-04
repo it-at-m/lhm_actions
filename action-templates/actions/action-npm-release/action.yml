@@ -50,7 +50,7 @@ runs:
         git add package.json package-lock.json
         git commit -m "chore($APP_PATH): bump version to ${NEW_VERSION}" || exit 1
 
-    - name: Push changes
+    - name: Push changes to current branch
       if: ${{ inputs.use-pr != 'true' }}
       shell: bash
       run: git push || exit 1
