@@ -489,7 +489,7 @@ Executes an npm build.
 | `app-path` | Path to package.json file | n/a | True |
 | `run-lint` | Controls the execution of the 'npm run lint' script | `true` | False |
 | `run-test` | Controls the execution of the 'npm run test' script | `true` | False |
-| `npm-ci-parameter` | disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts=true` | False |
+| `npm-ci-parameter` | Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts=true` | False |
 
 | Ouputs | Description |
 | :----- | :------- |
