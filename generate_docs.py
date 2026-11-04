@@ -19,7 +19,7 @@ def generate_markdown(action, path):
         )
         # builder.write(f"# {data['name']}\n")
         builder.write(f"### {action}\n\n")
-        builder.write(f"{data['description']}\n")
+        builder.write(f"{data['description']}\n\n")
         if "inputs" not in data:
             builder.write("No Inputs\n")
         else:
