@@ -624,7 +624,7 @@ Executes the following steps:
 
 1. Checkout repository
 2. Run Trivy vulnerability scanner in repository mode
-3. Convert output format to json and sarif
+3. Convert output format to JSON and sarif
 4. Upload Vulnerability Scan Results
 5. Upload Trivy scan results to GitHub Security tab
 
