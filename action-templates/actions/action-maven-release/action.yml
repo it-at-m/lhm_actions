@@ -1,5 +1,5 @@
 name: "Maven release"
-description: "Action to create a Maven release and deploy it to Maven Central."
+description: "Action to create a Maven release. By default deploy to Maven Central is skipped."
 
 inputs:
   java-version:
