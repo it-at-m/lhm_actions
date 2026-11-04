@@ -97,7 +97,7 @@ Action to build a multi-architecture Docker image with multi-architecture suppor
 | `registry-username` | Username to authenticate against image registry | n/a | True |
 | `registry-password` | Password to authenticate against image registry | n/a | True |
 | `image-tags` | Tags to tag image with | `type=raw,value=latest` | False |
-| `image-labels` | Labels or OCI manifest annotations to add to image | `org.opencontainers.image.description=See ${{ github.server_url }}/${{ github.repository }}` | False |
+| `image-labels` | Labels or OCI manifest annotations to add to image | `org.opencontainers.image.description=See $github.server_url/$github.repositorys` | False |
 | `path` | Path to the build context directory (containing the Dockerfile) | n/a | True |
 | `image-name` | Name to give the image | n/a | True |
 | `artifact-name` | Name of artifact to download  | n/a | True |
@@ -262,9 +262,9 @@ Executes the following steps:
 1. Checkout repository
 2. Extract Java Version from pom.xml
 3. Set up JDK
-4. Initialize CodeQL for ${{ inputs.codeql-language }}
+4. Initialize CodeQL for $inputs.codeql-language
 5. Build using autobuild
-6. Perform CodeQL analysis for ${{ inputs.codeql-language }}
+6. Perform CodeQL analysis for $inputs.codeql-language
 
 <!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
