@@ -12,21 +12,21 @@ import yaml
 def generate_markdown(action, path):
     """generates the project-docs"""
     with open(path, "r", encoding="utf-8") as file:
-        daten = yaml.safe_load(file)
+        data = yaml.safe_load(file)
         builder = io.StringIO()
         builder.write(
             "<!-- markdownlint-disable -->\n\n<!-- prettier-ignore-start -->\n\n"
         )
-        # builder.write(f"# {daten['name']}\n")
+        # builder.write(f"# {data['name']}\n")
         builder.write(f"### {action}\n\n")
-        builder.write(f"{daten['description']}\n")
-        if "inputs" not in daten:
+        builder.write(f"{data['description']}\n")
+        if "inputs" not in data:
             builder.write("No Inputs\n")
         else:
             builder.write("| Input | Description | Default  | Required |\n")
             builder.write("| :----- | :------- | :----- | :------ |\n")
-            for item in daten["inputs"]:
-                inputs = daten["inputs"][item]
+            for item in data["inputs"]:
+                inputs = data["inputs"][item]
 
                 description = inputs["description"]
                 required = inputs.get("required", "False")
@@ -43,13 +43,13 @@ def generate_markdown(action, path):
                 )
 
         builder.write("\n")
-        if "outputs" not in daten:
+        if "outputs" not in data:
             builder.write("No Outputs\n")
         else:
             builder.write("| Ouputs | Description |\n")
             builder.write("| :----- | :------- |\n")
-            for item in daten["outputs"]:
-                outputs = daten["outputs"][item]
+            for item in data["outputs"]:
+                outputs = data["outputs"][item]
 
                 description = outputs["description"]
 
@@ -58,7 +58,7 @@ def generate_markdown(action, path):
 
         builder.write("Executes the following steps:\n\n")
         counter = 1
-        for item in daten["runs"]["steps"]:
+        for item in data["runs"]["steps"]:
             builder.write(f"{counter}. {item['name']}\n")
             counter += 1
         builder.write("\n")
