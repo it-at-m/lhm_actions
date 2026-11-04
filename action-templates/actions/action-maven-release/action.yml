@@ -6,7 +6,7 @@ inputs:
     description: "Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`."
     required: false
   app-path:
-    description: "Path to the projects pom.xml file"
+    description: "Path to pom.xml file of the project"
     required: true
   release-method:
     description: "If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT. release-method calculates the next snapshot version: patch, minor, or major. Deprecated: If developmentVersion is set, it overrides the calculated snapshot version."
