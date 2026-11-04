@@ -544,7 +544,7 @@ Executes the following steps:
 1. Checkout repository
 2. Set up Node.js
 3. Bump version and create Git tag
-4. Push changes
+4. Push changes to current branch
 5. Push changes to release branch and create pull request
 
 <!-- prettier-ignore-end -->
