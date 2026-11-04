@@ -48,7 +48,7 @@ Workflows using that action need the following permissions:
 
 <!-- prettier-ignore-start -->
 
-### action-build-docss
+### action-build-docs
 
 Build docs with VitePress or VuePress
 | Input | Description | Default  | Required |
