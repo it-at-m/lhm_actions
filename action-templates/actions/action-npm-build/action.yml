@@ -1,5 +1,5 @@
 name: "Npm build"
-description: "Executes an npm build. By default the upload of the generated artifact to npm is skipped."
+description: "Executes an npm build."
 
 inputs:
   node-version:

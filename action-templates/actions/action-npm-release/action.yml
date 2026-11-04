@@ -1,5 +1,5 @@
 name: "Npm release"
-description: "Action to create an npm release and deploy it to Node.js."
+description: "Action to create an npm release. By default the upload of the generated artifact to npm is skipped."
 
 inputs:
   node-version:
