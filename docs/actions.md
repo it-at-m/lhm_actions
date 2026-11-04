@@ -450,7 +450,7 @@ Action to create a Maven release. By default deploy to Maven Central is skipped.
 | :----- | :------- |
 | `MVN_ARTIFACT_ID` | Artifact name from pom |
 | `artifact-name` | Name of the artifact upload |
-| `release-version` | calculated release version |
+| `release-version` | Calculated release version |
 
 Executes the following steps:
 
