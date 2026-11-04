@@ -1,9 +1,9 @@
 name: "Npm build"
-description: "Executes an npm build and uploads the generated artifact to npm"
+description: "Executes an npm build."
 
 inputs:
   node-version:
-    description: "node version"
+    description: "Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version."
     required: false
   app-path:
     description: "Path to package.json file"
@@ -17,7 +17,7 @@ inputs:
     required: false
     default: "true"
   npm-ci-parameter:
-    description: "disallow external scripts during npm ci https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation"
+    description: "Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation>"
     required: false
     default: "--ignore-scripts=true"
 
@@ -81,7 +81,7 @@ runs:
           !**/node_modules/**
         retention-days: 5
     - id: upload-sbom-artifact
-      name: upload-sbom-artifact
+      name: Upload SBOM artifact
       uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       with:
         path: "${{inputs.app-path}}/dist/application.cdx.json"

@@ -1,5 +1,5 @@
 name: "Deploy docs"
-description: "Deploy docs to GitHub Pages"
+description: "Action to deploy a docs artifact to a web page."
 
 inputs:
   artifact_name:
