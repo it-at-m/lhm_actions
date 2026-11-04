@@ -51,7 +51,7 @@ outputs:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
   release-version:
-    description: "calculated release version"
+    description: "Calculated release version"
     value: ${{steps.maven-release-step.outputs.FINAL_RELEASE_VERSION }}
 
 runs:
