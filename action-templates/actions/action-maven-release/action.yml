@@ -31,7 +31,7 @@ inputs:
     default: ""
     required: false
   GPG_PRIVATE_KEY:
-    description: "Example (skip unit tests, skip deployment)"
+    description: "GPG private key to import"
     required: false
   SIGN_KEY_PASS:
     description: "Environment variable name for the GPG private key passphrase"

@@ -131,7 +131,7 @@ Workflows using that action need the following permissions:
 
 ### action-checkout
 
-A wrapper for actions/checkout setting persist-credentials per default to false. Using current branch with default values.
+Action to wrap GitHub Action Checkout using current branch with default values.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `persist-credentials` | Whether to persist your credentials or not | `false` | False |
@@ -140,8 +140,8 @@ No Outputs
 
 Executes the following steps:
 
-1. Checkout repository without persisting credentials
-2. Checkout repository with persisting credentials
+1. If input persitent-credentials is false, checkout repository without persisting credentials
+2. If input persitent-credentials is true, checkout repository with persisting credentials
 
 <!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
@@ -202,7 +202,7 @@ such as `wget` or `curl`. In this case `skip-no-healthcheck: true` can be used.
 
 ### action-filter
 
-GitHub Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by pull request, on a feature branch, or by the recently pushed commits.
+GitHub Action paths-filter with input of filters. It enables conditional execution of workflow steps and jobs, based on the files modified by a pull request, on a feature branch, or by the recently pushed commits.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `base` | Branch, tag, or commit SHA against which the changes will be detected. | "" | False |
@@ -378,7 +378,7 @@ Workflows using that action need the following permissions:
 
 ### action-maven-build
 
-Executes a Maven build and uploads the generated artifact to Maven Central
+Executes a Maven build.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
@@ -418,7 +418,7 @@ Workflows using that action need the following permissions:
 
 ### action-maven-release
 
-Action to create a Maven release and deploy it to Maven Central.
+Action to create a Maven release. By default deploy to Maven Central is skipped.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
@@ -429,7 +429,7 @@ Action to create a Maven release and deploy it to Maven Central.
 | `skipDeployment` | Deprecated: Use mavenDArgsInput instead. Skip deployment to Maven Central | `true` | False |
 | `use-pr` | Use PR for version bump instead of direct push | `false` | False |
 | `mavenDArgsInput` | Additional maven arguments. Example (skip unit tests, skip deployment) | "" | False |
-| `GPG_PRIVATE_KEY` | Example (skip unit tests, skip deployment) | n/a | False |
+| `GPG_PRIVATE_KEY` | GPG private key to import | n/a | False |
 | `SIGN_KEY_PASS` | Environment variable name for the GPG private key passphrase | n/a | False |
 | `CENTRAL_USERNAME` | Environment variable name for the username for authentication to Maven Central | n/a | False |
 | `CENTRAL_PASSWORD` | Environment variable name for password or token for authentication to Maven Central | n/a | False |
@@ -469,7 +469,7 @@ Workflows using that action need the following permissions:
 
 ### action-npm-build
 
-Executes an npm build and uploads the generated artifact to npm
+Executes an npm build. By default the upload of the generated artifact to npm is skipped.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
