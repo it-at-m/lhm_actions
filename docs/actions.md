@@ -393,7 +393,7 @@ Executes a Maven build.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
-| `app-path` | Path to the projects pom.xml file | n/a | True |
+| `app-path` | Path to pom.xml file of the project | n/a | True |
 
 | Ouputs | Description |
 | :----- | :------- |
@@ -434,7 +434,7 @@ Action to create a Maven release. By default deploy to Maven Central is skipped.
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
-| `app-path` | Path to the projects pom.xml file | n/a | True |
+| `app-path` | Path to pom.xml file of the project | n/a | True |
 | `release-method` | If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT. release-method calculates the next snapshot version: patch, minor, or major. Deprecated: If developmentVersion is set, it overrides the calculated snapshot version. | `patch` | False |
 | `releaseVersion` | Version to be released. The value is calculated if release-method is set | "" | False |
 | `developmentVersion` | Deprecated: Next version with snapshot | "" | False |
@@ -641,7 +641,7 @@ Executes the following steps:
 
 1. Checkout repository
 2. Run Trivy vulnerability scanner in repository mode
-3. Convert output format to JSON and sarif
+3. Convert output format to txt and sarif
 4. Upload Vulnerability Scan Results
 5. Upload Trivy scan results to GitHub Security tab
 
