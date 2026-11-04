@@ -40,7 +40,7 @@ runs:
         timeout: "${{ inputs.timeout }}"
         trivyignores: ${{ inputs.trivyignore-files }}
         output: trivy-report.json
-    - name: Convert output format to JSON and sarif
+    - name: Convert output format to txt and sarif
       if: ${{ always() && hashFiles('trivy-report.json') != '' }}
       shell: bash
       run: |
