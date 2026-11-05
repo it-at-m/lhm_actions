@@ -55,11 +55,11 @@ Build docs with VitePress or VuePress
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `docs-path` | Path to VitePress docs project | `./docs` | False |
+| `docs-path` | Path to VitePress docs project | <span v-pre>`./docs`</span> | False |
 | `node-version` | Node version. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
-| `build-cmd` | Build command to run (e.g. for VuePress use: vuepress build) | `build` | False |
-| `dist-path` | VitePress output path that will be uploaded as artifact. Output directory that will be uploaded to GitHub Pages | `.vitepress/dist` | False |
-| `npm-ci-parameter` | Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts` | False |
+| `build-cmd` | Build command to run (e.g. for VuePress use: vuepress build) | <span v-pre>`build`</span> | False |
+| `dist-path` | VitePress output path that will be uploaded as artifact. Output directory that will be uploaded to GitHub Pages | <span v-pre>`.vitepress/dist`</span> | False |
+| `npm-ci-parameter` | Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | <span v-pre>`--ignore-scripts`</span> | False |
 
 No Outputs
 
@@ -93,15 +93,15 @@ Action to build a multi-architecture Docker image with multi-architecture suppor
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `registry` | Image registry to push image to | `ghcr.io` | True |
+| `registry` | Image registry to push image to | <span v-pre>`ghcr.io`</span> | True |
 | `registry-username` | Username to authenticate against image registry | n/a | True |
 | `registry-password` | Password to authenticate against image registry | n/a | True |
-| `image-tags` | Tags to tag image with | `type=raw,value=latest` | False |
-| `image-labels` | Labels or OCI manifest annotations to add to image | `org.opencontainers.image.description=See $github.server_url/$github.repositorys` | False |
+| `image-tags` | Tags to tag image with | <span v-pre>`type=raw,value=latest`</span> | False |
+| `image-labels` | Labels or OCI manifest annotations to add to image | <span v-pre>`org.opencontainers.image.description=See ${{ github.server_url}}/${{ github.repositorys }}`</span> | False |
 | `path` | Path to the build context directory (containing the Dockerfile) | n/a | True |
 | `image-name` | Name to give the image | n/a | True |
 | `artifact-name` | Name of artifact to download  | n/a | True |
-| `platforms` | List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64. Note: This also requires a compatible base image in the Dockerfile of the application | `linux/amd64` | False |
+| `platforms` | List of comma separated Docker platforms to build images for, e.g. linux/amd64,linux/arm64. Note: This also requires a compatible base image in the Dockerfile of the application | <span v-pre>`linux/amd64`</span> | False |
 
 No Outputs
 
@@ -138,7 +138,7 @@ Action to wrap GitHub Action Checkout using current branch with default values.
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `persist-credentials` | Whether to persist your credentials or not | `false` | False |
+| `persist-credentials` | Whether to persist your credentials or not | <span v-pre>`false`</span> | False |
 
 No Outputs
 
@@ -169,12 +169,12 @@ Validates a Docker compose stack using its defined health checks
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `max-retries` | Maximum number of retry attempts | `10` | False |
-| `retry-interval` | Interval between retries in seconds | `10` | False |
-| `compose-file-path` | Path to the Docker compose file | `./` | False |
-| `compose-file-name` | Name of the Docker compose file | `docker-compose.yml` | False |
-| `skip-exited` | Skip checking exited containers  (useful for init containers) | `false` | False |
-| `skip-no-healthcheck` | Skip checking containers without health checks. Note: This applies to both persistent and existing containers. | `false` | False |
+| `max-retries` | Maximum number of retry attempts | <span v-pre>`10`</span> | False |
+| `retry-interval` | Interval between retries in seconds | <span v-pre>`10`</span> | False |
+| `compose-file-path` | Path to the Docker compose file | <span v-pre>`./`</span> | False |
+| `compose-file-name` | Name of the Docker compose file | <span v-pre>`docker-compose.yml`</span> | False |
+| `skip-exited` | Skip checking exited containers  (useful for init containers) | <span v-pre>`false`</span> | False |
+| `skip-no-healthcheck` | Skip checking containers without health checks. Note: This applies to both persistent and existing containers. | <span v-pre>`false`</span> | False |
 
 No Outputs
 
@@ -212,7 +212,7 @@ GitHub Action paths-filter with input of filters. It enables conditional executi
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `base` | Branch, tag, or commit SHA against which the changes will be detected. | "" | False |
-| `filters` | Defines filters applied to detected changed files. Each filter has a name and a list of rules. Rule is a glob expression - paths of all changed files are matched against it. Rule can optionally specify if the file should be added, modified, or deleted. For each filter, there will be a corresponding output variable to indicate if there's a changed file matching any of the rules. Optionally, there can be a second output variable set to list all files matching the filter. Filters can be provided inline as a string (containing valid YAML document), or as a relative path to a file (e.g.: .github/filters.yaml). Filters syntax is documented by example - see examples section. | `java:`<br>`  - '**/*.java'`<br>`javascript-typescript-vue:`<br>`  - '**/*.js'`<br>`  - '**/*.cjs'`<br>`  - '**/*.mjs'`<br>`  - '**/*.ts'`<br>`  - '**/*.cts'`<br>`  - '**/*.mts'`<br>`  - '**/*.vue'`<br>`python:`<br>`  - '**/*.py'`<br>`actions:`<br>`  - '.github/**/*.yml'`<br>`  - '.github/**/*.yaml'` | False |
+| `filters` | Defines filters applied to detected changed files. Each filter has a name and a list of rules. Rule is a glob expression - paths of all changed files are matched against it. Rule can optionally specify if the file should be added, modified, or deleted. For each filter, there will be a corresponding output variable to indicate if there's a changed file matching any of the rules. Optionally, there can be a second output variable set to list all files matching the filter. Filters can be provided inline as a string (containing valid YAML document), or as a relative path to a file (e.g.: .github/filters.yaml). Filters syntax is documented by example - see examples section. | <span v-pre>`java:`<br>`  - '**/*.java'`<br>`javascript-typescript-vue:`<br>`  - '**/*.js'`<br>`  - '**/*.cjs'`<br>`  - '**/*.mjs'`<br>`  - '**/*.ts'`<br>`  - '**/*.cts'`<br>`  - '**/*.mts'`<br>`  - '**/*.vue'`<br>`python:`<br>`  - '**/*.py'`<br>`actions:`<br>`  - '.github/**/*.yml'`<br>`  - '.github/**/*.yaml'`</span> | False |
 
 | Ouputs | Description |
 | :----- | :------- |
@@ -250,10 +250,10 @@ Scans a repository using provided CodeQL language, buildmode and query scan set
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `codeql-language` | CodeQL language name to scan with (e.g java-kotlin, javascript-typescript, python, ...) | n/a | True |
-| `codeql-buildmode` | Build mode to use when scanning the source code (e.g. none, autobuild, manual) | `none` | False |
-| `codeql-query` | Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality) | `security-and-quality` | False |
+| `codeql-buildmode` | Build mode to use when scanning the source code (e.g. none, autobuild, manual) | <span v-pre>`none`</span> | False |
+| `codeql-query` | Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality) | <span v-pre>`security-and-quality`</span> | False |
 | `java-version` | Temurin JDK version to use for autobuild (only when codeql-language is java-kotlin and codeql-build is set to autobuild). If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
-| `path` | Path to scan files in | `.` | False |
+| `path` | Path to scan files in | <span v-pre>`.`</span> | False |
 
 No Outputs
 
@@ -292,10 +292,10 @@ Creates a GitHub release from a downloaded artifact
 | `artifact-name` | Name of the artifact to download | n/a | True |
 | `tag-name` | Name of a tag (e.g. sps-1.0.0 or myproject-1.0.0) | n/a | True |
 | `artifact-path` | Path to the artifacts (e.g. ./target/*.jar) | n/a | False |
-| `draft` | Whether it is a draft release or not | `false` | False |
-| `prerelease` | Whether it is a prerelease or not | `false` | False |
-| `generate-release-notes` | Generate release notes | `false` | False |
-| `skip-artifact-decompress` | Whether to skip decompressing a ZIP file (if detected). If true, the downloaded artifact will not be automatically extracted/decompressed. This is useful when you want to handle the artifact as-is without extraction. | `false` | False |
+| `draft` | Whether it is a draft release or not | <span v-pre>`false`</span> | False |
+| `prerelease` | Whether it is a prerelease or not | <span v-pre>`false`</span> | False |
+| `generate-release-notes` | Generate release notes | <span v-pre>`false`</span> | False |
+| `skip-artifact-decompress` | Whether to skip decompressing a ZIP file (if detected). If true, the downloaded artifact will not be automatically extracted/decompressed. This is useful when you want to handle the artifact as-is without extraction. | <span v-pre>`false`</span> | False |
 
 No Outputs
 
@@ -327,7 +327,7 @@ The dependency review action scans your pull requests for dependency changes, an
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
 | `allow-dependencies-licenses` | Additional comma separated string of packages to be ignored by the dependency check (see https://github.com/package-url/purl-spec for more information) | "" | False |
-| `vulnerability-check` | Enables/Disables vulnerability scanning of dependencies | `false` | False |
+| `vulnerability-check` | Enables/Disables vulnerability scanning of dependencies | <span v-pre>`false`</span> | False |
 | `allow-ghsas` | Additional comma separated string of GHSAs (see https://github.com/advisories) to be suppressed by the vulnerability check. For CVEs, the corresponding GHSA ID has to be used instead of directly using the CVE identifier. | "" | False |
 
 No Outputs
@@ -360,8 +360,8 @@ Action to deploy a docs artifact to a web page.
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `artifact_name` | The name of the artifact to deploy | `github-pages` | False |
-| `deploy-branch` | Branch to deploy documentation from | `main` | False |
+| `artifact_name` | The name of the artifact to deploy | <span v-pre>`github-pages`</span> | False |
+| `deploy-branch` | Branch to deploy documentation from | <span v-pre>`main`</span> | False |
 
 No Outputs
 
@@ -435,11 +435,11 @@ Action to create a Maven release. By default deploy to Maven Central is skipped.
 | :----- | :------- | :----- | :------ |
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
 | `app-path` | Path to pom.xml file of the project | n/a | True |
-| `release-method` | If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT. release-method calculates the next snapshot version: patch, minor, or major. Deprecated: If developmentVersion is set, it overrides the calculated snapshot version. | `patch` | False |
+| `release-method` | If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT. release-method calculates the next snapshot version: patch, minor, or major. Deprecated: If developmentVersion is set, it overrides the calculated snapshot version. | <span v-pre>`patch`</span> | False |
 | `releaseVersion` | Version to be released. The value is calculated if release-method is set | "" | False |
 | `developmentVersion` | Deprecated: Next version with snapshot | "" | False |
-| `skipDeployment` | Deprecated: Use mavenDArgsInput instead. Skip deployment to Maven Central | `true` | False |
-| `use-pr` | Use PR for version bump instead of direct push | `false` | False |
+| `skipDeployment` | Deprecated: Use mavenDArgsInput instead. Skip deployment to Maven Central | <span v-pre>`true`</span> | False |
+| `use-pr` | Use PR for version bump instead of direct push | <span v-pre>`false`</span> | False |
 | `mavenDArgsInput` | Additional maven arguments. Example (skip unit tests, skip deployment) | "" | False |
 | `GPG_PRIVATE_KEY` | GPG private key to import | n/a | False |
 | `SIGN_KEY_PASS` | Environment variable name for the GPG private key passphrase | n/a | False |
@@ -487,9 +487,9 @@ Executes an npm build.
 | :----- | :------- | :----- | :------ |
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
 | `app-path` | Path to package.json file | n/a | True |
-| `run-lint` | Controls the execution of the 'npm run lint' script | `true` | False |
-| `run-test` | Controls the execution of the 'npm run test' script | `true` | False |
-| `npm-ci-parameter` | Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | `--ignore-scripts=true` | False |
+| `run-lint` | Controls the execution of the 'npm run lint' script | <span v-pre>`true`</span> | False |
+| `run-test` | Controls the execution of the 'npm run test' script | <span v-pre>`true`</span> | False |
+| `npm-ci-parameter` | Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | <span v-pre>`--ignore-scripts=true`</span> | False |
 
 | Ouputs | Description |
 | :----- | :------- |
@@ -533,7 +533,7 @@ Action to create an npm release. By default the upload of the generated artifact
 | `node-version` | Node Version to use. If node-version and node-version-file are both provided the action will use version from node-version. | n/a | False |
 | `app-path` | Path to package.json file. Would be equal to './package.json' and './test-frontend/package.json' for 'test-frontend'. | n/a | True |
 | `releaseVersion` | Level of release. Select version increment type (follows Semantic Versioning). Specifies how the version is increased. Options: patch, minor, major | n/a | True |
-| `use-pr` | Use a PR for the version bump instead of directly pushing it | `false` | False |
+| `use-pr` | Use a PR for the version bump instead of directly pushing it | <span v-pre>`false`</span> | False |
 
 | Ouputs | Description |
 | :----- | :------- |
@@ -570,7 +570,7 @@ Action to enforce ticking of all checklist items inside a PR (useful for PR temp
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `fail-missing` | Whether the action should fail if the PR contains no checklist | `false` | False |
+| `fail-missing` | Whether the action should fail if the PR contains no checklist | <span v-pre>`false`</span> | False |
 
 No Outputs
 
@@ -596,7 +596,7 @@ Action to automatically label pull requests using the configuration file in `.gi
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `configuration-path` | Path to the configuration file inside the repository | `.github/labeler.yml` | False |
+| `configuration-path` | Path to the configuration file inside the repository | <span v-pre>`.github/labeler.yml`</span> | False |
 | `repository` | Optional repository to checkout to reference external configuration file | "" | False |
 
 No Outputs
@@ -630,10 +630,10 @@ Action to run a security check with [Trivy](https://trivy.dev/latest/) on the Co
 
 | Input | Description | Default  | Required |
 | :----- | :------- | :----- | :------ |
-| `trivyignore-files` | Path(s) to .trivyignore file(s) to ignore known CVEs (comma- or newline-separated) | `.trivyignore` | False |
-| `timeout` | Timeout for Trivy scan | `15m0s` | False |
-| `path` | Path to scan with Trivy. For scan-type=sbom, this must point to a specific SBOM file (e.g. sbom.cdx.json), not a directory. | `.` | False |
-| `scan-type` | scan type, e.g. fs or sbom | `fs` | False |
+| `trivyignore-files` | Path(s) to .trivyignore file(s) to ignore known CVEs (comma- or newline-separated) | <span v-pre>`.trivyignore`</span> | False |
+| `timeout` | Timeout for Trivy scan | <span v-pre>`15m0s`</span> | False |
+| `path` | Path to scan with Trivy. For scan-type=sbom, this must point to a specific SBOM file (e.g. sbom.cdx.json), not a directory. | <span v-pre>`.`</span> | False |
+| `scan-type` | scan type, e.g. fs or sbom | <span v-pre>`fs`</span> | False |
 
 No Outputs
 
