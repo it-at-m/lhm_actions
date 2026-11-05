@@ -21,7 +21,7 @@ inputs:
     description: "Labels or OCI manifest annotations to add to image"
     required: false
     default: |
-      org.opencontainers.image.description=See $github.server_url/$github.repositorys
+      org.opencontainers.image.description=See ${{ github.server_url}}/${{ github.repositorys }}
   path:
     description: "Path to the build context directory (containing the Dockerfile)"
     required: true

@@ -37,7 +37,7 @@ def generate_markdown(action, path):
                 elif default == "":
                     default = '""'
                 else:
-                    default = f"`{default}`".replace("\n", "`<br>`")
+                    default = f"<span v-pre>`{default}`</span>".replace("\n", "`<br>`")
                 builder.write(
                     f"| `{item}` | {description} | {default} | {required} |\n"
                 )
