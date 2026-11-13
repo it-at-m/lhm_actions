@@ -1,5 +1,5 @@
 name: "Validate docker stack"
-description: "Validates a docker compose stack using its defined health checks"
+description: "Validates a Docker compose stack using its defined health checks"
 
 inputs:
   max-retries:
@@ -11,19 +11,19 @@ inputs:
     required: false
     default: "10"
   compose-file-path:
-    description: "Path to the docker compose file"
+    description: "Path to the Docker compose file"
     required: false
     default: "./"
   compose-file-name:
-    description: "Name of the docker compose file"
+    description: "Name of the Docker compose file"
     required: false
     default: "docker-compose.yml"
   skip-exited:
-    description: "Skip checking exited containers"
+    description: "Skip checking exited containers  (useful for init containers)"
     required: false
     default: "false"
   skip-no-healthcheck:
-    description: "Skip checking containers without health checks"
+    description: "Skip checking containers without health checks. Note: This applies to both persistent and existing containers."
     required: false
     default: "false"
 
@@ -34,13 +34,13 @@ runs:
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
         persist-credentials: false
-    - name: Run Docker Compose stack
+    - name: Start the Docker Compose stack
       working-directory: ${{ inputs.compose-file-path }}
       shell: bash
       env:
         COMPOSE_FILE_NAME: ${{ inputs.compose-file-name }}
       run: docker compose -f "$COMPOSE_FILE_NAME" up -d
-    - name: Run Docker Compose healthcheck
+    - name: Run health check against the started services
       working-directory: ${{ inputs.compose-file-path }}
       shell: bash
       env:

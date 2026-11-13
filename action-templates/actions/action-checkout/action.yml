@@ -1,5 +1,5 @@
 name: "Checkout repository"
-description: "A wrapper for actions/checkout setting persist-credentials per default to false"
+description: "Action to wrap GitHub Action Checkout using current branch with default values."
 inputs:
   persist-credentials:
     description: "Whether to persist your credentials or not"
@@ -8,12 +8,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository without persisting credentials
+    - name: If input persitent-credentials is false, checkout repository without persisting credentials
       if: ${{ inputs.persist-credentials != 'true' }}
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:
         persist-credentials: false
-    - name: Checkout repository with persisting credentials
+    - name: If input persitent-credentials is true, checkout repository with persisting credentials
       if: ${{ inputs.persist-credentials == 'true' }}
       uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       with:

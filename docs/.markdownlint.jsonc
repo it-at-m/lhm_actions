@@ -7,4 +7,8 @@
   },
   "line-length": false,
   "no-inline-html": false,
+  "MD013": {
+    "tables": false,
+    "line_length": 500,
+  },
 }

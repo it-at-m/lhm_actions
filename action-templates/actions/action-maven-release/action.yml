@@ -1,15 +1,15 @@
 name: "Maven release"
-description: "Creates a Maven release pull request"
+description: "Action to create a Maven release. By default deploy to Maven Central is skipped."
 
 inputs:
   java-version:
     description: "Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`."
     required: false
   app-path:
-    description: "Path to the project’s pom.xml file"
+    description: "Path to pom.xml file of the project"
     required: true
   release-method:
-    description: "Release-Methode = patch, minor oder major"
+    description: "If releaseVersion is empty, the release version is taken from pom.xml without -SNAPSHOT. release-method calculates the next snapshot version: patch, minor, or major. Deprecated: If developmentVersion is set, it overrides the calculated snapshot version."
     required: false
     default: "patch"
   releaseVersion:
@@ -21,13 +21,13 @@ inputs:
     required: false
     default: ""
   skipDeployment:
-    description: "Skip deployment to Maven Central"
+    description: "Deprecated: Use mavenDArgsInput instead. Skip deployment to Maven Central"
     default: "true"
   use-pr:
     description: "Use PR for version bump instead of direct push"
     default: "false"
   mavenDArgsInput:
-    description: "Additional maven arguments"
+    description: "Additional maven arguments. Example (skip unit tests, skip deployment)"
     default: ""
     required: false
   GPG_PRIVATE_KEY:
@@ -51,7 +51,7 @@ outputs:
     description: "Name of the artifact upload"
     value: ${{steps.artifact-name.outputs.artifact-name}}
   release-version:
-    description: "calculated release version"
+    description: "Calculated release version"
     value: ${{steps.maven-release-step.outputs.FINAL_RELEASE_VERSION }}
 
 runs:
@@ -95,7 +95,7 @@ runs:
         server-password: CENTRAL_PASSWORD
         gpg-private-key: ${{ inputs.GPG_PRIVATE_KEY }}
         gpg-passphrase: SIGN_KEY_PASS
-    - name: Maven release step
+    - name: Execute Maven release and deploy it to Maven Central
       id: maven-release-step
       shell: bash
       env:
