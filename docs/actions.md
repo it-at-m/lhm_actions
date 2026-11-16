@@ -403,13 +403,12 @@ Executes a Maven build.
 
 Executes the following steps:
 
-1. Checkout repository
-2. Extract Java Version from pom.xml
-3. Set up JDK
-4. Build with Maven
-5. Set output variable $GITHUB_OUTPUT
-6. Upload artifact
-7. upload-sbom-artifact
+1. Extract Java Version from pom.xml
+2. Set up JDK
+3. Build with Maven
+4. Set output variable $GITHUB_OUTPUT
+5. Upload artifact
+6. upload-sbom-artifact
 
 <!-- prettier-ignore-end -->
 <!-- markdownlint-enable -->
