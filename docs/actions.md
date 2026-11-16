@@ -97,7 +97,7 @@ Action to build a multi-architecture Docker image with multi-architecture suppor
 | `registry-username` | Username to authenticate against image registry | n/a | True |
 | `registry-password` | Password to authenticate against image registry | n/a | True |
 | `image-tags` | Tags to tag image with | <span v-pre>`type=raw,value=latest`</span> | False |
-| `image-labels` | Labels or OCI manifest annotations to add to image | <span v-pre>`org.opencontainers.image.description=See ${{ github.server_url}}/${{ github.repositorys }}`</span> | False |
+| `image-labels` | Labels or OCI manifest annotations to add to image | <span v-pre>`org.opencontainers.image.description=See ${{ github.server_url}}/${{ github.repository }}`</span> | False |
 | `path` | Path to the build context directory (containing the Dockerfile) | n/a | True |
 | `image-name` | Name to give the image | n/a | True |
 | `artifact-name` | Name of artifact to download  | n/a | True |
