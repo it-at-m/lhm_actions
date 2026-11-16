@@ -118,7 +118,7 @@ runs:
         MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -q -DforceStdout)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
-        
+
         MVN_VERSION=$(mvn -f $APP_PATH/pom.xml $MAVEN_CLI_OPTS org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout)
 
         if [ -n $RELEASE_VERSION ]; then RELEASE=$RELEASE_VERSION; else RELEASE=${MVN_VERSION/-SNAPSHOT/}; fi
