@@ -5,11 +5,13 @@ releaseVersion(){
   case $RELEASE_METHOD in
   major)
     let major++
+    # if someone manually changed the version in pom to "<major>.<minor>.0-SNAPSHOT"
     if [ patch != "0" ]
      then let patch--; fi
     ;;
   minor)
     let minor++
+    # if someone manually changed the version in pom to "<major>.<minor>.0-SNAPSHOT"
     let "patch=(patch != "0") ? --patch : patch"
     ;;
   patch)
@@ -18,6 +20,10 @@ releaseVersion(){
     echo "unknown RELEASE_METHOD: $RELEASE_METHOD"
   esac
   RELEASE=$major.$minor.$patch
+}
+
+nextVersion(){
+
 }
 
 export RELEASE_VERSION=2.0.0;
