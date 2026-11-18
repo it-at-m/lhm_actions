@@ -115,11 +115,11 @@ runs:
         git config --global user.name "GitHub Actions"
 
         # get maven artifact id and provide as output
-        MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.artifactId -DforceStdout | tee /dev/stderr | tail -n 1)
+        MVN_ARTIFACT_ID=$(mvn -f ./$APP_PATH/pom.xml org.apache.maven.plugins:maven-help-plugin:3.5.2:evaluate -Dexpression=project.artifactId -DforceStdout | tee /dev/stderr | tail -n 1)
         echo $MVN_ARTIFACT_ID
         echo "MVN_ARTIFACT_ID=$MVN_ARTIFACT_ID" >> $GITHUB_OUTPUT
 
-        MVN_VERSION=$(mvn -f $APP_PATH/pom.xml $MAVEN_CLI_OPTS org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout )
+        MVN_VERSION=$(mvn -f $APP_PATH/pom.xml $MAVEN_CLI_OPTS org.apache.maven.plugins:maven-help-plugin:3.5.2:evaluate -Dexpression=project.version -q -DforceStdout )
 
         if [ -z $RELEASE_VERSION ]; then RELEASE="${MVN_VERSION/-SNAPSHOT/""}"; else RELEASE=$RELEASE_VERSION; fi
         echo $RELEASE
