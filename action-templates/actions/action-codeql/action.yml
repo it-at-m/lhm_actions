@@ -62,17 +62,17 @@ runs:
         cache: "maven"
         cache-dependency-path: "${{ inputs.path }}/pom.xml"
     - name: Initialize CodeQL for $inputs.codeql-language
-      uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+      uses: github/codeql-action/init@915412ff23e8b7659517e607487dbeae018f2934 # v4.39.5
       with:
         languages: ${{ inputs.codeql-language }}
         build-mode: ${{ inputs.codeql-buildmode }}
         queries: ${{ inputs.codeql-query }}
     - if: inputs.codeql-buildmode == 'autobuild'
       name: Build using autobuild
-      uses: github/codeql-action/autobuild@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+      uses: github/codeql-action/autobuild@915412ff23e8b7659517e607487dbeae018f2934 # v4.39.5
       with:
         working-directory: ${{ inputs.path }}
     - name: Perform CodeQL analysis for $inputs.codeql-language
-      uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+      uses: github/codeql-action/analyze@915412ff23e8b7659517e607487dbeae018f2934 # v4.39.5
       with:
         category: "/language:${{ inputs.codeql-language }}-/path:${{ inputs.path }}"
