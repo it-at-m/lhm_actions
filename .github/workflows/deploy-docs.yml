@@ -13,12 +13,12 @@ jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: true
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: "3.15"
+          python-version: "3.15.2"
           cache: "pip" # caching pip dependencies
       - run: |
           pip install -r requirements.txt
@@ -30,7 +30,7 @@ jobs:
         # - Pull requests
         # - Not on the default branch
         if: github.ref_name != github.event.repository.default_branch
-        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+        uses: stefanzweifel/git-auto-commit-action@d0b01107b5db882071f96de5dd4b54961ea93f4c # v7.2.1
         with:
           branch: ${{ github.ref }}
           commit_message: "[skip ci] automatically update action.yml"
