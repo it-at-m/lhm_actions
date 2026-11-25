@@ -1,5 +1,5 @@
 """
-this modul generates the actions.md.
+this module generates the actions.md.
 """
 
 import io
