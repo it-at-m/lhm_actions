@@ -214,7 +214,7 @@ GitHub Action paths-filter with input of filters. It enables conditional executi
 | `base` | Branch, tag, or commit SHA against which the changes will be detected. | "" | False |
 | `filters` | Defines filters applied to detected changed files. Each filter has a name and a list of rules. Rule is a glob expression - paths of all changed files are matched against it. Rule can optionally specify if the file should be added, modified, or deleted. For each filter, there will be a corresponding output variable to indicate if there's a changed file matching any of the rules. Optionally, there can be a second output variable set to list all files matching the filter. Filters can be provided inline as a string (containing valid YAML document), or as a relative path to a file (e.g.: .github/filters.yaml). Filters syntax is documented by example - see examples section. | <span v-pre>`java:`<br>`  - '**/*.java'`<br>`javascript-typescript-vue:`<br>`  - '**/*.js'`<br>`  - '**/*.cjs'`<br>`  - '**/*.mjs'`<br>`  - '**/*.ts'`<br>`  - '**/*.cts'`<br>`  - '**/*.mts'`<br>`  - '**/*.vue'`<br>`python:`<br>`  - '**/*.py'`<br>`actions:`<br>`  - '.github/**/*.yml'`<br>`  - '.github/**/*.yaml'`</span> | False |
 
-| Ouputs | Description |
+| Outputs | Description |
 | :----- | :------- |
 | `java` | Name of the Java artifact upload |
 | `javascript-typescript-vue` | Name of the Vue artifact upload |
@@ -395,7 +395,7 @@ Executes a Maven build.
 | `java-version` | Java version to use for the build. If not set extract the version from the `pom.xml` on the attribute `java.version`. | n/a | False |
 | `app-path` | Path to pom.xml file of the project | n/a | True |
 
-| Ouputs | Description |
+| Outputs | Description |
 | :----- | :------- |
 | `artifact-name` | Name of the artifact upload |
 | `cyclone-artifact-id` | ID of the sbom artifact |
@@ -446,7 +446,7 @@ Action to create a Maven release. By default deploy to Maven Central is skipped.
 | `CENTRAL_USERNAME` | Environment variable name for the username for authentication to Maven Central | n/a | False |
 | `CENTRAL_PASSWORD` | Environment variable name for password or token for authentication to Maven Central | n/a | False |
 
-| Ouputs | Description |
+| Outputs | Description |
 | :----- | :------- |
 | `MVN_ARTIFACT_ID` | Artifact name from pom |
 | `artifact-name` | Name of the artifact upload |
@@ -491,7 +491,7 @@ Executes an npm build.
 | `run-test` | Controls the execution of the 'npm run test' script | <span v-pre>`true`</span> | False |
 | `npm-ci-parameter` | Disallow external scripts during npm ci <https://about.gitlab.com/blog/pipeline-security-lessons-from-march-supply-chain-incidents/#use-case-2-detect-dependency-tampering-and-lockfile-manipulation> | <span v-pre>`--ignore-scripts=true`</span> | False |
 
-| Ouputs | Description |
+| Outputs | Description |
 | :----- | :------- |
 | `artifact-name` | Name of the artifact upload |
 | `cyclone-artifact-id` | ID of the sbom artifact |
@@ -535,7 +535,7 @@ Action to create an npm release. By default the upload of the generated artifact
 | `releaseVersion` | Level of release. Select version increment type (follows Semantic Versioning). Specifies how the version is increased. Options: patch, minor, major | n/a | True |
 | `use-pr` | Use a PR for the version bump instead of directly pushing it | <span v-pre>`false`</span> | False |
 
-| Ouputs | Description |
+| Outputs | Description |
 | :----- | :------- |
 | `ARTIFACT_VERSION` | Version number of the artifact upload |
 
