@@ -79,7 +79,7 @@ Workflows using that action need the following permissions:
 
 | Permission       | Purpose                       | Required |
 | ---------------- | ----------------------------- | :------: |
-| `contents: read` | Checkout respository contents |   Yes    |
+| `contents: read` | Checkout repository contents |   Yes    |
 
 <!-- start-action-build-image -->
 
