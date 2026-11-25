@@ -185,7 +185,7 @@ Release process over GitHub Actions
 
 ## NPM
 
-registry.npmjs.org ist he central, public repository for publishing npm packetes
+registry.npmjs.org is the central, public repository for publishing npm packages
 
 For the city of Munich, the package-scope `@muenchen` is reserved. Therefore, we can publish npm packages. The codes are set in the organizations GitHub settings.
 
@@ -198,7 +198,7 @@ The following requirements are needed for npm projects
 - The GitHub repository needs to be located in the it-at-m organization public
 - The name is in the scope `@muenchen` for example `@muenchen/appswitcher-vue`
 
-The npm-default is that scoped packages are only published private. You need to config it public in the package.json. Moreover we activate the npm provence, for the repository.url.
+The npm-default is that scoped packages are only published private. You need to config it public in the package.json. Moreover we activate the npm provenance, for the repository.url.
 
 ```json
 "repository": {
