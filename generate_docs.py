@@ -1,5 +1,5 @@
 """
-this modul generates the actions.md.
+this module generates the actions.md.
 """
 
 import io
@@ -46,7 +46,7 @@ def generate_markdown(action, path):
         if "outputs" not in data:
             builder.write("No Outputs\n")
         else:
-            builder.write("| Ouputs | Description |\n")
+            builder.write("| Outputs | Description |\n")
             builder.write("| :----- | :------- |\n")
             for item in data["outputs"]:
                 outputs = data["outputs"][item]
