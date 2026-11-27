@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/test-trivy.yml
       - action-templates/actions/action-trivy/action.yml
+      - __tests__/trivy/**
   pull_request:
     types:
       - opened
@@ -19,17 +20,38 @@ on:
 permissions:
   contents: read # for checkout
 
+env:
+  TEST_RUN: true
+
 jobs:
   test-trivy:
-    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || github.event.review.state == 'approved')
     name: test-trivy
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write # Required to upload SARIF results to the GitHub Security tab
     steps:
       - name: checkout-local-actions
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: ./action-templates/actions/action-trivy
+      - name: Prepare npm test fixture
+        run: cp __tests__/trivy/test-package.json __tests__/trivy/package.json
+      - name: Scan test fixture
+        id: trivy
+        uses: ./action-templates/actions/action-trivy
+        continue-on-error: true
+        with:
+          path: __tests__/trivy
+      - name: Verify expected vulnerability
+        env:
+          TRIVY_OUTCOME: ${{ steps.trivy.outcome }}
+        run: |
+          if [[ "$TRIVY_OUTCOME" != "failure" ]]; then
+            echo "Expected the Trivy action to fail on the vulnerable fixture."
+            exit 1
+          fi
+          jq -e 'any(.Results[]?.Vulnerabilities[]?;
+            (.VulnerabilityID == "CVE-2021-23337" or
+             .VulnerabilityID == "GHSA-35jh-r3h4-6jhm") and
+            .PkgName == "lodash" and
+            .InstalledVersion == "4.17.20")' trivy-report.json
