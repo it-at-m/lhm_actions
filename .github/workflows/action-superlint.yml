@@ -42,8 +42,6 @@ jobs:
           VALIDATE_PYTHON_RUFF_FORMAT: false
           VALIDATE_JSCPD: false # Do not check for duplicates, docs may have it.
           FILTER_REGEX_EXCLUDE: .*__tests__/.*
-          # Vulnerable test fixtures are scanned separately by test-trivy.
-          TRIVY_SKIP_FILES: "__tests__/trivy/test-package.json,__tests__/trivy/package-lock.json"
 
       - name: Commit and push linting fixes
         # Run only on:

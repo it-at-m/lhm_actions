@@ -6,7 +6,6 @@ on:
     paths:
       - .github/workflows/test-trivy.yml
       - action-templates/actions/action-trivy/action.yml
-      - __tests__/trivy/**
   pull_request:
     types:
       - opened
@@ -35,13 +34,30 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Prepare npm test fixture
-        run: cp __tests__/trivy/test-package.json __tests__/trivy/package.json
+        id: fixture
+        shell: bash
+        run: |
+          fixture_path=$(mktemp -d "$RUNNER_TEMP/trivy-fixture.XXXXXX")
+          echo "path=$fixture_path" >> "$GITHUB_OUTPUT"
+          # Intentionally vulnerable lodash version for CVE-2021-23337.
+          # Keep this version in sync with the vulnerability assertion below.
+          cat > "$fixture_path/package.json" <<'EOF'
+          {
+            "name": "trivy-test-fixture",
+            "version": "1.0.0",
+            "private": true,
+            "dependencies": {
+              "lodash": "4.17.20"
+            }
+          }
+          EOF
+          npm --prefix "$fixture_path" install --package-lock-only --ignore-scripts --no-audit --no-fund
       - name: Scan test fixture
         id: trivy
         uses: ./action-templates/actions/action-trivy
         continue-on-error: true
         with:
-          path: __tests__/trivy
+          path: ${{ steps.fixture.outputs.path }}
       - name: Verify expected vulnerability
         env:
           TRIVY_OUTCOME: ${{ steps.trivy.outcome }}
@@ -55,3 +71,8 @@ jobs:
              .VulnerabilityID == "GHSA-35jh-r3h4-6jhm") and
             .PkgName == "lodash" and
             .InstalledVersion == "4.17.20")' trivy-report.json
+      - name: Clean up npm test fixture
+        if: ${{ always() && steps.fixture.outputs.path != '' }}
+        env:
+          FIXTURE_PATH: ${{ steps.fixture.outputs.path }}
+        run: rm -rf -- "$FIXTURE_PATH"
