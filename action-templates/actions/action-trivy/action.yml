@@ -58,7 +58,7 @@ runs:
         archive: false
 
     - name: Upload Trivy scan results to GitHub Security tab
-      if: ${{ always() && hashFiles('trivy-results.sarif') != '' }}
+      if: ${{ always() && env.TEST_RUN != 'true' && hashFiles('trivy-results.sarif') != '' }}
       uses: github/codeql-action/upload-sarif@915412ff23e8b7659517e607487dbeae018f2934 # v4.39.5
       with:
         sarif_file: "trivy-results.sarif"

@@ -19,17 +19,60 @@ on:
 permissions:
   contents: read # for checkout
 
+env:
+  TEST_RUN: true
+
 jobs:
   test-trivy:
-    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event.review.state == 'approved')
+    if: (github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || github.event.review.state == 'approved')
     name: test-trivy
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write # Required to upload SARIF results to the GitHub Security tab
     steps:
       - name: checkout-local-actions
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: ./action-templates/actions/action-trivy
+      - name: Prepare npm test fixture
+        id: fixture
+        shell: bash
+        run: |
+          fixture_path=$(mktemp -d "$RUNNER_TEMP/trivy-fixture.XXXXXX")
+          echo "path=$fixture_path" >> "$GITHUB_OUTPUT"
+          # Intentionally vulnerable lodash version for CVE-2021-23337.
+          # Keep this version in sync with the vulnerability assertion below.
+          cat > "$fixture_path/package.json" <<'EOF'
+          {
+            "name": "trivy-test-fixture",
+            "version": "1.0.0",
+            "private": true,
+            "dependencies": {
+              "lodash": "4.17.20"
+            }
+          }
+          EOF
+          npm --prefix "$fixture_path" install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Scan test fixture
+        id: trivy
+        uses: ./action-templates/actions/action-trivy
+        continue-on-error: true
+        with:
+          path: ${{ steps.fixture.outputs.path }}
+      - name: Verify expected vulnerability
+        env:
+          TRIVY_OUTCOME: ${{ steps.trivy.outcome }}
+        run: |
+          if [[ "$TRIVY_OUTCOME" != "failure" ]]; then
+            echo "Expected the Trivy action to fail on the vulnerable fixture."
+            exit 1
+          fi
+          jq -e 'any(.Results[]?.Vulnerabilities[]?;
+            (.VulnerabilityID == "CVE-2021-23337" or
+             .VulnerabilityID == "GHSA-35jh-r3h4-6jhm") and
+            .PkgName == "lodash" and
+            .InstalledVersion == "4.17.20")' trivy-report.json
+      - name: Clean up npm test fixture
+        if: ${{ always() && steps.fixture.outputs.path != '' }}
+        env:
+          FIXTURE_PATH: ${{ steps.fixture.outputs.path }}
+        run: rm -rf -- "$FIXTURE_PATH"
