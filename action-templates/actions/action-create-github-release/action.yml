@@ -33,12 +33,20 @@ runs:
         skip-decompress: ${{inputs.skip-artifact-decompress}}
     - name: Create GitHub release
       id: create_release
-      uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
-      with:
-        tag_name: ${{inputs.tag-name}}
-        draft: ${{inputs.draft == 'true'}}
-        prerelease: ${{inputs.prerelease == 'true'}}
-        generate_release_notes: ${{inputs.generate-release-notes == 'true'}}
-        target_commitish: ${{ github.sha }}
-        files: |
-          ${{inputs.artifact-path}}
+      env:
+        GH_TOKEN: ${{ github.token }}
+        TAG_NAME: ${{ inputs.tag-name }}
+        IS_DRAFT: ${{ inputs.draft }}
+        IS_PRERELEASE: ${{ inputs.prerelease }}
+        GEN_NOTES: ${{ inputs.generate-release-notes }}
+        ARTIFACT_PATH: ${{ inputs.artifact-path }}
+      shell: bash
+      run: |
+        ARGS=()
+        if [ "$IS_DRAFT" == "true" ]; then ARGS+=(--draft); fi
+        if [ "$IS_PRERELEASE" == "true" ]; then ARGS+=(--prerelease); fi
+        if [ "$GEN_NOTES" == "true" ]; then ARGS+=(--generate-notes); fi
+
+        gh release create "$TAG_NAME" $ARTIFACT_PATH \
+          --target "${{ github.sha }}" \
+          "${ARGS[@]}"
